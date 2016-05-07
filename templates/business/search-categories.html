@@ -1,0 +1,20 @@
+<h3>Categories</h3>
+<p>
+Selezionare una o pi&ugrave; categorie di attivit&agrave; utilizzando il selettore per parole chiave oppure il selettore per codice ISTAT.
+<br />Digitando (anche parzialmente) la parola chiave oppure il codice ISTAT verr&agrave; visualizzata
+la lista delle voci selezionabili.
+</p>
+
+<div class="ha-item">
+	<input type="text" id="search" class="ha-input form-control" placeholder="Search categories">
+</div>
+
+<h3>Results</h3>
+<div class="bs-search-category-results">
+	<div ng-repeat="result in results" class="bs-search-category-result" data-uuid="{{result.uuid}}"><i class="icon ion-plus-circled" ng-click="select($index)"></i><span class="description">{{result.code}} - {{result.name}}</span></div> 
+</div>
+
+<h3>Selected</h3>
+<div class="bs-categories-selected">
+	<div ng-repeat="selected in categoriesSelected" class="bs-category-selected" data-uuid="{{selected.uuid}}"><i class="icon ion-minus-circled" ng-click="unselect($index)"></i><span class="description">{{selected.code}} - {{selected.name}}</span></div> 
+</div>

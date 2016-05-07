@@ -1,0 +1,30 @@
+<ion-view class="ha-sub-view" view-title="Edit business">
+    <ion-content class="ha-content ha-sub-content">
+
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.businessmanager.editbusiness.configurebusiness" class="tab-item" ng-click="item = 2" ng-class="{active:item == 2}">
+                <i class="icon ion-arrow-expand"></i> Configura
+            </a>
+            <a ui-sref="app.businessmanager.editbusiness" class="tab-item" ng-click="item = 3" ng-class="{active:item == 3}">
+                <i class="icon ion-edit"></i> Modifica
+            </a>
+            <a ui-sref="app.businessmanager.editbusiness.mapbusiness" class="tab-item" ng-click="item = 4" ng-class="{active:item == 4}">
+                <i class="icon ion-map"></i> Mappa
+            </a>
+            <a ui-sref="app.businessmanager.editbusiness.productsmanager" class="tab-item" ng-click="item = 5" ng-class="{active:item == 5}">
+                <i class="icon ion-speakerphone"></i> Prodotti/Servizi
+            </a>
+            <a ui-sref="app.businessmanager.editbusiness.subscribers" class="tab-item" ng-click="item = 6" ng-class="{active:item == 6}">
+                <i class="icon ion-person-stalker"></i> Sottoscrittori
+            </a>
+            <a ui-sref="app.businessmanager.editbusiness.addsubscribers" class="tab-item" ng-click="item = 7" ng-class="{active:item == 7}">
+                <i class="icon ion-person-add"></i> Aggiungi sottoscrittori
+            </a>
+        </div> 
+
+        <div ui-view name="subinner">
+        	<app-owned-business-form uuid="{{uuid}}"></app-owned-business-form>
+        </div>
+
+    </ion-content>
+</ion-view>

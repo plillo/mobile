@@ -1,0 +1,14 @@
+<ion-view view-title="Set URL SERVICE">
+    <ion-content ng-class="{expanded:isExpanded}" style="background-color:#EEEEEE;padding:30px;">
+		<div class="row">
+			<div class="col">
+				URL <input type="text" ng-model="urlBackend" style="width:100%"/>
+			</div>
+			<div class="col">
+				<button ui-sref="app.landingpage" ng-click="setUrlService(urlBackend)" class="button button-block button-positive">
+					<i class="icon ion-android-close"></i> Set URL service
+				</button>
+			</div>
+		</div>
+    </ion-content>
+</ion-view>

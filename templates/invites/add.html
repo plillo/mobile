@@ -1,0 +1,32 @@
+<div class="content has-header">
+	<div class="list" style="padding:10px;">
+            	<h2>Invite:</h2>
+				<label class="item item-input item-floating-label"> 
+					<span class="input-label">First name</span> 
+					<input type="text" name="firstname" ng-model="inviting.firstName" placeholder="First name">
+				</label> 
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Last Name</span>
+					<input type="text" name="lastname" ng-model="inviting.lastName" placeholder="Last name">
+				</label>
+				<label class="item item-input item-floating-label">
+					<span class="input-label">EMail</span>
+					<input type="text" name="email" ng-model="inviting.email" placeholder="EMail">
+				</label> 
+				
+				<div class="item" style="text-align:center">
+					<button class="button button-raised button-stable ink-dark" ng-click="addInvite()" ng-show="isValidInvite">Add the invite to waiting list</button>
+					<button class="button button-raised button-stable ink-dark" ng-click="sendInvites()" ng-show="invites.length>0">Send the following {{invites.length}} invites</button>	
+				</div>
+
+				<h2>Waiting for send:</h2>
+
+                <div ng-repeat="invite in invites" class="item item-icon-left item-button-right">
+                    <button class="button button-fab button-fab-right expanded button-energized-900" ng-click="removeInvite($index)"><i class="icon ion-minus"></i></button>
+                    <i class="icon ion-email"></i>
+					<div>{{invite.email}}</div>
+					<div>{{invite.lastName}}</div>
+					<div>{{invite.firstName}}</div>
+                </div>
+	</div>
+</div>

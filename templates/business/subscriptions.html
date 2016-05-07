@@ -1,0 +1,22 @@
+<ion-view view-title="Sottoscrizioni">
+    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.subscriptions" class="tab-item" ng-click="item = 1" ng-class="{active:item == 1}">
+                <i class="icon ion-navicon-round"></i> Lista
+            </a>  
+            <a ui-sref="app.subscriptions.rules" class="tab-item" ng-click="item = 2" ng-class="{active:item == 2}">
+                <i class="icon ion-arrow-graph-up-right"></i> Notifiche generali
+            </a>
+            <a ui-sref="app.subscriptions.newsubscription" class="tab-item" ng-click="item = 3" ng-class="{active:item == 3}">
+                <i class="icon ion-card"></i> Nuova sottoscrizione
+            </a>
+            <a ui-sref="app.subscriptions.map" class="tab-item" ng-click="item = 4" ng-class="{active:item == 4}">
+                <i class="icon ion-map"></i> Mappa sottoscrizioni
+            </a>
+        </div>
+
+        <div ui-view name="inner" style="padding:10px 10px 30px;">
+			<app-followed-business></app-followed-business>
+		</div>
+    </ion-content>
+</ion-view>

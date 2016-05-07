@@ -1,0 +1,17 @@
+<ion-view view-title="Invites">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.invite.add" class="tab-item" ng-click="item = 1" ng-class="{active:item == 1}">
+                <i class="icon ion-plus"></i> Invia
+            </a> 
+            <a ui-sref="app.invite.list" class="tab-item" ng-click="item = 2" ng-class="{active:item == 2}">
+                <i class="icon ion-navicon-round"></i> Storico
+            </a>   
+            <a ui-sref="app.invite.map" class="tab-item" ng-click="item = 3" ng-class="{active:item == 3}">
+                <i class="icon ion-map"></i> Mappa
+            </a>
+        </div> 
+        
+        <div ui-view name="inner" style="padding:10px 10px 30px;"></div> 
+	</ion-content>
+</ion-view>

@@ -1,0 +1,21 @@
+<ion-view view-title="Business manager">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.businessmanager.createbusiness" class="tab-item">
+                <i class="icon ion-plus"></i> Nuovo business
+            </a>  
+            <a ui-sref="app.businessmanager" class="tab-item">
+                <i class="icon ion-navicon-round"></i> Lista business
+            </a>    
+            <a ui-sref="app.businessmanager.mapbusinesses" class="tab-item">
+                <i class="icon ion-map"></i> Mappa business
+            </a>
+        </div>
+       
+        <div ui-view name="inner">
+        	<app-owned-business></app-owned-business>
+        </div>
+		
+    </ion-content>
+</ion-view>
+

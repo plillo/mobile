@@ -1,0 +1,44 @@
+<form name="ownedBusinessForm" id="owned-business-form" method="post" enctype="multipart/form-data" novalidate>
+	<div class="list profile">
+	    <img ng-src="{{urlBackend+'/businesses/1.0/businesses/'+updatingBusiness.uuid+'/logo#'+rand}}" onerror="this.src='img/no-logo.png';">
+	
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Name</span>
+			<input type="text" name="name" ng-model="updatingBusiness.name" placeholder="Name">
+		</label> 
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Address</span> 
+			<input type="text" name="address" ng-model="updatingBusiness.address" placeholder="Address">
+		</label> 
+		<label class="item item-input item-floating-label">
+			<span class="input-label">City</span>
+			<input type="text" name="city" ng-model="updatingBusiness.city" placeholder="City">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">CAP</span>
+			<input type="text" name="cap" ng-model="updatingBusiness.cap" placeholder="CAP">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Partita IVA</span> 
+			<input type="text" name="pIva" ng-model="updatingBusiness.pIva" placeholder="Partita IVA">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Fiscal Code</span> 
+			<input type="text" name="fiscalCode" ng-model="updatingBusiness.fiscalCode" placeholder="Fiscal Code">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Description</span> 
+			<input type="text" name="_description" ng-model="updatingBusiness._description" placeholder="Description">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Logo</span>
+			<input type="file" name="logo" ng-model="logoFile" ngf-select ngf-accept="'image/*'" placeholder="Logo">
+		</label> 
+	</div>
+	<div class="padding" style="height:100px;padding: 0 !important;vertical-align:top;text-align: center;">
+	   	<button id="send" class="button button-small button-assertive ink">Update</button>
+	</div>
+	
+</form>
+
+
