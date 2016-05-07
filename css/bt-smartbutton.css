@@ -1,0 +1,59 @@
+div.bt-smartbutton {
+	display: inline-block;
+	vertical-align: top;
+	background-color: #AAAAAA;
+	color: #FFFFFF;
+	cursor: pointer;
+	position: relative;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+
+div.bt-smartbutton div.bt-label {
+    text-align: center;
+    vertical-align: middle;
+}
+div.bt-smartbutton *.bt-loading {}
+div.bt-smartbutton *.bt-input {}
+
+div.bt-smartbutton.bt-mouseover {background-color: #999999;}
+div.bt-smartbutton.bt-mousedown {background-color: #666666;}
+div.bt-smartbutton.status1 {
+	background-color: #007aff;
+}
+
+div.bt-smartbutton.status2 {
+	background-color: 333333;
+}
+
+div.bt-smartbutton.status3 {
+	background-color: #CCCCCC;
+}
+
+div.bt-smartbutton.status4 {
+	background-color: #00AA00;
+}
+
+div.bt-smartbutton.status5 {
+	background-color: #00AAAA;
+}
+
+div.bt-smartbutton.status6 {
+	background-color: #AA00AA;
+}
+
+div.bt-smartbutton.status7 {
+	background-color: #0000AA;
+}
+
+div.bt-smartbutton.status8 {
+	background-color: #AAA000;
+}
+
+div.bt-smartbutton.status9 {
+	background-color: #000AAA;
+}
+
+div.bt-smartbutton.status10 {
+	background-color: #550000;
+}

@@ -1,0 +1,62 @@
+.haBrokerConnecting {
+	background-color:#CCCC33 !important;
+}
+.haBrokerConnected {
+	background-color:#66BB66 !important;
+}
+.haBrokerNotConnected {
+	background-color:#DD3333 !important;
+}
+
+.ha-item {
+	margin: 5px 0;
+}
+.ha-input {
+	background-color: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    color: #fff !important;
+    letter-spacing: 0.25rem;
+    height: 36px !important;
+    padding: 0 10px !important;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    z-index: 1;
+    //display: table !important;
+    margin: 0 auto;
+}
+.ha-text-area  {
+    height: 120px;
+    padding-top: 10px !important;
+}
+
+
+
+
+
+
+ion-view.pane {
+	background-color: transparent;
+}
+
+
+
+.ha-sub-view {
+	top: 49px;
+}
+
+.ha-content.has-header,
+.ha-sub-content.has-header,
+.ha-sub-sub-content.has-header {
+    top: 0;
+}
+
+.ha-sub-content .tabs-dark {
+	background-color: #555;
+	border-color: #444;
+}
+
+.ha-sub-sub-content .tabs-dark {
+	background-color: #666;
+	border-color: #555;
+}

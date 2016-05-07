@@ -1,0 +1,45 @@
+<form name="userAttributeForm" id="user-attribute-form" novalidate>
+	<div class="list profile">
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Name</span>
+			<input type="text" name="name" ng-model="updatingAttribute.name" placeholder="Name">
+		</label> 
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Label</span> 
+			<input type="text" name="label" ng-model="updatingAttribute.label" placeholder="Label">
+		</label> 
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Type</span>
+			<input type="text" name="type" ng-model="updatingAttribute.type" placeholder="Type">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">UI Type</span>
+			<input type="text" name="type" ng-model="updatingAttribute.UItype" placeholder="UI Type">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Multi-valued</span> 
+			<input type="text" name="multiValued" ng-model="updatingAttribute.multiValued" placeholder="Multi-valued">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Mandatory</span> 
+			<input type="text" name="mandatory" ng-model="updatingAttribute.mandatory" placeholder="Mandatory">
+		</label>
+		<label class="item item-input item-floating-label"> 
+			<span class="input-label">Validator</span> 
+			<input type="text" name="validator" ng-model="updatingAttribute.validator" placeholder="Validator">
+		</label> 
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Values</span>
+			<input type="text" name="values" ng-model="updatingAttribute.values" placeholder="Values">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Applications</span>
+			<input type="text" name="applications" ng-model="updatingAttribute.applications" placeholder="Applications">
+		</label>
+	</div>
+	<div class="padding" style="text-align: center">
+	   	<button id="send" class="button button-small button-assertive ink">Update</button>
+	</div>
+</form>
+
+
