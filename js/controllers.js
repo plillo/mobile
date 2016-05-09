@@ -1,7 +1,7 @@
 /* global angular, document, window */
 'use strict';
 
-angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
+angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout, user, logger) {
     // Form data for the login modal
@@ -231,17 +231,17 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 		$scope.invites.splice(0,0,invite);
 		$scope.inviting = {};
 		$scope.isValidInvite = false;
-	}
+	};
 
 	$scope.removeInvite = function(index) {
 		$scope.invites.splice(index,1);
-	}
+	};
 	
 	$scope.sendInvites = function() {
 		var msg = user.inviteUser($scope.invites);
 	    $state.go('app.invite.response',{message: msg});
-	}
-	
+	};
+
 	$scope.$watch('inviting.email', function(newValue, oldValue) {
 		$scope.isValidInvite = newValue.length>0;
 	});

@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'starter.controllers', 'business.services', 'business.directives', 'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
 
 .config(function($compileProvider){
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -95,6 +95,35 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         }
     })
 
+    .state('app.news', {
+        url: '/news',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/news/main.html',
+                controller: 'NewsPageCtrl'
+            }
+        }
+    })
+
+    .state('app.news.add', {
+        url: '/news-add',
+        views: {
+            'inner': {
+                templateUrl: 'templates/news/add.html',
+                controller: 'NewsCtrl'
+            }
+        }
+    })
+
+    .state('app.news.list', {
+        url: '/news-list',
+        views: {
+            'inner': {
+                template: '***LIST***'
+            }
+        }
+    })
+
     .state('app.channels', {
         url: '/channels',
         views: {
@@ -152,7 +181,7 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
     })
 
     .state('app.invite.response', {
-        url: '/add-invite',
+        url: '/add-response',
         params: {
             message: ''
         },

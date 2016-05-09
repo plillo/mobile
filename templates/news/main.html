@@ -1,0 +1,14 @@
+<ion-view view-title="News">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.news.add" class="tab-item" ng-click="item = 1" ng-class="{active:item == 1}">
+                <i class="icon ion-plus"></i> Aggiungi
+            </a>
+            <a ui-sref="app.news.list" class="tab-item" ng-click="item = 2" ng-class="{active:item == 2}">
+                <i class="icon ion-navicon-round"></i> Lista
+            </a>
+        </div>
+
+        <div ui-view name="inner" style="padding:10px 10px 30px;"></div>
+    </ion-content>
+</ion-view>
