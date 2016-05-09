@@ -12,14 +12,14 @@
      - MODIFICA: cliccando sulla riga (o su un pulsante di edit nella riga)
        si carica il form di modifica: confermata la modifica si ricarica automaticamente la LISTA
 4. API
-   a) inserimento news: richiama il metodo "addNews" del service "news" passando un oggetto con i dati della news
+   - inserimento news: richiama il metodo "addNews" del service "news" passando un oggetto con i dati della news
       chiamata: news.addNews(addingNews)
       riceve una PROMESSA; se successo riceve un oggetto addedNews contenente TUTTI i dati della news inserita,
       comprensivi di dati aggiunti dal backend (identificativo, timestamp di inserimento,...)
-   b) lista news: richiama il metodo listNews del service news (senza parametri):
+   - lista news: richiama il metodo listNews del service news (senza parametri):
       chiamata: news.listNews()
       riceve una promessa con un oggetto listNews contenente un ARRAY di tutte le news da elencare
-   c) cancellazione news (da icona in riga lista): richiama il metodo deleteNews del service news con parametro l'UUID della news da eliminare
+   - cancellazione news (da icona in riga lista): richiama il metodo deleteNews del service news con parametro l'UUID della news da eliminare
       riceve una promessa: se successo deve cancellare la riga dalla lista.
 
 4. completare analisi del progetto NEWS
