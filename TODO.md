@@ -22,15 +22,15 @@
    - cancellazione news (da icona in riga lista): richiama il metodo deleteNews del service news con parametro l'UUID della news da eliminare
       riceve una promessa: se successo deve cancellare la riga dalla lista.
 
-4. completare analisi del progetto NEWS
-   BOZZA: - le news sono organizzate in "topics" (categorie) strutturate dall'utente stesso secondo uno schema ad albero:
-            ogni topic può avere un (solo) parent (genitore).
-          - ogni news potrà essere associata a una o più topics
-          - campi editabili:
-               - data/ora (timestamp) di pubblicazione (default: timestamp di creazione news, cioè 'subito')
-               - data/ora di fine pubblicazione (default: nessuno, cioè 'indefinitamente')
-               - tags (stringhe separate da virgole, su cui basare i filtraggi)
-               - canali PUSH (email/sms/push notification,...)
-               - ...
+4. completare analisi del progetto NEWS (BOZZA)
+      - le news sono organizzate in "topics" (categorie) strutturate dall'utente stesso secondo uno schema ad albero:
+         ogni topic può avere un (solo) parent (genitore).
+      - ogni news potrà essere associata a una o più topics
+      - campi editabili:
+         - data/ora (timestamp) di pubblicazione (default: timestamp di creazione news, cioè 'subito')
+         - data/ora di fine pubblicazione (default: nessuno, cioè 'indefinitamente')
+         - tags (stringhe separate da virgole, su cui basare i filtraggi)
+         - canali PUSH (email/sms/push notification,...)
+         - ...
 
  ...
