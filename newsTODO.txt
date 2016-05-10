@@ -13,9 +13,9 @@ TODO LIST
      - MODIFICA: cliccando sulla riga (o su un pulsante di edit nella riga)
        si carica il form di modifica: confermata la modifica si ricarica automaticamente la LISTA
 
-4. API
-   a) inserimento news: richiama il metodo "addNews" del service "news" passando un oggetto con i dati della news
-      chiamata: news.addNews(addingNews)
+4. API (service 'news')
+   a) inserimento news: richiama il metodo "createNews" passando un oggetto con i dati della news
+      chiamata: news.createNews(addingNews)
       riceve una PROMESSA; se successo riceve un oggetto addedNews contenente TUTTI i dati della news inserita,
       comprensivi di dati aggiunti dal backend (identificativo, timestamp di inserimento,...)
    b) lista news: richiama il metodo listNews del service news (senza parametri):
