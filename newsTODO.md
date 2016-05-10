@@ -21,7 +21,10 @@
          /* function che gestisce il caso di successo */
          function successCallback(response) {
             /* gestione dei dati di risposta */
-         }
+         },
+	    	function errorCallback(response) {
+	    	   /* gestione dei dati di risposta */
+	    	}
       );
       ```
       
