@@ -11,7 +11,7 @@
    - permette di modificare/cancellare ogni singola news
      - MODIFICA: cliccando sulla riga (o su un pulsante di edit nella riga) si carica il form di modifica:
      confermata la modifica si ricarica automaticamente la LISTA
-4. API (service *news*)
+4. API (service "**news**")
    - inserimento news: richiama il metodo "createNews" del service "news" passando un oggetto con i dati della news
       chiamata: news.addNews(addingNews)
       riceve una PROMESSA; se successo riceve un oggetto addedNews contenente TUTTI i dati della news inserita,
