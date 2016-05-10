@@ -4,8 +4,6 @@
 
 Markdown | Less | Pretty
 --- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
 
    dovrebbe essere sufficiente 1 livello: AGGIUNGI, LISTA; default: LISTA
 
