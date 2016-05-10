@@ -49,16 +49,17 @@
          - canali PUSH (email/sms/push notification,...)
          - ...
 
-###note per il team###
+##note per il team##
 Di seguito sono riportate le aree di "proposta", una per ogni membro del team.
 NON MODIFICARE MAI LE VOCI PROGETTO (sopra) ma editare la propria area inserendo le proposte: quando approvate
-dal team verranno pubblicate nel progetto (sopra)
+dal team verranno pubblicate nel progetto (sopra).
+ATTENZIONE: ricordarsi di effettuare sempre un PULL prima di fare le proprie modifiche, seguite dal PUSH.
 
-##Gian Paolo##
+###Gian Paolo###
 ...
 
-##Marcello##
+###Marcello###
 ...
 
-##Paolo##
+###Paolo###
 ...
