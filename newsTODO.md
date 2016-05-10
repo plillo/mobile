@@ -17,8 +17,14 @@
    - **_createNews(object)_**: passa un oggetto con i dati della news da creare e riceve una promessa:
    
       ```javascript
-      news.createNews(object).then(/* function che gestisce il caso di successo */);
+      news.createNews(object).then(
+         /* function che gestisce il caso di successo */
+         function successCallback(response) {
+            /* gestione dei dati di risposta */
+         }
+      );
       ```
+      
       i dati ricevuti in caso di successo si riferiscono alla news creata e comprendono i dati aggiunti dal backend (identificativo, timestamp di creazione,...)
    -  **_updateNews(uuid, data)_**: passa UUID e oggetto da modificare;
       i dati ricevuti in caso di successo si riferiscono alla news modificata e comprendono i dati aggiunti dal backend (identificativo, timestamp di modifica,...)
