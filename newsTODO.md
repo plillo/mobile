@@ -1,3 +1,5 @@
+(leggere in fondo le note per il team)
+
 #News TODO list
 
 1. Organizzazione dei menu: dovrebbe essere sufficiente 1 livello
@@ -51,6 +53,7 @@
 
 ***
 
+<div style="background-color:#FFFFDD">
 ##note per il team##
 Di seguito sono riportate le aree di "proposta", una per ogni membro del team.
 NON MODIFICARE MAI LE VOCI PROGETTO (sopra) ma editare la propria area inserendo le proposte: quando approvate
@@ -65,3 +68,4 @@ ATTENZIONE: ricordarsi di effettuare sempre un PULL prima di fare le proprie mod
 
 ###Paolo###
 ...
+</div>
