@@ -2,8 +2,8 @@
 
 1. Organizzazione dei menu
    dovrebbe essere sufficiente 1 livello: AGGIUNGI, LISTA; default: LISTA
-   Aggiungi | Lista 
-   --- | ---
+Aggiungi | Lista 
+--- | ---
 
 2. FORM per l'inserimento di una news
    partiamo dall'inserimento di dati minimi: titolo, descrizione e ?
