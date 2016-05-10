@@ -2,8 +2,8 @@
 
 1. Organizzazione dei menu
 
-Markdown | Less | Pretty
---- | --- | ---
+Aggiungi | Lista 
+--- | ---
 
    dovrebbe essere sufficiente 1 livello: AGGIUNGI, LISTA; default: LISTA
 
