@@ -32,11 +32,11 @@
    -  **_updateNews(uuid, data)_**: passa UUID e oggetto da modificare;
       i dati ricevuti in caso di successo si riferiscono alla news modificata e comprendono i dati aggiunti dal backend (identificativo, timestamp di modifica,...)
    -  **_deleteNews(uuid)_**: passa UUID; riceve un boolean true in caso di successo: se il comando parte da icona su lista occorre cancellare la riga
-   -  **_getNews(uuid)_**:
-   -  **_getListNews()_**:
-   -  **_getListNewsByTopic(topic)_**:
-   -  **_getListNewsByTag(tag)_**:
-   -  **_getListNewsByKeyword(key)_**:
+   -  **_getNews(uuid)_**: passa UUID della news da recuperare: in caso di successo riceve i dati completi della news
+   -  **_getListNews()_**: in caso di successo riceve ARRAY ti tutte le news
+   -  **_getListNewsByTopic(topic)_**: in caso di successo riceve ARRAY ti tutte le news filtrate per topic (parametro)
+   -  **_getListNewsByTag(tag)_**: in caso di successo riceve ARRAY ti tutte le news filtrate per tag (parametro)
+   -  **_getListNewsByKeyword(key)_**: in caso di successo riceve ARRAY ti tutte le news filtrate per parola chiave (parametro)
 
 4. completare analisi del progetto NEWS (BOZZA)
       - le news sono organizzate in "topics" (categorie) strutturate dall'utente stesso secondo uno schema ad albero:
