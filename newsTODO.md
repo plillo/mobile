@@ -1,8 +1,8 @@
 #TODO list
 
 1. Organizzazione dei menu
+
    | Aggiungi      | Lista         | 
-   | ------------- |:-------------:| 
    dovrebbe essere sufficiente 1 livello: AGGIUNGI, LISTA; default: LISTA
 
 2. FORM per l'inserimento di una news
