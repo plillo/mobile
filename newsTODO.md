@@ -7,7 +7,7 @@
    partiamo dall'inserimento di dati minimi: titolo, descrizione e ?
 
 3. LISTA delle news
-   - elenca TUTTE le news inserite (paginazione in un secondo momento)
+   - elenca TUTTE le news inserite (paginazione in un secondo momento): usare API **_getListNews()_**
    - permette di modificare/cancellare ogni singola news
      - MODIFICA: cliccando sulla riga (o su un pulsante di edit nella riga) si carica il form di modifica:
      confermata la modifica si ricarica automaticamente la LISTA
