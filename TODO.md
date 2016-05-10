@@ -12,10 +12,10 @@
      - MODIFICA: cliccando sulla riga (o su un pulsante di edit nella riga) si carica il form di modifica:
      confermata la modifica si ricarica automaticamente la LISTA
 4. API (service "**news**")
-   - news.createNews(object)
-```javascript
-news.createNews(object).then();
-```
+   - createNews(object): passa un oggetto con i dati della news da creare e riceve una promessa:
+      ```javascript
+      news.createNews(object).then();
+      ```
 
    - inserimento news: richiama il metodo "createNews" del service "news" passando un oggetto con i dati della news
       chiamata: news.addNews(addingNews)
