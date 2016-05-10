@@ -13,6 +13,7 @@
      confermata la modifica si ricarica automaticamente la LISTA
 4. API (service "**news**")
    - createNews(object): passa un oggetto con i dati della news da creare e riceve una promessa:
+   
       ```javascript
       news.createNews(object).then(/* function che gestisce il caso di successo */);
       ```
