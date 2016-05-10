@@ -2,7 +2,11 @@
 
 1. Organizzazione dei menu
 
-   | Aggiungi      | Lista         | 
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
    dovrebbe essere sufficiente 1 livello: AGGIUNGI, LISTA; default: LISTA
 
 2. FORM per l'inserimento di una news
