@@ -47,7 +47,7 @@ angular.module('news.services').factory('news', function($http, $rootScope) {
             };
             return $http(pars); // return promise
         },
-        getTopicsBySearchKeyword: function(key){
+        getTopicsByKeyword: function(key){
             var pars = {
                 method:'GET',
                 url: $rootScope.urlBackend+'/news/1.0/topics/by_key/'+key

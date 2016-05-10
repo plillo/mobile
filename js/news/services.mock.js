@@ -56,7 +56,7 @@ angular.module('news.services').factory('news', function($http, $rootScope, $q) 
         getListNewsByTag: function(tag){
             return getListNews(); // return promise
         },
-        getTopicsBySearchKeyword: function(key){
+        getTopicsBySearchKey: function(key){
             var list = [];
             list.push({uuid:'11111111-af45-bca2-cfa3-a1324bc324f1', title:'mocked 1', description:'mocked topic 1'});
             list.push({uuid:'22222222-af45-bca2-cfa3-a1324bc324f1', title:'mocked 2', description:'mocked topic 2'});

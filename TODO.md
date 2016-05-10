@@ -12,17 +12,20 @@
      - MODIFICA: cliccando sulla riga (o su un pulsante di edit nella riga) si carica il form di modifica:
      confermata la modifica si ricarica automaticamente la LISTA
 4. API (service "**news**")
-   - createNews(object): passa un oggetto con i dati della news da creare e riceve una promessa:
+   - **_createNews(object)_**: passa un oggetto con i dati della news da creare e riceve una promessa:
    
       ```javascript
       news.createNews(object).then(/* function che gestisce il caso di successo */);
       ```
-      i dati ricevuti in caso di successo si riferiscono alla news creata e comprendono i dati aggiunti dal backend (identificativo, timestamp di inserimento,...)
-   - lista news: richiama il metodo listNews del service news (senza parametri):
-      chiamata: news.listNews()
-      riceve una promessa con un oggetto listNews contenente un ARRAY di tutte le news da elencare
-   - cancellazione news (da icona in riga lista): richiama il metodo deleteNews del service news con parametro l'UUID della news da eliminare
-      riceve una promessa: se successo deve cancellare la riga dalla lista.
+      i dati ricevuti in caso di successo si riferiscono alla news creata e comprendono i dati aggiunti dal backend (identificativo, timestamp di creazione,...)
+   -  **_updateNews(uuid, data)_**: passa UUID e oggetto da modificare;
+      i dati ricevuti in caso di successo si riferiscono alla news modificata e comprendono i dati aggiunti dal backend (identificativo, timestamp di modifica,...)
+   -  **_deleteNews(uuid)_**: passa UUID; riceve un boolean true in caso di successo: se il comando parte da icona su lista occorre cancellare la riga
+   -  **_getNews(uuid)_**:
+   -  **_getListNews()_**:
+   -  **_getListNewsByTopic(topic)_**:
+   -  **_getListNewsByTag(tag)_**:
+   -  **_getListNewsByKeyword(key)_**:
 
 4. completare analisi del progetto NEWS (BOZZA)
       - le news sono organizzate in "topics" (categorie) strutturate dall'utente stesso secondo uno schema ad albero:
