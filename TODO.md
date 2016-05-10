@@ -14,13 +14,9 @@
 4. API (service "**news**")
    - createNews(object): passa un oggetto con i dati della news da creare e riceve una promessa:
       ```javascript
-      news.createNews(object).then();
+      news.createNews(object).then(/* function che gestisce il caso di successo */);
       ```
-
-   - inserimento news: richiama il metodo "createNews" del service "news" passando un oggetto con i dati della news
-      chiamata: news.addNews(addingNews)
-      riceve una PROMESSA; se successo riceve un oggetto addedNews contenente TUTTI i dati della news inserita,
-      comprensivi di dati aggiunti dal backend (identificativo, timestamp di inserimento,...)
+      i dati ricevuti in caso di successo si riferiscono alla news creata e comprendono i dati aggiunti dal backend (identificativo, timestamp di inserimento,...)
    - lista news: richiama il metodo listNews del service news (senza parametri):
       chiamata: news.listNews()
       riceve una promessa con un oggetto listNews contenente un ARRAY di tutte le news da elencare
