@@ -4,23 +4,33 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
+/* BACKEND configuration and run*/
+.config(function(backendProvider){
+    backendProvider.setBackend('http://52.28.84.18:8181');
+})
 .run(function(backend){})
 
+/* BROKER configuration */
+.config(function(brokerProvider){
+    brokerProvider.initBroker('52.28.84.18', 61614);
+})
+
+/* APPLICATION configuration and run*/
 .config(function(applicationProvider){
 	applicationProvider.setAppcode('bsnss-v1.0');
 	applicationProvider.setDescription('Profiler 1.0');
 })
 .run(function(application){})
 
+.run(function(debug){})
+
+/* LOGGER configuration */
 .config(function(loggerProvider){
 	loggerProvider.setPath('users/1.0/');
 	loggerProvider.setAppCode('bsnss-v1.0');
 })
 
-.config(function(brokerProvider){
-	brokerProvider.initBroker('calimero', 61614);
-	//brokerProvider.initBroker('52.28.84.18', 61614);
-})
+
 
 .config(function($provide) {
     $provide.decorator('$state', function($delegate, $stateParams) {
@@ -50,7 +60,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
 
@@ -65,6 +74,29 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
+    })
+
+    .state('app.inspect', {
+        url: '/inspect',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/inspect.html',
+                controller: function ($scope, $localStorage, debug, backend, broker) {
+                    $scope.console = debug.console;
+                    $scope.localStorage = $localStorage;
+                    $scope.backend = backend.getBackend();
+                    $scope.broker = { ip:broker.getUrl(), port:broker.getPort()};
+                }
+            },
+            'fabContent': {
+                template: '<button id="fab-clear" class="button button-fab button-fab-top-left expanded button-energized-900 flap"><i class="icon ion-ios-barcode"></i></button>',
+                controller: function ($timeout) {
+                    $timeout(function () {
+                        document.getElementById('fab-clear').classList.toggle('on');
+                    }, 200);
+                }
+            }
+        }
     })
   
     .state('app.landingpage', {

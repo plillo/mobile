@@ -1,0 +1,38 @@
+<ion-view view-title="Inspect">
+    <ion-content ng-class="{expanded:isExpanded}">
+
+        <div style="padding:60px;">
+            <h2>INSPECT</h2>
+            <div class="row row-top">
+                <div class="col">
+                    <h3>Connections</h3>
+                    <ul>
+                        <li>backend: {{backend}}</li>
+                        <li>broker: {{broker.ip}}:{{broker.port}}</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>User</h3>
+                    <ul>
+                        <li>UUID: {{localStorage.currentUser.uuid}}</li>
+                        <li>username: {{localStorage.currentUser.username}}</li>
+                        <li>email: {{localStorage.currentUser.email}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row row-top">
+                <div class="col" style="background-color: #EEEEEE;padding:5px;">
+
+                    <h3>Console</h3>
+
+                    <ion-scroll direction="y" class="wide-as-needed" style="background-color: #BBDEFB;min-height:90px;padding:10px;">
+                        <ion-scroll direction="x" ng-repeat="message in console" style="height:30px;">
+                            <i class="icon ion-search"></i>&nbsp;{{message}}
+                        </ion-scroll>
+                    </ion-scroll>
+
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
