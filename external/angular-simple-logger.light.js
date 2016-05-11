@@ -29,7 +29,7 @@ angular.module('nemLogging').provider('nemSimpleLogger', [
   'nemDebugProvider', function(nemDebugProvider) {
     var LEVELS, Logger, _fns, _isValidLogObject, _maybeExecLevel, _wrapDebug, i, key, len, nemDebug, val;
     nemDebug = nemDebugProvider.debug;
-    _fns = ['debug', 'info', 'warn', 'error', 'log'];
+    _fns = ['haConsole', 'info', 'warn', 'error', 'log'];
     LEVELS = {};
     for (key = i = 0, len = _fns.length; i < len; key = ++i) {
       val = _fns[key];
@@ -66,7 +66,7 @@ angular.module('nemLogging').provider('nemSimpleLogger', [
       newLogger = {};
       for (j = 0, len1 = _fns.length; j < len1; j++) {
         val = _fns[j];
-        newLogger[val] = val === 'debug' ? debugInstance : logObject[val];
+        newLogger[val] = val === 'haConsole' ? debugInstance : logObject[val];
       }
       return newLogger;
     };

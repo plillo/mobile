@@ -5,10 +5,10 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
 })
 
 /* BACKEND configuration and run*/
-.config(function(backendProvider){
-    backendProvider.setBackend('http://52.28.84.18:8181');
+.config(function(haBackendProvider){
+    haBackendProvider.setBackend('http://52.28.84.18:8181');
 })
-.run(function(backend){})
+.run(function(haBackend){})
 
 /* BROKER configuration */
 .config(function(brokerProvider){
@@ -16,18 +16,17 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
 })
 
 /* APPLICATION configuration and run*/
-.config(function(applicationProvider){
-	applicationProvider.setAppcode('bsnss-v1.0');
-	applicationProvider.setDescription('Profiler 1.0');
+.config(function(haApplicationProvider){
+    haApplicationProvider.setAppcode('bsnss-v1.0');
+    haApplicationProvider.setDescription('Profiler 1.0');
 })
-.run(function(application){})
+.run(function(haApplication){})
 
-.run(function(debug){})
+.run(function(haConsole){})
 
 /* LOGGER configuration */
-.config(function(loggerProvider){
-	loggerProvider.setPath('users/1.0/');
-	loggerProvider.setAppCode('bsnss-v1.0');
+.config(function(haLoggerProvider){
+    haLoggerProvider.setPath('users/1.0/');
 })
 
 
@@ -81,10 +80,12 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         views: {
             'menuContent': {
                 templateUrl: 'templates/inspect.html',
-                controller: function ($scope, $localStorage, debug, backend, broker) {
-                    $scope.console = debug.console;
+                controller: function ($scope, $localStorage, haApplication, haConsole, haBackend, broker) {
+                    $scope.appcode = haApplication.appcode;
+                    $scope.appdescription = haApplication.description;
+                    $scope.console = haConsole.console;
                     $scope.localStorage = $localStorage;
-                    $scope.backend = backend.getBackend();
+                    $scope.backend = haBackend.getBackend();
                     $scope.broker = { ip:broker.getUrl(), port:broker.getPort()};
                 }
             },
@@ -406,9 +407,7 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
             }
         }
     })
-    
 
-    
     // SUBSCRIPTIONS
     //...............................................................
     .state('app.subscriptions', {

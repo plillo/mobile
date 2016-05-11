@@ -53,10 +53,10 @@ angular.module('business.directives').directive('appSearchBusiness', function(bu
 		replace: false,
 		scope: {},
 		templateUrl : 'templates/business/search-business.html',
-		controller: function($scope, $state, $window, $element, backend){
+		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
-        	$scope.urlBackend = backend.getBackend();
+        	$scope.urlBackend = haBackend.getBackend();
 			
 	       	// insert here scope-functions
 			// ...
@@ -99,10 +99,10 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 		replace: false,
 		scope: {},
 		templateUrl : 'templates/business/followed-business.html',
-		controller: function($scope, $state, $window, $element, backend){
+		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
-        	$scope.urlBackend = backend.getBackend();
+        	$scope.urlBackend = haBackend.getBackend();
         	$scope.rand = ''+ Math.random();
 			
 	       	// insert here scope-functions
@@ -151,10 +151,10 @@ angular.module('business.directives').directive('appOwnedBusiness', function(bus
 		replace: false,
 		scope: {},
 		templateUrl : 'templates/business/owned-business.html',
-		controller: function($scope, $state, $window, $element, backend){
+		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
-        	$scope.urlBackend = backend.getBackend();
+        	$scope.urlBackend = haBackend.getBackend();
         	$scope.rand = ''+ Math.random();
 			
 	       	// scope-functions
@@ -285,10 +285,10 @@ angular.module('business.directives').directive('appOwnedBusinessForm', function
 			uuid: '@uuid'
 		},
 		templateUrl : 'templates/business/owned-business-form.html',
-		controller: function($scope, $state, $rootScope, $http, $window, $element, $timeout, backend, business, Upload){
+		controller: function($scope, $state, $rootScope, $http, $window, $element, $timeout, haBackend, business, Upload){
 	       	// scope-properties
 			$scope.updatingBusiness = undefined;
-        	$scope.urlBackend = backend.getBackend();
+        	$scope.urlBackend = haBackend.getBackend();
         	$scope.chunkSize = 100000;
         	$scope.rand = ''+ Math.random();
 
@@ -379,7 +379,7 @@ angular.module('business.directives').directive('appConfigureBusinessForm', func
 			uuid: '@uuid'
 		},
 		templateUrl : 'templates/business/configure-business-form.html',
-		controller: function($scope, $rootScope, $http, $window, $element, administration, business){
+		controller: function($scope, $rootScope, $http, $window, $element, business){
 	       	// scope-properties
 			$scope.configuringBusiness = undefined;
 

@@ -3,7 +3,7 @@
 
 angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout, user, logger) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout, haUser, haLogger) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -22,15 +22,15 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     };
     
     $scope.isUserLogged = function(){
-    	return user.isUserLogged();
+    	return haUser.isUserLogged();
     };
     
     $scope.isBusinessUser = function(){
-    	return user.isUserInRole('business.busadmin');
+    	return haUser.isUserInRole('business.busadmin');
     };
     
     $scope.logout = function(){
-    	logger.logout();
+        haLogger.logout();
     };
     
 	$scope.exit = function() {
@@ -131,7 +131,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
 	};
 })
 
-.controller('ServiceCtrl', function($scope, backend, $timeout, $stateParams, $ionicSideMenuDelegate, ionicMaterialInk, ionicMaterialMotion) {
+.controller('ServiceCtrl', function($scope, haBackend, $timeout, $stateParams, $ionicSideMenuDelegate, ionicMaterialInk, ionicMaterialMotion) {
 	$ionicSideMenuDelegate.canDragContent(true);
 	
 	// Set Header
@@ -145,13 +145,13 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
         $scope.$parent.setExpanded(true);
     }, 300);
 
-    $scope.urlBackend = backend.getBackend();
+    $scope.urlBackend = haBackend.getBackend();
     
     // Set Ink
     ionicMaterialInk.displayEffect();
     
 	$scope.setUrlService = function(url) {
-		backend.setBackend(url);
+		haBackend.setBackend(url);
 	};
 })
 
@@ -213,7 +213,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('InviteCtrl', function($scope, $state, $stateParams, $ionicSideMenuDelegate, $timeout, user, ionicMaterialInk, ionicMaterialMotion) {
+.controller('InviteCtrl', function($scope, $state, $stateParams, $ionicSideMenuDelegate, $timeout, haUser, ionicMaterialInk, ionicMaterialMotion) {
 	$ionicSideMenuDelegate.canDragContent(true);
 	
 	$scope.isValidInvite = false;
@@ -238,7 +238,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
 	};
 	
 	$scope.sendInvites = function() {
-		var msg = user.inviteUser($scope.invites);
+		var msg = haUser.inviteUser($scope.invites);
 	    $state.go('app.invite.response',{message: msg});
 	};
 
