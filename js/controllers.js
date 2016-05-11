@@ -116,7 +116,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     };
 })
 
-.controller('LandingPageCtrl', function($scope, $timeout, $stateParams, $ionicSideMenuDelegate, broker, ionicMaterialInk, ionicMaterialMotion) {
+.controller('LandingPageCtrl', function($scope, $timeout, $stateParams, $ionicSideMenuDelegate, haBroker, ionicMaterialInk, ionicMaterialMotion) {
 	$ionicSideMenuDelegate.canDragContent(true);
 	
 	$scope.$parent.clearFabs();
@@ -127,7 +127,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     ionicMaterialInk.displayEffect();
    
 	$scope.getUrlBroker = function() {
-		alert(broker.getUrl()+':'+broker.getPort()+' ['+(broker.isConnected()?'':'NOT ')+'CONNECTED]');
+		alert(haBroker.getUrl()+':'+haBroker.getPort()+' ['+(haBroker.isConnected()?'':'NOT ')+'CONNECTED]');
 	};
 })
 

@@ -1,35 +1,10 @@
 angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
 
+/* IONIC PLATFORM configuration and run */
+/* ==================================== */
 .config(function($compileProvider){
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
-
-/* BACKEND configuration and run*/
-.config(function(haBackendProvider){
-    haBackendProvider.setBackend('http://52.28.84.18:8181');
-})
-.run(function(haBackend){})
-
-/* BROKER configuration */
-.config(function(brokerProvider){
-    brokerProvider.initBroker('52.28.84.18', 61614);
-})
-
-/* APPLICATION configuration and run*/
-.config(function(haApplicationProvider){
-    haApplicationProvider.setAppcode('bsnss-v1.0');
-    haApplicationProvider.setDescription('Profiler 1.0');
-})
-.run(function(haApplication){})
-
-.run(function(haConsole){})
-
-/* LOGGER configuration */
-.config(function(haLoggerProvider){
-    haLoggerProvider.setPath('users/1.0/');
-})
-
-
 
 .config(function($provide) {
     $provide.decorator('$state', function($delegate, $stateParams) {
@@ -58,6 +33,38 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
     });
 })
 
+
+/* HASH PLATFORM configuration and run  */
+/* ==================================== */
+/* BACKEND configuration and run*/
+.config(function(haBackendProvider){
+    haBackendProvider.setBackend('http://52.28.84.18:8181');
+})
+.run(function(haBackend){})
+
+/* BROKER configuration */
+.config(function(haBrokerProvider){
+    haBrokerProvider.initBroker('52.28.84.18', 61614);
+})
+
+/* APPLICATION configuration and run*/
+.config(function(haApplicationProvider){
+    haApplicationProvider.setAppcode('bsnss-v1.0');
+    haApplicationProvider.setDescription('Profiler 1.0');
+})
+.run(function(haApplication){})
+
+.run(function(haConsole){})
+
+/* LOGGER configuration */
+.config(function(haLoggerProvider){
+    haLoggerProvider.setPath('users/1.0/');
+})
+
+    
+/* ROUTING configuration and run        */
+/* ==================================== */
+/* STATES */
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
@@ -80,13 +87,13 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         views: {
             'menuContent': {
                 templateUrl: 'templates/inspect.html',
-                controller: function ($scope, $localStorage, haApplication, haConsole, haBackend, broker) {
+                controller: function ($scope, $localStorage, haApplication, haConsole, haBackend, haBroker) {
                     $scope.appcode = haApplication.appcode;
                     $scope.appdescription = haApplication.description;
                     $scope.console = haConsole.console;
                     $scope.localStorage = $localStorage;
                     $scope.backend = haBackend.getBackend();
-                    $scope.broker = { ip:broker.getUrl(), port:broker.getPort()};
+                    $scope.broker = { ip:haBroker.getUrl(), port:haBroker.getPort()};
                 }
             },
             'fabContent': {
