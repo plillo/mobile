@@ -1,0 +1,21 @@
+<ion-view  class="ha-sub-view" view-title="Promotions manager">
+    <ion-content class="ha-sub-sub-sub-content">
+    
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.businessmanager.editbusiness.servicesmanager.promotionsmanager.nxm" class="tab-item">
+                <i class="icon ion-plus"></i> N x M
+            </a>  
+            <a ui-sref="app.businessmanager.editbusiness.servicesmanager.promotionsmanager.discount" class="tab-item">
+                <i class="icon ion-plus"></i> Sconto
+            </a>
+            <a ui-sref="app.businessmanager.editbusiness.servicesmanager.promotionsmanager.list" class="tab-item">
+                <i class="icon ion-navicon-round"></i> Storico promozioni
+            </a>
+        </div>
+        
+        <div ui-view name="promotions-inner">
+            LIST
+        </div>
+		
+    </ion-content>
+</ion-view>

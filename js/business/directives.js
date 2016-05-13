@@ -9,7 +9,7 @@ angular.module('business.directives').directive('appSearchCategories', function(
 		scope: {
 			categoriesSelected: '=categoriesSelectedAttr'
 		},
-		templateUrl : 'templates/business/search-categories.html',
+		templateUrl : 'templates/business/categories/search-categories.html',
 		controller: function($scope, $window, $element){
 	       	// insert here scope-properties
 			// ...
@@ -52,7 +52,7 @@ angular.module('business.directives').directive('appSearchBusiness', function(bu
 	return {
 		replace: false,
 		scope: {},
-		templateUrl : 'templates/business/search-business.html',
+		templateUrl : 'templates/business/business/search-business.html',
 		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
@@ -98,7 +98,7 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 	return {
 		replace: false,
 		scope: {},
-		templateUrl : 'templates/business/followed-business.html',
+		templateUrl : 'templates/business/business/followed-business.html',
 		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
@@ -143,14 +143,13 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 	};
 });
 
-
 //ADD 'appOwnedBusiness' directive
 //................................
 angular.module('business.directives').directive('appOwnedBusiness', function(business) {
 	return {
 		replace: false,
 		scope: {},
-		templateUrl : 'templates/business/owned-business.html',
+		templateUrl : 'templates/business/business/owned-business.html',
 		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
@@ -191,7 +190,7 @@ angular.module('business.directives').directive('appBusinessForm', function(busi
 	return {
 		replace: false,
 		scope: true,
-		templateUrl : 'templates/business/business-form.html',
+		templateUrl : 'templates/business/business/create-business-form.html',
 		controller: function($scope, $state, $rootScope, $window, $element, $timeout, Upload){
 	       	// scope-properties
 			$scope.categoriesSelected = [];
@@ -284,7 +283,7 @@ angular.module('business.directives').directive('appOwnedBusinessForm', function
 		scope: {
 			uuid: '@uuid'
 		},
-		templateUrl : 'templates/business/owned-business-form.html',
+		templateUrl : 'templates/business/business/owned-business-form.html',
 		controller: function($scope, $state, $rootScope, $http, $window, $element, $timeout, haBackend, business, Upload){
 	       	// scope-properties
 			$scope.updatingBusiness = undefined;
@@ -404,6 +403,117 @@ angular.module('business.directives').directive('appConfigureBusinessForm', func
 		link: function(scope, element, attributes){
 			// EVENTS BINDING
 			element.find('#send').bind('click', scope.send);
+		}
+	};
+});
+
+//ADD 'appProductForm' directive
+//..............................
+angular.module('business.directives').directive('appProductForm', function() {
+	return {
+		replace: false,
+		scope: true,
+		templateUrl : 'templates/business/products/form.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, Upload){
+			// scope-properties
+			$scope.categoriesSelected = [];
+
+			// scope-functions
+			$scope.uploadForm = function () {
+				$scope.formUpload = true;
+				$scope.uploadUsingUpload($scope.logoFile);
+			};
+
+			$scope.uploadUsingUpload = function(file, resumable) {
+				var baseUrl = $rootScope.urlBackend+'/businesses/1.0/product/';
+
+				// Set form data
+				var data = (JSON.parse(JSON.stringify($scope.uploadingProduct)));
+
+				// Set categories
+				var selected = [];
+				for(var i = 0; i < $scope.categoriesSelected.length; i++){
+					selected.push($scope.categoriesSelected[i].uuid);
+				}
+				data.categories = selected;
+
+				// Set file
+				if(file!=null)
+					data.logo = file;
+
+				// Send data and get promise
+				var promise = Upload.upload({
+					url: baseUrl + $scope.getReqParams(),
+					resumeSizeUrl: resumable ? baseUrl +'?name=' + encodeURIComponent(file.name) : null,
+					resumeChunkSize: resumable ? $scope.chunkSize : null,
+					method: 'PUT',
+					data: data
+				});
+
+				if(file!=null) {
+					file.upload = promise;
+
+					// Set promise actions
+					file.upload.then(
+						function (response) {
+							$timeout(function () {
+								file.result = response.data;
+								$state.go('app.businessmanager.editbusiness.productsmanager');
+							});
+						},
+						function (response) {
+							if (response.status > 0)
+								$scope.errorMsg = response.status + ': ' + response.data;
+						},
+						function (evt) {
+							// Math.min is to fix IE which reports 200% sometimes
+							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+						});
+
+					file.upload.xhr(function (xhr) {
+						// xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
+					});
+				}
+				else {
+					promise.then(
+						function (response) {
+							$timeout(function () {
+								$scope.result = response.data;
+								$state.go('app.businessmanager.editbusiness.productsmanager');
+							});
+						}
+					);
+				}
+			};
+
+			$scope.getReqParams = function () {
+				return $scope.generateErrorOnServer ? '?errorCode=' + $scope.serverErrorCode +
+				'&errorMessage=' + $scope.serverErrorMsg : '';
+			};
+		},
+		link: function(scope, element, attributes){
+			// EVENTS BINDING
+			element.find('#button-send').bind('click', scope.uploadForm);
+		}
+	};
+});
+
+//ADD 'appProductList' directive
+//..............................
+angular.module('business.directives').directive('appProductList', function() {
+	return {
+		replace: false,
+		scope: true,
+		templateUrl : 'templates/business/products/list.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout){
+			$scope.list = [];
+
+			$scope.list.push({code:'2346534656235', description:'descrizione del prodotto n. 1', category:'categoria n.1'});
+			$scope.list.push({code:'8658994756866', description:'descrizione del prodotto n. 2', category:'categoria n.2'});
+			$scope.list.push({code:'7346236437562', description:'descrizione del prodotto n. 3', category:'categoria n.3'});
+		},
+		link: function(scope, element, attributes){
+
 		}
 	};
 });

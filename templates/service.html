@@ -10,5 +10,25 @@
 				</button>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				BROKER URL <input type="text" ng-model="urlBroker" style="width:100%"/>
+			</div>
+			<div class="col">
+				<button ui-sref="app.landingpage" ng-click="setUrlBroker(urlBroker)" class="button button-block button-positive">
+					<i class="icon ion-android-close"></i> Set url broker
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				BROKER PORT <input type="text" ng-model="portBroker" style="width:100%"/>
+			</div>
+			<div class="col">
+				<button ui-sref="app.landingpage" ng-click="setPortBroker(portBroker)" class="button button-block button-positive">
+					<i class="icon ion-android-close"></i> Set port broker
+				</button>
+			</div>
+		</div>
     </ion-content>
 </ion-view>

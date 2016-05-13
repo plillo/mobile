@@ -90,8 +90,19 @@ p {
     display: block;
 }
 
-ha-profile-component {
-	text-align: center;
+
+/* INSPECT AREA */
+*.ha-inspect {
+    padding: 60px 5px 5px;
+}
+*.ha-inspect div.col {
+    margin: 25px 5px 5px;
+}
+*.ha-inspect div.col h3 {
+    border-top: 5px solid #CCCCCC;
+}
+*.ha-inspect div.col label {
+    color: #b71c1c;
 }
 
 /* PATCHS
@@ -178,7 +189,8 @@ div.bs-category-selected span.description {
 div.bs-search-business-result,
 div.bs-followed-business-result,
 div.bs-owned-business-result {
-    background: rgba(0, 0, 0, 0) linear-gradient(to top, #cccccc, transparent) repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) linear-gradient(to top, #DDEEEE, transparent, transparent, transparent) repeat scroll 0 0;
+    min-height: 135px;
     margin-bottom: 5px;
     position: relative;
 }
@@ -232,6 +244,25 @@ span.bs-evidenziato {
     padding: 0 10px;
 }
 
-.angular-google-map-container { 
-  min-height: 400px; 
+
+
+body {
+    background-color: #bbbbbb;
+}
+
+.ha-mainbody {
+    margin-left: 25%;
+    max-width: 50%;
+}
+
+.h100100 {
+    height: 100%;
+}
+
+.angular-google-map {
+    height: 100%;
+}
+
+.angular-google-map-container {
+    height: 100%;
 }

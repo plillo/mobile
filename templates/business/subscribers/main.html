@@ -1,0 +1,18 @@
+<ion-view  class="ha-sub-view" view-title="Business manager">
+    <ion-content class="ha-sub-sub-content">
+    
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.businessmanager.editbusiness.subscribersmanager.create" class="tab-item">
+                <i class="icon ion-person-add"></i> Aggiungi
+            </a>  
+            <a ui-sref="app.businessmanager.editbusiness.subscribersmanager.list" class="tab-item">
+                <i class="icon ion-navicon-round"></i> Lista
+            </a>    
+        </div>
+        
+        <div ui-view name="subscribers-inner">
+
+        </div>
+		
+    </ion-content>
+</ion-view>

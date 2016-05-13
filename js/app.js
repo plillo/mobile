@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
 
 /* IONIC PLATFORM configuration and run */
 /* ==================================== */
@@ -44,7 +44,8 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
 
 /* BROKER configuration */
 .config(function(haBrokerProvider){
-    haBrokerProvider.initBroker('52.28.84.18', 61614);
+    //haBrokerProvider.initBroker('52.28.84.18', 61614);
+    haBrokerProvider.initBroker('localhost', 61614);
 })
 
 /* APPLICATION configuration and run*/
@@ -78,7 +79,7 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
     .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'templates/menu.html',
+        templateUrl: 'templates/app.html',
         controller: 'AppCtrl'
     })
 
@@ -87,20 +88,13 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         views: {
             'menuContent': {
                 templateUrl: 'templates/inspect.html',
-                controller: function ($scope, $localStorage, haApplication, haConsole, haBackend, haBroker) {
-                    $scope.appcode = haApplication.appcode;
-                    $scope.appdescription = haApplication.description;
-                    $scope.console = haConsole.console;
-                    $scope.localStorage = $localStorage;
-                    $scope.backend = haBackend.getBackend();
-                    $scope.broker = { ip:haBroker.getUrl(), port:haBroker.getPort()};
-                }
+                controller: 'InspectCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-clear" class="button button-fab button-fab-top-left expanded button-energized-900 flap"><i class="icon ion-ios-barcode"></i></button>',
+                template: '<button id="fab-bug" class="button button-fab button-fab-top-left expanded button-energized-900 flap"><i class="icon ion-bug"></i></button>',
                 controller: function ($timeout) {
                     $timeout(function () {
-                        document.getElementById('fab-clear').classList.toggle('on');
+                        document.getElementById('fab-bug').classList.toggle('on');
                     }, 200);
                 }
             }
@@ -325,14 +319,112 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
             }
         }
     })
-    
-    // MANAGE OWNER BUSINESSES
+
+    // SUBSCRIPTIONS
     //...............................................................
-    .state('app.businessmanager', {
-        url: '/business-manager',
+    .state('app.subscriptions', {
+        url: '/subscriptions',
         views: {
             'menuContent': {
-                templateUrl: 'templates/business/business-manager.html',
+                templateUrl: 'templates/business/subscriptions/main.html',
+                controller: 'SubscriptionsCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-newsubscription" class="button button-fab button-fab-top-left expanded button-energized-900 flap" ng-click="click()"><i class="icon ion-plus"></i></button>',
+                controller: function ($scope, $state, $timeout) {
+                    $timeout(function () {
+                        document.getElementById('fab-newsubscription').classList.toggle('on');
+                    }, 200);
+
+                    $scope.click = function() {
+                        $state.go('app.subscriptions.newsubscription');
+                    };
+                }
+            }
+        }
+    })
+
+    .state('app.subscriptions.newsubscription', {
+        url: '/new-subscription',
+        views: {
+            'inner': {
+                template: '<app-search-business></app-search-business>',
+                controller: 'NewSubscriptionCtrl'
+            }
+        }
+    })
+
+    .state('app.subscriptions.map', {
+        url: '/map',
+        views: {
+            'inner': {
+                template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control"></ui-gmap-google-map>',
+                controller: 'MapSubscriptionsCtrl'
+            }
+        }
+    })
+
+    // ATTRIBUTES
+    //...............................................................
+    .state('app.userattributes', {
+        url: '/userattributes',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/attributes/user-attributes.html',
+                controller: 'UserAttributesCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-userattributes" class="button button-fab button-fab-top-right expanded button-energized-900 flap" ng-click="click()"><i class="icon ion-plus"></i></button>',
+                controller: function ($scope, $state, $timeout) {
+                    $timeout(function () {
+                        document.getElementById('fab-userattributes').classList.toggle('on');
+                    }, 200);
+
+                    $scope.click = function() {
+                        $state.go('app.newattribute');
+                    };
+                }
+            }
+        }
+    })
+
+    .state('app.newattribute', {
+        url: '/newattribute',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/attributes/new-attribute.html',
+                controller: 'NewAttributeCtrl'
+            },
+            'fabContent': {
+                template: '',
+                controller: function () {
+                }
+            }
+        }
+    })
+
+    .state('app.editattribute', {
+        url: '/editattribute/:uuid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/attributes/edit-attribute.html',
+                controller: 'EditAttributeCtrl'
+            },
+            'fabContent': {
+                template: '',
+                controller: function () {
+                }
+            }
+        }
+    })
+    
+    // MANAGE OWNED BUSINESSES (MENU)
+    //...............................................................
+    .state('app.businessmanager', {
+        url: '/businesses-manager',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/business/main.html',
                 controller: 'BusinessManagerCtrl'
             },
             'fabContent': {
@@ -350,183 +442,195 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         }
     })
     
-    // CREATE BUSINESS
-    .state('app.businessmanager.createbusiness', {
-        url: '/createbusiness',
-        views: {
-            'inner': {
-                templateUrl: 'templates/business/create-business.html',
-                controller: 'CreateBusinessCtrl'
+        // CREATE BUSINESS
+        .state('app.businessmanager.create', {
+            url: '/create',
+            views: {
+                'inner': {
+                    template: '<app-business-form></app-business-form>',
+                    controller: 'CreateBusinessCtrl'
+                }
             }
-        }
-    })
-    
-    // MAP BUSINESSES
-    .state('app.businessmanager.mapbusinesses', {
-        url: '/mapbusinesses',
+        })
+
+        // LIST BUSINESSES
+        .state('app.businessmanager.list', {
+                url: '/list',
+                views: {
+                    'inner': {
+                        template: '<app-owned-business></app-owned-business>'
+                    }
+                }
+            })
+
+        // MAP ALL BUSINESSES
+        .state('app.businessmanager.map', {
+            url: '/map',
+            views: {
+                'inner': {
+                    template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control"></ui-gmap-google-map>',
+                    controller: 'MapBusinessesCtrl'
+                }
+            }
+        })
+
+    // MANAGE BUSINESS (MENU)
+    .state('app.businessmanager.business', {
+        url: '/business/:uuid',
         views: {
             'inner': {
-                templateUrl: 'templates/business/map-businesses.html',
-                controller: 'MapBusinessesCtrl'
+                templateUrl: 'templates/business/business/main.html',
+                controller: 'BusinessMainCtrl'  // js/business/controllers.js
             }
         }
     })
 
-    // EDIT SINGLE BUSINESS
-    .state('app.businessmanager.editbusiness', {
-        url: '/editbusiness/:uuid',
-        views: {
-            'inner': {
-                templateUrl: 'templates/business/edit-business.html',
-                controller: 'EditBusinessCtrl'
+        // MAP BUSINESS
+        .state('app.businessmanager.business.map', {
+            url: '/map',
+            views: {
+                'subinner': {
+                    template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control"></ui-gmap-google-map>',
+                    controller: 'MapBusinessCtrl'
+                }
             }
-        }
-    })
-    
-    // CONFIGURE SINGLE BUSINESS    
-    .state('app.businessmanager.editbusiness.configurebusiness', {
-        url: '/configurebusiness',
+        })
+
+        // UPDATE BUSINESS
+        .state('app.businessmanager.business.update', {
+                url: '/update',
+                views: {
+                    'subinner': {
+                        template: '<app-owned-business-form uuid="{{uuid}}"></app-owned-business-form>'
+                    }
+                }
+            })
+
+    // MANAGE SUBSCRIBERS (MENU)
+    .state('app.businessmanager.business.subscribersmanager', {
+        url: '/subscribersmanager',
         views: {
             'subinner': {
-                templateUrl: 'templates/business/configure-business.html',
-                controller: 'ConfigureBusinessCtrl'
+                templateUrl: 'templates/business/subscribers/main.html'
             }
         }
     })
-    
-    .state('app.businessmanager.editbusiness.productsmanager', {
+        
+        .state('app.businessmanager.business.subscribersmanager.create', {
+            url: '/create',
+            views: {
+                'subscribers-inner': {
+                    template: 'Aggiunta subscriber'
+                }
+            }
+        })
+
+        .state('app.businessmanager.business.subscribersmanager.list', {
+            url: '/list',
+            views: {
+                'subscribers-inner': {
+                    template: 'Elenco subscribers'
+                }
+            }
+        })
+
+    // MANAGE PRODUCTS (MENU)
+    .state('app.businessmanager.business.productsmanager', {
         url: '/productsmanager',
         views: {
             'subinner': {
-                templateUrl: 'templates/business/products-manager.html',
-                controller: 'ProductsCtrl'
-            }
-        }
-    })
-    
-    // MAP SINGLE BUSINESS
-    .state('app.businessmanager.editbusiness.mapbusiness', {
-        url: '/mapbusiness',
-        views: {
-            'subinner': {
-                templateUrl: 'templates/business/map-business.html',
-                controller: 'MapBusinessCtrl'
+                templateUrl: 'templates/business/products/main.html',
+                controller: 'ProductsMainCtrl'
             }
         }
     })
 
-    // SUBSCRIPTIONS
-    //...............................................................
-    .state('app.subscriptions', {
-        url: '/subscriptions',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/business/subscriptions.html',
-                controller: 'SubscriptionsCtrl'
-            },
-            'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-top-left expanded button-energized-900 flap" ng-click="click()"><i class="icon ion-plus"></i></button>',
-                controller: function ($scope, $state, $timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                    
-                    $scope.click = function() {
-                    	$state.go('app.newsubscription');
-                    };
+        .state('app.businessmanager.business.productsmanager.create', {
+            url: '/productcreate',
+            views: {
+                'products-inner': {
+                    template: '<app-product-form></app-product-form>'
                 }
             }
-        }
-    })
-    
-    .state('app.subscriptions.newsubscription', {
-        url: '/new-subscription',
-        views: {
-            'inner': {
-                templateUrl: 'templates/business/new-subscription.html',
-                controller: 'NewSubscriptionCtrl'
-            },
-            'fabContent': {
-                template: '<button id="fab-subscriptions" class="button button-fab button-fab-top-left expanded button-energized-900 flap" ng-click="click()"><i class="icon ion-card"></i></button>',
-                controller: function ($scope, $state, $timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-subscriptions').classList.toggle('on');
-                    }, 200);
-                    
-                    $scope.click = function() {
-                    	$state.go('app.subscriptions');
-                    };
+        })
+
+        .state('app.businessmanager.business.productsmanager.list', {
+            url: '/productlist',
+            views: {
+                'products-inner': {
+                    template: '<app-product-list></app-product-list>'
                 }
             }
-        }
-    })
-    
-    .state('app.subscriptions.map', {
-        url: '/map',
+        })
+
+        .state('app.businessmanager.business.servicesmanager', {
+            url: '/servicesmanager',
+            views: {
+                'subinner': {
+                    templateUrl: 'templates/business/services/main.html',
+                    controller: 'ServicesMainCtrl'
+                }
+            }
+        })
+
+    // MANAGE PROMOTIONS (MENU)
+    .state('app.businessmanager.business.servicesmanager.promotionsmanager', {
+        url: '/promotionsmanager',
         views: {
-            'inner': {
-                templateUrl: 'templates/business/map-subscriptions.html',
-                controller: 'MapSubscriptionsCtrl'
-            },
-            'fabContent': {
-                template: ''
+            'services-inner': {
+                templateUrl: 'templates/business/services/promotions/main.html'
             }
         }
     })
 
-    // ATTRIBUTES
-    //...............................................................    
-    .state('app.userattributes', {
-        url: '/userattributes',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/user-attributes.html',
-                controller: 'UserAttributesCtrl'
-            },
-            'fabContent': {
-                template: '<button id="fab-userattributes" class="button button-fab button-fab-top-right expanded button-energized-900 flap" ng-click="click()"><i class="icon ion-plus"></i></button>',
-                controller: function ($scope, $state, $timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-userattributes').classList.toggle('on');
-                    }, 200);
-                    
-                    $scope.click = function() {
-                    	$state.go('app.newattribute');
-                    };
+        .state('app.businessmanager.business.servicesmanager.promotionsmanager.nxm', {
+            url: '/nxm',
+            views: {
+                'promotions-inner': {
+                    template: 'N x M'
                 }
             }
-        }
-    })
-    
-    .state('app.newattribute', {
-        url: '/newattribute',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/new-attribute.html',
-                controller: 'NewAttributeCtrl'
-            },
-            'fabContent': {
-                template: '',
-                controller: function () {
+        })
+
+        .state('app.businessmanager.business.servicesmanager.promotionsmanager.discount', {
+            url: '/discount',
+            views: {
+                'promotions-inner': {
+                    template: 'Discount'
                 }
+            }
+        })
+
+        .state('app.businessmanager.business.servicesmanager.promotionsmanager.list', {
+            url: '/list',
+            views: {
+                'promotions-inner': {
+                    template: 'list'
+                }
+            }
+        })
+
+    // MANAGE COUPON (MENU)
+    .state('app.businessmanager.business.servicesmanager.couponsmanager', {
+        url: '/couponsmanager',
+        views: {
+            'services-inner': {
+                template: 'COUPON'
             }
         }
     })
 
-    .state('app.editattribute', {
-        url: '/editattribute/:uuid',
+    // MANAGE LAST MINUTE (MENU)
+    .state('app.businessmanager.business.servicesmanager.lastminutemanager', {
+        url: '/lastminutemanager',
         views: {
-            'menuContent': {
-                templateUrl: 'templates/edit-attribute.html',
-                controller: 'EditAttributeCtrl'
-            },
-            'fabContent': {
-                template: '',
-                controller: function () {
-                }
+            'services-inner': {
+                template: 'LAST MINUTE'
             }
         }
-    });
+    })
+
+    ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/landingpage');

@@ -1,13 +1,10 @@
-.haBrokerConnecting {
-	background-color:#CCCC33 !important;
-}
-.haBrokerConnected {
-	background-color:#66BB66 !important;
-}
-.haBrokerNotConnected {
-	background-color:#DD3333 !important;
+/* OVERRIDING styles */
+ion-view.pane {
+    background-color: transparent;
 }
 
+
+/* #HASH styles*/
 .ha-item {
 	margin: 5px 0;
 }
@@ -29,36 +26,30 @@
     height: 120px;
     padding-top: 10px !important;
 }
-
-
-
-
-
-
-ion-view.pane {
-	background-color: transparent;
+*.ha-list {
+    background: rgba(0, 0, 0, 0) linear-gradient(to top, #DDEEEE, transparent, transparent, transparent) repeat scroll 0 0;
+    margin-bottom: 5px;
+    position: relative;
 }
-
-
-
-
-
 .ha-sub-view {
 	top: 49px;
 }
 
 .ha-content.has-header,
 .ha-sub-content.has-header,
-.ha-sub-sub-content.has-header {
+.ha-sub-sub-content.has-header,
+.ha-sub-sub-sub-content.has-header{
     top: 0;
 }
-
 .ha-sub-content .tabs-dark {
 	background-color: #555;
 	border-color: #444;
 }
-
 .ha-sub-sub-content .tabs-dark {
 	background-color: #666;
 	border-color: #555;
+}
+.ha-sub-sub-sub-content .tabs-dark {
+    background-color: #777;
+    border-color: #666;
 }

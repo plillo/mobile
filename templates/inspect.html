@@ -1,30 +1,30 @@
 <ion-view view-title="Inspect">
     <ion-content ng-class="{expanded:isExpanded}">
 
-        <div style="padding:60px;">
+        <div class="ha-inspect">
             <h2>INSPECT</h2>
             <div class="row row-top">
                 <div class="col">
-                    <h3>Aplication</h3>
+                    <h3>Application</h3>
                     <ul>
-                        <li>code: {{appcode}}</li>
-                        <li>description: {{appdescription}}</li>
+                        <li><label>code</label>: {{appcode}}</li>
+                        <li><label>description</label>: {{appdescription}}</li>
                     </ul>
 
                     <h3>Connections</h3>
                     <ul>
-                        <li>backend: {{backend}}</li>
-                        <li>broker: {{broker.ip}}:{{broker.port}}</li>
+                        <li><label>backend</label>: {{backend}}</li>
+                        <li><label>broker</label>: {{broker.ip}}:{{broker.port}}</li>
                     </ul>
                 </div>
                 <div class="col">
                     <h3>User</h3>
                     <ul>
-                        <li>UUID: {{localStorage.currentUser.uuid}}</li>
-                        <li>username: {{localStorage.currentUser.username}}</li>
-                        <li>email: {{localStorage.currentUser.email}}</li>
-                        <li>first name: {{localStorage.currentUser.firstName}}</li>
-                        <li>last name: {{localStorage.currentUser.lastName}}</li>
+                        <li><label>UUID</label>: {{localStorage.currentUser.uuid}}</li>
+                        <li><label>username</label>: {{localStorage.currentUser.username}}</li>
+                        <li><label>email</label>: {{localStorage.currentUser.email}}</li>
+                        <li><label>first name</label>: {{localStorage.currentUser.firstName}}</li>
+                        <li><label>last name</label>: {{localStorage.currentUser.lastName}}</li>
                     </ul>
                 </div>
             </div>
