@@ -583,20 +583,11 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
         }
     })
 
-        .state('app.businessmanager.business.servicesmanager.promotionsmanager.nxm', {
-            url: '/nxm',
+        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create', {
+            url: '/create',
             views: {
                 'promotions-inner': {
-                    template: 'N x M'
-                }
-            }
-        })
-
-        .state('app.businessmanager.business.servicesmanager.promotionsmanager.discount', {
-            url: '/discount',
-            views: {
-                'promotions-inner': {
-                    template: 'Discount'
+                    templateUrl: 'templates/business/services/promotions/create.html'
                 }
             }
         })
@@ -609,26 +600,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
                 }
             }
         })
-
-    // MANAGE COUPON (MENU)
-    .state('app.businessmanager.business.servicesmanager.couponsmanager', {
-        url: '/couponsmanager',
-        views: {
-            'services-inner': {
-                template: 'COUPON'
-            }
-        }
-    })
-
-    // MANAGE LAST MINUTE (MENU)
-    .state('app.businessmanager.business.servicesmanager.lastminutemanager', {
-        url: '/lastminutemanager',
-        views: {
-            'services-inner': {
-                template: 'LAST MINUTE'
-            }
-        }
-    })
 
     ;
 

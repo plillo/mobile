@@ -1,0 +1,81 @@
+<div style="padding:10px;">
+<form name="promotionForm" id="promotion-form" method="post" novalidate>
+    <h2 style="text-align:center">Nuova promozione</h2>
+    <div class="list">
+
+        <div class="row" style="border-bottom: solid 1px #ccc;">
+            <div class="col">
+                <img src="img/promotions/specialoffer-min.jpg" />
+            </div>
+            <div class="col">
+                <img src="img/promotions/discount-min.jpg" />
+            </div>
+            <div class="col">
+                <img src="img/promotions/nxm-min.jpg" />
+            </div>
+            <div class="col">
+                <img src="img/promotions/lastminute-min.jpg" />
+            </div>
+            <div class="col">
+                <img src="img/promotions/nplus-min.jpg" />
+            </div>
+            <div class="col">
+                <img src="img/promotions/coupon-min.jpg" />
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="col item item-input item-floating-label">
+                <span class="input-label">Family/Class/Brick</span>
+                <input type="text" name="classification" ng-model="promotion.classification" placeholder="Insert Family/Class/Brick">
+            </label>
+            <label class="col item item-input item-floating-label">
+                <span class="input-label">Set</span>
+                <input type="text" name="set" ng-model="promotion.set" placeholder="Select the set of products">
+            </label>
+        </div>
+
+        <div class="row">
+            <label class="col item item-input item-floating-label">
+                <span class="input-label">From</span>
+                <input type="text" name="from" ng-model="promotion.from" placeholder="From">
+            </label>
+            <label class="col item item-input item-floating-label">
+                <span class="input-label">To</span>
+                <input type="text" name="to" ng-model="promotion.to" placeholder="To">
+            </label>
+        </div>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">City</span>
+            <input type="text" name="city" ng-model="uploadingBusiness.city" placeholder="City">
+        </label>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">CAP</span>
+            <input type="text" name="cap" ng-model="uploadingBusiness.cap" placeholder="CAP">
+        </label>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Partita IVA</span>
+            <input type="text" name="pIva" ng-model="uploadingBusiness.pIva" placeholder="Partita IVA">
+        </label>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Fiscal code</span>
+            <input type="text" name="fiscalCode" ng-model="uploadingBusiness.fiscalCode" placeholder="Fiscal code">
+        </label>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Description</span>
+            <textarea name="description" ng-model="uploadingBusiness.description" placeholder="Description"></textarea>
+        </label>
+
+        <app-search-categories categories-selected-attr="categoriesSelected"></app-search-categories>
+
+        <div class="padding" style="text-align: center">
+            <button id="button-send" class="button button-small button-assertive ink">Create</button>
+        </div>
+    </div>
+</form>
+</div>

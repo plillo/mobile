@@ -266,3 +266,40 @@ body {
 .angular-google-map-container {
     height: 100%;
 }
+
+
+.app-menu-list {
+
+}
+.app-menu-list .item {
+
+}
+.app-menu-list .item a.item-content {
+    border-bottom: 1px dotted #cccccc;
+    padding: 10px 10px 10px 16px;
+}
+
+.app-menu-list .item.app-menu-item-separator {
+    background: #cccccc linear-gradient(to bottom, #888888, transparent, transparent, transparent, transparent, transparent, transparent, transparent) repeat scroll 0 0;
+    padding: 5px 15px;
+}
+.app-menu-list .item.app-menu-item-separator h1 {
+    font-size: 18px;
+    font-style: italic;
+    text-align: right;
+    text-shadow: initial !important;
+}
+.app-menu-list .item i.icon {
+    color: #33aacc;
+    font-size: 35px;
+    min-width: 35px;
+    text-align: center;
+    float: left;
+}
+.app-menu-list .item label {
+    color: #555555;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px;
+}

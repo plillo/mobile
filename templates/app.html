@@ -3,39 +3,79 @@
     <ion-side-menu side="left">
         <ion-header-bar class="dark-bg expanded">
             <span class="avatar" style="background: url('img/crown.png'); background-size: cover;"></span>
-            <h2>Gestione notifiche</h2>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
-            <ion-list class="bs-menu-list">
-                <ion-item nav-clear menu-close ui-sref="app.inspect">
-                    <i class="icon ion-bug"></i> Inspect
+            <ion-list class="app-menu-list">
+                <!-- Servizi user -->
+                <ion-item nav-clear menu-close class="app-menu-item-separator">
+                    <h1>Servizi utente</h1>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.service">
-                    <i class="icon ion-settings"></i> Service Setting
+                <ion-item nav-clear menu-close ui-sref="app.social">
+                    <i class="icon ion-chatboxes"></i><label>&#181;Social</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.domotics">
+                    <i class="icon ion-radio-waves"></i><label>Domotica</label>
+                </ion-item>
+
+                <!-- Games user -->
+                <ion-item nav-clear menu-close class="app-menu-item-separator">
+                    <h1>Giochi</h1>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.tris">
+                    <i class="icon ion-xbox"></i><label>Tris</label>
+                </ion-item>
+
+                <!-- Servizi business -->
+                <ion-item nav-clear menu-close class="app-menu-item-separator">
+                    <h1>Servizi business</h1>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.consulting">
+                    <i class="icon ion-university"></i><label>&#181;Consulting</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.news">
-                    <i class="icon ion-speakerphone"></i> News
+                    <i class="icon ion-social-rss"></i><label>News</label>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.channels">
-                    <i class="icon ion-social-rss"></i> Abilitazione canali
+                <ion-item nav-clear menu-close ui-sref="app.cart">
+                    <i class="icon ion-social-rss"></i><label>Carrello</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.store">
+                    <i class="icon ion-social-rss"></i><label>Magazzino</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.agents">
+                    <i class="icon ion-social-rss"></i><label>Agenti</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.restaurant">
+                    <i class="icon ion-social-rss"></i><label>Restaurant booking</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.booking">
+                    <i class="icon ion-social-rss"></i><label>B&B booking</label>
+                </ion-item>
+
+                <!-- Test -->
+                <ion-item nav-clear menu-close class="app-menu-item-separator">
+                    <h1>Test</h1>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.lookingfor">
-                    <i class="icon ion-search"></i> Looking for...
+                    <i class="icon ion-search"></i><label>Test RT buttons</label>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.map">
-                    <i class="icon ion-search"></i> Map
+                <ion-item nav-clear menu-close ui-sref="app.qrcode" ng-if="isBusinessUser()">
+                    <i class="icon ion-bag"></i><label>Codice QR</label>
+                </ion-item>
+
+                <!-- Sistema -->
+                <ion-item nav-clear menu-close class="app-menu-item-separator">
+                    <h1>Sistema</h1>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.inspect">
+                    <i class="icon ion-bug"></i><label>Inspect</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.service">
+                    <i class="icon ion-settings"></i><label>Service Setting</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.userattributes">
-                    <i class="icon ion-gear-a"></i> Attributi utente
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.landingpage">
-                    <i class="icon ion-reply-all"></i> Landing page
+                    <i class="icon ion-gear-a"></i><label>Attributi utente</label>
                 </ion-item>
             </ion-list>
-            
-            <div class="padding" style="text-align: center">
-    			<button id="new-business" ng-click="reloadPage()" style="cursor: pointer;" class="button button-small button-assertive ink"><i class="icon ion-refresh"></i> Reload</button>
-			</div>
         </ion-content>
 	</ion-side-menu>
 
@@ -59,42 +99,45 @@
             <h2>#hash.it</h2>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
-            <ion-list class="bs-menu-list">
-                <ion-item nav-clear menu-close ui-sref="app.qrcode" ng-if="isBusinessUser()">
-                    <i class="icon ion-bag"></i> Codice QR
-                </ion-item>
+            <ion-list class="app-menu-list">
                 <ion-item nav-clear menu-close ui-sref="app.profile" ng-if="isUserLogged()">
-                    <i class="icon ion-person"></i> Profilo
+                    <i class="icon ion-person app-menu-icon"></i><label>Profilo</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.subscriptions">
-                    <i class="icon ion-card"></i> Sottoscrizioni
+                    <i class="icon ion-card app-menu-icon"></i><label>Sottoscrizioni</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.business" ng-if="isUserLogged() && !isBusinessUser()">
-                    <i class="icon ion-bag"></i> Attiva il tuo business
+                    <i class="icon ion-bag"></i><label>Il tuo business</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.businessmanager" ng-if="isUserLogged() && isBusinessUser()">
-                    <i class="icon ion-bag"></i> Gestisci il tuo business
+                    <i class="icon ion-bag"></i><label>Gestisci il tuo business</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.gallery" ng-if="isUserLogged()">
-                    <i class="icon ion-android-map"></i> Volantino
+                    <i class="icon ion-android-map"></i><label>Volantino</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.invite" ng-if="isUserLogged()">
-                    <i class="icon ion-android-people"></i> Invita un amico
+                    <i class="icon ion-android-people"></i><label>Invita un amico</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.info" ng-if="!isUserLogged()">
-                    <i class="icon ion-locked"></i> Informazioni
+                    <i class="icon ion-locked"></i><label>Informazioni</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.help" ng-if="isUserLogged()">
-                    <i class="icon ion-locked"></i> Help
+                    <i class="icon ion-locked"></i><label>Help</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.landingpage">
+                    <i class="icon ion-reply-all"></i><label>Landing page</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.login" ng-if="!isUserLogged()">
-                    <i class="icon ion-log-in"></i> Log-in
+                    <i class="icon ion-log-in"></i><label>Log-in</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.landingpage" ng-if="isUserLogged()" ng-click="logout()">
-                    <i class="icon ion-log-out"></i> Log-out
+                    <i class="icon ion-log-out"></i><label>Log-out</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.landingpage" ng-click="exit()">
-                    <i class="icon ion-android-close"></i> Exit
+                    <i class="icon ion-android-close"></i><label>Exit</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ng-click="reloadPage()">
+                    <i class="icon ion-refresh"></i><label>Reload</label>
                 </ion-item>
             </ion-list>
         </ion-content>
