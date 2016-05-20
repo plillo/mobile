@@ -277,6 +277,21 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     ionicMaterialInk.displayEffect();
 })
 
+.controller('PromotionsCtrl', function($scope) {
+    $scope.click = function($event){
+        $($event.target).closest('.ha-tab-image').find('.ha-tab-image-selected').removeClass('ha-tab-image-selected');
+        $($event.target).removeClass('ha-tab-image-not-selected').addClass('ha-tab-image-selected').closest('.ha-tab-image').find('img:not(.ha-tab-image-selected)').addClass('ha-tab-image-not-selected');
+    }
+})
+
+.controller('PromotionsSpecialOfferCtrl', function($scope) {
+    $scope.fromDatetimeValue = new Date();
+    $scope.toDatetimeValue = new Date();
+    $scope.promotion = {};
+    $scope.promotion.quantity = 1;
+    $scope.promotion.price = 0;
+})
+
 ;
 
 

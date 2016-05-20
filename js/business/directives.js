@@ -48,7 +48,7 @@ angular.module('business.directives').directive('appSearchCategories', function(
 
 //ADD 'appSearchBusiness' directive
 //.................................
-angular.module('business.directives').directive('appSearchBusiness', function(business, ionicMaterialMotion, ionicMaterialInk) {
+angular.module('business.directives').directive('appSearchBusiness', function(business) {
 	return {
 		replace: false,
 		scope: {},
@@ -241,7 +241,7 @@ angular.module('business.directives').directive('appBusinessForm', function(busi
 						function (response) {
 							if (response.status > 0)
 						        $scope.errorMsg = response.status + ': ' + response.data;
-						    },
+						},
 					    function (evt) {
 					      // Math.min is to fix IE which reports 200% sometimes
 					      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));

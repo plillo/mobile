@@ -1,5 +1,11 @@
-angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
 
+.run(function($rootScope){
+    $rootScope.dateValue = new Date();
+    $rootScope.timeValue = new Date();
+    $rootScope.datetimeValue = new Date();
+})
+    
 /* IONIC PLATFORM configuration and run */
 /* ==================================== */
 .config(function($compileProvider){
@@ -484,7 +490,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
             }
         }
     })
-
         // MAP BUSINESS
         .state('app.businessmanager.business.map', {
             url: '/map',
@@ -495,7 +500,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
                 }
             }
         })
-
         // UPDATE BUSINESS
         .state('app.businessmanager.business.update', {
                 url: '/update',
@@ -515,7 +519,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
             }
         }
     })
-        
         .state('app.businessmanager.business.subscribersmanager.create', {
             url: '/create',
             views: {
@@ -524,7 +527,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
                 }
             }
         })
-
         .state('app.businessmanager.business.subscribersmanager.list', {
             url: '/list',
             views: {
@@ -544,7 +546,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
             }
         }
     })
-
         .state('app.businessmanager.business.productsmanager.create', {
             url: '/productcreate',
             views: {
@@ -553,7 +554,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
                 }
             }
         })
-
         .state('app.businessmanager.business.productsmanager.list', {
             url: '/productlist',
             views: {
@@ -562,7 +562,6 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
                 }
             }
         })
-
         .state('app.businessmanager.business.servicesmanager', {
             url: '/servicesmanager',
             views: {
@@ -582,16 +581,69 @@ angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'hashServices', 'hashDi
             }
         }
     })
-
         .state('app.businessmanager.business.servicesmanager.promotionsmanager.create', {
             url: '/create',
             views: {
                 'promotions-inner': {
-                    templateUrl: 'templates/business/services/promotions/create.html'
+                    templateUrl: 'templates/business/services/promotions/create.html',
+                    controller: 'PromotionsCtrl'
                 }
             }
         })
-
+            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.specialoffer', {
+                url: '/specialoffer',
+                views: {
+                    'promotion-edit-view': {
+                        templateUrl: 'templates/business/services/promotions/specialoffer.html',
+                        controller: 'PromotionsSpecialOfferCtrl'
+                    }
+                }
+            })
+            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.discount', {
+                url: '/discount',
+                views: {
+                    'promotion-edit-view': {
+                        templateUrl: 'templates/business/services/promotions/discount.html',
+                        controller: 'PromotionsDiscountCtrl'
+                    }
+                }
+            })
+            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.nxm', {
+                url: '/nxm',
+                views: {
+                    'promotion-edit-view': {
+                        templateUrl: 'templates/business/services/promotions/nxm.html',
+                        controller: 'PromotionsNxmCtrl'
+                    }
+                }
+            })
+            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.lastminute', {
+                url: '/lastminute',
+                views: {
+                    'promotion-edit-view': {
+                        templateUrl: 'templates/business/services/promotions/lastminute.html',
+                        controller: 'PromotionsLastMinuteCtrl'
+                    }
+                }
+            })
+            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.nplus', {
+                url: '/nplus',
+                views: {
+                    'promotion-edit-view': {
+                        templateUrl: 'templates/business/services/promotions/nplus.html',
+                        controller: 'PromotionsNplusCtrl'
+                    }
+                }
+            })
+            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.coupon', {
+                url: '/coupon',
+                views: {
+                    'promotion-edit-view': {
+                        templateUrl: 'templates/business/services/promotions/coupon.html',
+                        controller: 'PromotionsCouponCtrl'
+                    }
+                }
+            })
         .state('app.businessmanager.business.servicesmanager.promotionsmanager.list', {
             url: '/list',
             views: {

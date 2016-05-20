@@ -1,5 +1,4 @@
 <div class="bs-owned-business-results">
-
     <div ng-repeat="result in results" class="bs-owned-business-result" href="#" data-uuid="{{result.uuid}}">
       <button class="button button-fab button-fab-top-right expanded button-energized-900" ng-click="remove('{{result.uuid}}', $event)"><i class="icon ion-minus"></i></button>
       <button class="button button-fab button-fab-top-right expanded button-energized-900" ng-click="edit('{{result.uuid}}', 'app.businessmanager.business')"><i class="icon ion-gear-b"></i></button>
@@ -14,5 +13,4 @@
       	<div>UUID: {{result.uuid}}</div>
       </div>
     </div>
-
 </div>

@@ -259,6 +259,100 @@ body {
     height: 100%;
 }
 
+
+
+
+
+.ha-tab-image-not-selected {
+    -webkit-filter: grayscale(100%) opacity(25%); /* Chrome, Safari, Opera */
+    filter: grayscale(100%) opacity(25%);
+}
+.ha-tab-image .col {
+    cursor: pointer;
+}
+
+
+
+.ha-center {
+    text-align:center;
+}
+
+
+
+.ha-search-container {
+    text-align: left;
+}
+.ha-search {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    bottom: 0;
+    color: #fff !important;
+    letter-spacing: 0.25rem;
+    margin: 0 auto;
+    padding: 0 10px !important;
+    position: relative;
+    text-align: left;
+    width: 100%;
+    z-index: 1;
+}
+.ha-search i.icon{
+    display: inline-block;
+    font-size: 34px;
+    margin: 5px;
+}
+.ha-search .ha-search-input {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    display: inline-block !important;
+    float: right;
+    height: 44px;
+    left: 48px;
+    padding: 0 0 0 8px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ha-search-results {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #dadada, transparent, transparent, transparent) repeat scroll 0 0;
+    border-radius: 20px;
+    padding: 20px;
+}
+.ha-search-results .ha-search-result {
+    height: 32px;
+}
+.ha-search-results .ha-search-result i {
+    float: left;
+    font-size: 32px;
+    cursor: pointer;
+}
+.ha-search-results .ha-search-result span {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.ha-search-selected {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #DDEEEE, transparent, transparent, transparent) repeat scroll 0 0;
+    border-radius: 20px;
+    padding: 20px;
+}
+.ha-search-selected .ha-selected-item {
+    height: 32px;
+}
+.ha-search-selected .ha-selected-item i {
+    float: left;
+    font-size: 32px;
+    cursor: pointer;
+}
+.ha-search-selected .ha-selected-item span {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+
+
 .angular-google-map {
     height: 100%;
 }
@@ -302,4 +396,31 @@ body {
     display: inline-block;
     font-size: 16px;
     margin: 6px;
+}
+
+
+
+.app-promotion h3 {
+    border-top: 3px solid #dddddd;
+    color: #333333;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.app-promotion-date {
+    background-color: #eeeeee;
+    border-radius: 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+.app-promotion-date i.icon {
+    color: #aaaaaa;
+    float: left;
+    font-size: 34px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.app-promotion-date span.datetime {
+    display: inline-block;
+    margin-top: 8px;
 }
