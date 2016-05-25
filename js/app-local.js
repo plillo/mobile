@@ -44,14 +44,14 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
 /* ==================================== */
 /* BACKEND configuration and run*/
 .config(function(haBackendProvider){
-    haBackendProvider.setBackend('http://52.28.84.18:8181');
+    haBackendProvider.setBackend('http://localhost:8080');
 })
 .run(function(haBackend){})
 
 /* BROKER configuration */
 .config(function(haBrokerProvider){
-    haBrokerProvider.initBroker('52.28.84.18', 61614);
-    //haBrokerProvider.initBroker('localhost', 61614);
+    //haBrokerProvider.initBroker('52.28.84.18', 61614);
+    haBrokerProvider.initBroker('localhost', 61614);
 })
 
 /* APPLICATION configuration and run*/
@@ -447,6 +447,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
+    
         // CREATE BUSINESS
         .state('app.businessmanager.create', {
             url: '/create',
@@ -457,6 +458,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                 }
             }
         })
+
         // LIST BUSINESSES
         .state('app.businessmanager.list', {
                 url: '/list',
@@ -466,6 +468,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                     }
                 }
             })
+
         // MAP ALL BUSINESSES
         .state('app.businessmanager.map', {
             url: '/map',

@@ -190,7 +190,7 @@ angular.module('business.directives').directive('appBusinessForm', function(busi
 	return {
 		replace: false,
 		scope: true,
-		templateUrl : 'templates/business/business/create-business-form.html',
+		templateUrl : 'js/business/templates/create-business-form.html',
 		controller: function($scope, $state, $rootScope, $window, $element, $timeout, Upload){
 	       	// scope-properties
 			$scope.categoriesSelected = [];
@@ -412,83 +412,69 @@ angular.module('business.directives').directive('appConfigureBusinessForm', func
 angular.module('business.directives').directive('appProductForm', function() {
 	return {
 		replace: false,
-		scope: true,
-		templateUrl : 'templates/business/products/form.html',
-		controller: function($scope, $state, $rootScope, $window, $element, $timeout, Upload){
+		scope: {
+
+		},
+		templateUrl : 'js/business/templates/product-form.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, Upload){
 			// scope-properties
+			$scope.images = [];
 			$scope.categoriesSelected = [];
+			$scope.validData = true;
+			$scope.data = {
+				price1: 0,
+				price2: 0,
+				price3: 0
+			};
 
 			// scope-functions
-			$scope.uploadForm = function () {
+			$scope.create = function () {
 				$scope.formUpload = true;
-				$scope.uploadUsingUpload($scope.logoFile);
+				$scope.upload()
 			};
 
-			$scope.uploadUsingUpload = function(file, resumable) {
-				var baseUrl = $rootScope.urlBackend+'/businesses/1.0/product/';
+			$scope.upload = function() {
+				// Set form data without files
+				var data = (JSON.parse(JSON.stringify($scope.data)));
 
-				// Set form data
-				var data = (JSON.parse(JSON.stringify($scope.uploadingProduct)));
-
-				// Set categories
-				var selected = [];
-				for(var i = 0; i < $scope.categoriesSelected.length; i++){
-					selected.push($scope.categoriesSelected[i].uuid);
-				}
-				data.categories = selected;
-
-				// Set file
-				if(file!=null)
-					data.logo = file;
-
-				// Send data and get promise
-				var promise = Upload.upload({
-					url: baseUrl + $scope.getReqParams(),
-					resumeSizeUrl: resumable ? baseUrl +'?name=' + encodeURIComponent(file.name) : null,
-					resumeChunkSize: resumable ? $scope.chunkSize : null,
-					method: 'PUT',
-					data: data
-				});
-
-				if(file!=null) {
-					file.upload = promise;
-
-					// Set promise actions
-					file.upload.then(
-						function (response) {
-							$timeout(function () {
-								file.result = response.data;
-								$state.go('app.businessmanager.editbusiness.productsmanager');
-							});
-						},
-						function (response) {
-							if (response.status > 0)
-								$scope.errorMsg = response.status + ': ' + response.data;
-						},
-						function (evt) {
-							// Math.min is to fix IE which reports 200% sometimes
-							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-						});
-
-					file.upload.xhr(function (xhr) {
-						// xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
-					});
-				}
-				else {
-					promise.then(
-						function (response) {
-							$timeout(function () {
-								$scope.result = response.data;
-								$state.go('app.businessmanager.editbusiness.productsmanager');
-							});
+				$http.put($rootScope.urlBackend+'/businesses/1.0/product/', data).then(
+					// Form data uploaded: product created
+					function (response) {
+						// Uploading images
+						if ($scope.images && $scope.images.length) {
+							for (var i = 0; i < $scope.images.length; i++) {
+								Upload.upload({
+									url: $rootScope.urlBackend+'/businesses/1.0/product/image/',
+									method: 'PUT',
+									data: {
+										file: $scope.images[i]
+									}
+								}).then(
+									// Image loaded
+									function (response) {
+										// TODO
+									},
+									// Error loading image
+									function (response) {
+										if (response.status > 0){
+											$scope.errorMsg = response.status + ': ' + response.data;
+										}
+									},
+									// Progress
+									function (evt) {
+										$scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+									}
+								);
+							}
 						}
-					);
-				}
-			};
-
-			$scope.getReqParams = function () {
-				return $scope.generateErrorOnServer ? '?errorCode=' + $scope.serverErrorCode +
-				'&errorMessage=' + $scope.serverErrorMsg : '';
+					},
+					// Error uploading form data
+					function (response) {
+						alert('Error uploading form data');
+						if (response.status > 0)
+							$scope.errorMsg = response.status + ': ' + response.data;
+					}
+				);
 			};
 		},
 		link: function(scope, element, attributes){

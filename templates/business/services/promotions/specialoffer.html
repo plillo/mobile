@@ -1,7 +1,6 @@
-<h3>Offerta speciale</h3>
+<h3>Offerta speciale su singolo prodotto</h3>
 
-<div class="list">
-
+<div class="list ha-bottom-200">
     <div class="row">
         <label class="col item item-input">
             <span class="input-label">Dalla data/ora</span>
@@ -10,12 +9,13 @@
             <span class="input-label">Alla data/ora</span>
         </label>
     </div>
+
     <div class="row">
-        <div class="col app-promotion-date" ion-datetime-picker ng-model="fromDatetimeValue" style="text-align:left;">
-            <i class="icon ion-ios-calendar-outline positive"></i><span class="datetime">{{fromDatetimeValue | date: "yyyy-MM-dd H:mm:ss"}}</span>
+        <div class="col app-promotion-date" ng-class="{'ha-not-valid':!validDates}" ion-datetime-picker monday-first ng-model="promotions.specialOffer.fromDatetimeValue" style="text-align:left;">
+            <i class="icon ion-ios-calendar-outline positive"></i><span class="datetime">{{promotions.specialOffer.fromDatetimeValue | date: "dd-MM-yyyy H:mm"}}</span>
         </div>
-        <div class="col app-promotion-date" ion-datetime-picker ng-model="toDatetimeValue" style="text-align:left;">
-            <i class="icon ion-ios-calendar-outline positive"></i><span class="datetime">{{toDatetimeValue | date: "yyyy-MM-dd H:mm:ss"}}</span>
+        <div class="col app-promotion-date" ng-class="{'ha-not-valid':!validDates}" ion-datetime-picker monday-first ng-model="promotions.specialOffer.toDatetimeValue" style="text-align:left;">
+            <i class="icon ion-ios-calendar-outline positive"></i><span class="datetime">{{promotions.specialOffer.toDatetimeValue | date: "dd-MM-yyyy H:mm"}}</span>
         </div>
     </div>
 
@@ -27,23 +27,26 @@
 
     <div class="row">
         <div class="col">
-            <ha-select-by-service service="product"></ha-select-by-service>
+            <ha-select-by-service multiple="true" selected-items="specialoffer.products" service="product"></ha-select-by-service>
         </div>
     </div>
 
     <div class="row">
         <label class="col item item-input item-floating-label">
             <span class="input-label">Quantità</span>
-            <input type="text" name="quantity" ng-model="promotion.quantity" placeholder="Inserire quantità">
+            <input type="text" name="quantity" ng-model="specialoffer.quantity" placeholder="Inserire quantità">
         </label>
         <label class="col item item-input item-floating-label">
             <span class="input-label">Prezzo</span>
-            <input type="text" name="price" ng-model="promotion.price" placeholder="Inserire il prezzo dell'offerta">
+            <input type="text" name="price" ng-model="specialoffer.price" placeholder="Inserire il prezzo dell'offerta">
+        </label>
+        <label class="col item item-input item-floating-label">
+            <span class="input-label">Disponibilità</span>
+            <input type="text" name="availability" ng-model="specialoffer.availability" placeholder="Disponibilità">
         </label>
     </div>
 
-    <div class="padding" style="text-align: center;margin-bottom:200px;">
-        <button id="button-send" class="button button-small button-assertive ink">Avvia promozione</button>
+    <div class="padding ha-center" ng-if="validDates && validData">
+        <button id="button-send" class="button button-small button-assertive ink" ng-click="create()">Avvia promozione</button>
     </div>
-
 </div>

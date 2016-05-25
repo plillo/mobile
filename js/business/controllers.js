@@ -277,19 +277,95 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('PromotionsCtrl', function($scope) {
+.controller('PromotionsCtrl', function($scope, $rootScope) {
+    $scope.validDates = false;
+
+    if(!$rootScope.promotions) {
+        $rootScope.promotions = {};
+    }
+
+    if(!$rootScope.promotions.specialOffer) {
+        var todate = new Date();
+        $rootScope.promotions.specialOffer = {
+            fromDatetimeValue : new Date(),
+            toDatetimeValue : todate.setDate(todate.getDate() + 1)
+        };
+    }
+
+    $scope.$watch('promotions.specialOffer.fromDatetimeValue',function(newValue, oldValue){
+        $scope.validateDates();
+    });
+    $scope.$watch('promotions.specialOffer.toDatetimeValue',function(newValue, oldValue){
+        $scope.validateDates();
+    });
+    
+    $scope.validateDates = function(){
+        if($rootScope.promotions.specialOffer.fromDatetimeValue>=$rootScope.promotions.specialOffer.toDatetimeValue){
+            $scope.validDates = false;
+        }
+        else if($rootScope.promotions.specialOffer.toDatetimeValue<=new Date()){
+            $scope.validDates = false;
+        }
+        else
+            $scope.validDates = true;
+    };
+    
     $scope.click = function($event){
         $($event.target).closest('.ha-tab-image').find('.ha-tab-image-selected').removeClass('ha-tab-image-selected');
         $($event.target).removeClass('ha-tab-image-not-selected').addClass('ha-tab-image-selected').closest('.ha-tab-image').find('img:not(.ha-tab-image-selected)').addClass('ha-tab-image-not-selected');
+    };
+
+    $scope.validateDates();
+})
+
+.controller('PromotionsSpecialOfferCtrl', function($scope, $state, promotion) {
+    $scope.validData = false;
+
+    $scope.selectedItems = [];
+
+    $scope.specialoffer = {
+        type : 'SPO',
+        business: $state.params.uuid,
+        fromDate: $scope.promotions.specialOffer.fromDatetimeValue,
+        toDate: $scope.promotions.specialOffer.toDatetimeValue,
+        products: [],
+        availability: '*',
+        quantity: 1,
+        price: 0
+    };
+
+    $scope.$watch('specialoffer.quantity',function(newValue, oldValue){
+        $scope.validateData();
+    });
+
+    $scope.$watch('specialoffer.price',function(newValue, oldValue){
+        $scope.validateData();
+    });
+
+    $scope.validateData = function(){
+        $scope.validData = $scope.specialoffer.quantity>0 && $scope.specialoffer.price>0;
+    }
+
+    $scope.create = function(){
+        promotion.createPromotion($scope.specialoffer).then(
+            function successCallback(response) {
+                alert('OK');
+            },
+            function errorCallback(response) {
+                $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+            }
+         );
     }
 })
 
-.controller('PromotionsSpecialOfferCtrl', function($scope) {
-    $scope.fromDatetimeValue = new Date();
-    $scope.toDatetimeValue = new Date();
-    $scope.promotion = {};
-    $scope.promotion.quantity = 1;
-    $scope.promotion.price = 0;
+.controller('PromotionsDiscountCtrl', function($scope, $state) {
+    $scope.discount = {
+        discount: 10
+    };
+
+    $scope.send = function(){
+        $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+    }
 })
 
 ;

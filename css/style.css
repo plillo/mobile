@@ -274,8 +274,37 @@ body {
 
 
 .ha-center {
-    text-align:center;
+    text-align: center;
 }
+.ha-bottom-100 {
+    margin-bottom: 100px !important;
+}
+.ha-bottom-200 {
+    margin-bottom: 200px !important;
+}
+
+.ha-medium-height {
+    height: 100px !important;
+}
+
+
+
+/*
+.ha-input-area input[type=text] {
+    background-color: #EEEEEE;
+    padding-left: 5px;
+}
+.ha-input-area textarea {
+    background-color: #EEEEEE;
+    padding: 5px;
+}
+.ha-input-area input[type="file"] {
+    width: 100%;
+    background-color: #EEEEEE;
+    margin: 6px 5px;
+    padding-left: 5px;
+}
+*/
 
 
 
@@ -313,9 +342,9 @@ body {
     width: 100%;
 }
 .ha-search-results {
-    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #dadada, transparent, transparent, transparent) repeat scroll 0 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.05), transparent, transparent, transparent) repeat scroll 0 0;
     border-radius: 20px;
-    padding: 20px;
+    padding: 10px 20px 0;
 }
 .ha-search-results .ha-search-result {
     height: 32px;
@@ -327,13 +356,19 @@ body {
 }
 .ha-search-results .ha-search-result span {
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: 6px;
+}
+.ha-search-result {
+    margin-bottom: 1px;
+}
+.ha-search-result-selected {
+    background: linear-gradient(to right, rgba(50,255,0,0.5), transparent);
+    border-radius: 16px;
 }
 .ha-search-selected {
-    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #DDEEEE, transparent, transparent, transparent) repeat scroll 0 0;
-    border-radius: 20px;
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #EEEEEE, transparent) repeat scroll 0 0;
     padding: 20px;
 }
 .ha-search-selected .ha-selected-item {
@@ -349,6 +384,16 @@ body {
     font-size: 16px;
     margin-left: 10px;
     margin-top: 5px;
+}
+
+
+
+.ha-not-valid {
+    background-color: #FFDDCC !important;
+}
+.ha-not-valid i,
+.ha-not-valid span.datetime {
+    color: #CC3333 !important;
 }
 
 
@@ -400,7 +445,8 @@ body {
 
 
 
-.app-promotion h3 {
+.app-promotion h3,
+.app-product h3 {
     border-top: 3px solid #dddddd;
     color: #333333;
     padding-top: 15px;
@@ -416,11 +462,11 @@ body {
 .app-promotion-date i.icon {
     color: #aaaaaa;
     float: left;
-    font-size: 34px;
+    font-size: 25px;
     margin-left: 8px;
     margin-right: 8px;
 }
 .app-promotion-date span.datetime {
     display: inline-block;
-    margin-top: 8px;
+    margin-top: 4px;
 }

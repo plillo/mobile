@@ -109,6 +109,51 @@ angular.module('business.services').factory('business', function($http, $rootSco
 	}
 });
 
+angular.module('business.services').factory('category', function($http, $rootScope, $q, $timeout) {
+	return {
+		createCategory: function(data){
+			return $http.put($rootScope.urlBackend+'/businesses/1.0/category/', data); // return promise
+		},
+		updateCategory: function(uuid, data){
+			return $http.post($rootScope.urlBackend+'/businesses/1.0/category/'+uuid, data); // return promise
+		},
+		deleteCategory: function(uuid){
+			var pars = {
+				method:'DELETE',
+				url:$rootScope.urlBackend+'/businesses/1.0/category/'+uuid
+			};
+			return $http(pars); // return promise
+		},
+		getByUUID: function(uuid){
+			var pars = {
+				method:'GET',
+				url:$rootScope.urlBackend+'/businesses/1.0/category/'+uuid
+			};
+			return $http(pars); // return promise
+		},
+		getBySearchKeyword: function(keyword){
+			/*
+			 var pars = {
+			 method:'GET',
+			 url: $rootScope.urlBackend+'/businesses/1.0/category/by_searchKeyword/'+keyword
+			 };
+			 return $http(pars); // return promise
+			 */
+
+			var list = [];
+			list.push({uuid:'11111111-af45-bca2-cfa3-a1324bc324f1', code:'mocked category 1', description:'mocked long category 1'});
+			list.push({uuid:'22222222-af45-bca2-cfa3-a1324bc324f1', code:'mocked category 2', description:'mocked long category 2'});
+			list.push({uuid:'33333333-af45-bca2-cfa3-a1324bc324f1', code:'mocked category 3', description:'mocked long category 3'});
+			var deferred = $q.defer();
+			$timeout(function() {
+				deferred.resolve(list);
+			}, 100);
+
+			return deferred.promise; // return promise
+		}
+	}
+});
+
 angular.module('business.services').factory('product', function($http, $rootScope, $q, $timeout) {
 	return {
 		createProduct: function(data){
@@ -132,14 +177,13 @@ angular.module('business.services').factory('product', function($http, $rootScop
 			return $http(pars); // return promise
 		},
 		getBySearchKeyword: function(keyword){
-			/*
 			var pars = {
 				method:'GET',
 				url: $rootScope.urlBackend+'/businesses/1.0/product/by_searchKeyword/'+keyword
 			};
 			return $http(pars); // return promise
-			*/
 
+			/*
 			var list = [];
 			list.push({uuid:'11111111-af45-bca2-cfa3-a1324bc324f1', code:'mocked 1', description:'mocked topic 1'});
 			list.push({uuid:'22222222-af45-bca2-cfa3-a1324bc324f1', code:'mocked 2', description:'mocked topic 2'});
@@ -150,6 +194,32 @@ angular.module('business.services').factory('product', function($http, $rootScop
 			}, 100);
 
 			return deferred.promise; // return promise
+			*/
+		}
+	}
+});
+
+angular.module('business.services').factory('promotion', function($http, $rootScope) {
+	return {
+		createPromotion: function(data){
+			return $http.put($rootScope.urlBackend+'/businesses/1.0/promotion/', data); // return promise
+		},
+		updatePromotion: function(uuid, data){
+			return $http.post($rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid, data); // return promise
+		},
+		deletePromotion: function(uuid){
+			var pars = {
+				method:'DELETE',
+				url:$rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid
+			};
+			return $http(pars); // return promise
+		},
+		getByUUID: function(uuid){
+			var pars = {
+				method:'GET',
+				url:$rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid
+			};
+			return $http(pars); // return promise
 		}
 	}
 });
