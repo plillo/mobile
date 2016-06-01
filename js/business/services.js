@@ -132,14 +132,16 @@ angular.module('business.services').factory('category', function($http, $rootSco
 			return $http(pars); // return promise
 		},
 		getBySearchKeyword: function(keyword){
-			/*
-			 var pars = {
-			 method:'GET',
-			 url: $rootScope.urlBackend+'/businesses/1.0/category/by_searchKeyword/'+keyword
-			 };
-			 return $http(pars); // return promise
-			 */
+			if(!keyword || keyword=='')
+				keyword = '%20'; // space url code
+			var pars = {
+				method:'GET',
+				url: $rootScope.urlBackend+'/businesses/1.0/category/by_searchKeyword/'+keyword
+			};
+			return $http(pars); // return promise
 
+			/*
+			// MOCKED IMPLEMENTATION
 			var list = [];
 			list.push({uuid:'11111111-af45-bca2-cfa3-a1324bc324f1', code:'mocked category 1', description:'mocked long category 1'});
 			list.push({uuid:'22222222-af45-bca2-cfa3-a1324bc324f1', code:'mocked category 2', description:'mocked long category 2'});
@@ -150,6 +152,7 @@ angular.module('business.services').factory('category', function($http, $rootSco
 			}, 100);
 
 			return deferred.promise; // return promise
+			*/
 		}
 	}
 });
@@ -176,25 +179,28 @@ angular.module('business.services').factory('product', function($http, $rootScop
 			};
 			return $http(pars); // return promise
 		},
-		getBySearchKeyword: function(keyword){
+		getBySearchKeyword: function(keyword, businessUuid){
+			if(!keyword || keyword=='')
+				keyword = '%20'; // space url code
 			var pars = {
 				method:'GET',
-				url: $rootScope.urlBackend+'/businesses/1.0/product/by_searchKeyword/'+keyword
+				url: $rootScope.urlBackend+'/businesses/1.0/business/'+businessUuid+'/product/by_searchKeyword/'+keyword
 			};
 			return $http(pars); // return promise
-
-			/*
-			var list = [];
-			list.push({uuid:'11111111-af45-bca2-cfa3-a1324bc324f1', code:'mocked 1', description:'mocked topic 1'});
-			list.push({uuid:'22222222-af45-bca2-cfa3-a1324bc324f1', code:'mocked 2', description:'mocked topic 2'});
-			list.push({uuid:'33333333-af45-bca2-cfa3-a1324bc324f1', code:'mocked 3', description:'mocked topic 3'});
-			var deferred = $q.defer();
-			$timeout(function() {
-				deferred.resolve(list);
-			}, 100);
-
-			return deferred.promise; // return promise
-			*/
+		},
+		getCategories: function(uuid){
+			var pars = {
+				method:'GET',
+				url:$rootScope.urlBackend+'/businesses/1.0/product/'+uuid+'/categories'
+			};
+			return $http(pars); // return promise
+		},
+		getPictures: function(uuid){
+			var pars = {
+				method:'GET',
+				url:$rootScope.urlBackend+'/businesses/1.0/product/'+uuid+'/pictures'
+			};
+			return $http(pars); // return promise
 		}
 	}
 });

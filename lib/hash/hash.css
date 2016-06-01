@@ -31,32 +31,8 @@ ion-view.pane {
     margin-bottom: 5px;
     position: relative;
 }
-.ha-upload-button{
-    margin: 20px auto 0;
-    text-align: center;
-    background-color: #EEEEEE;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-.ha-upload-button label{
-    cursor: pointer;
-}
-*.ha-upload-list {
-    margin: 5px;
-}
-*.ha-upload-list .row {
-    margin: 0;
-    padding: 0;
-    font-size: 13px;
-}
-*.ha-upload-list .row .col {
-    border-bottom: 1px solid #EEEEEE;
-}
-*.ha-upload-list .row .col-66 {
-    border-right: 1px solid #EEEEEE;
-    font-weight: bold;
-}
+
+
 .ha-sub-view {
 	top: 49px;
 }

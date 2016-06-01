@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'business.develop.directives', 'business.develop.controllers', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
 
 .run(function($rootScope){
     $rootScope.dateValue = new Date();
@@ -349,26 +349,59 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-
-    .state('app.subscriptions.newsubscription', {
-        url: '/new-subscription',
-        views: {
-            'inner': {
-                template: '<app-search-business></app-search-business>',
-                controller: 'NewSubscriptionCtrl'
+        .state('app.subscriptions.newsubscription', {
+            url: '/new-subscription',
+            views: {
+                'inner': {
+                    template: '<app-search-business></app-search-business>',
+                    controller: 'NewSubscriptionCtrl'
+                }
             }
-        }
-    })
-
-    .state('app.subscriptions.map', {
-        url: '/map',
-        views: {
-            'inner': {
-                template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control"></ui-gmap-google-map>',
-                controller: 'MapSubscriptionsCtrl'
+        })
+        .state('app.subscriptions.map', {
+            url: '/map',
+            views: {
+                'inner': {
+                    template: '<ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control"></ui-gmap-google-map>',
+                    controller: 'MapSubscriptionsCtrl'
+                }
             }
-        }
-    })
+        })
+
+        // CART
+        .state('app.subscriptions.cart', {
+                url: '/cart/:uuid',
+                views: {
+                    'inner': {
+                        templateUrl: 'templates/business/subscriptions/cart.html',
+                        controller: 'SubscriptionsCartCtrl'
+                    }
+                }
+            })
+            .state('app.subscriptions.cart.selection', {
+                url: '/search',
+                views: {
+                    'cart-inner': {
+                        templateUrl: './templates/business/cart/selection.html'
+                    }
+                }
+            })
+            .state('app.subscriptions.cart.view', {
+                url: '/cart/:uuid',
+                views: {
+                    'cart-inner': {
+                        templateUrl: './templates/business/cart/view.html'
+                    }
+                }
+            })
+            .state('app.subscriptions.cart.checkout', {
+                url: '/checkout',
+                views: {
+                    'cart-inner': {
+                        templateUrl: './templates/business/cart/checkout.html'
+                    }
+                }
+            })
 
     // ATTRIBUTES
     //...............................................................
@@ -447,7 +480,6 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-        // CREATE BUSINESS
         .state('app.businessmanager.create', {
             url: '/create',
             views: {
@@ -457,7 +489,6 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                 }
             }
         })
-        // LIST BUSINESSES
         .state('app.businessmanager.list', {
                 url: '/list',
                 views: {
@@ -466,7 +497,6 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                     }
                 }
             })
-        // MAP ALL BUSINESSES
         .state('app.businessmanager.map', {
             url: '/map',
             views: {
@@ -475,10 +505,10 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                     controller: 'MapBusinessesCtrl'
                 }
             }
-        })
+        }) // MAP ALL BUSINESSES
 
-    // MANAGE BUSINESS (MENU)
-    .state('app.businessmanager.business', {
+        // MANAGE BUSINESS (MENU)
+        .state('app.businessmanager.business', {
         url: '/business/:uuid',
         views: {
             'inner': {
@@ -487,8 +517,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-        // MAP BUSINESS
-        .state('app.businessmanager.business.map', {
+            .state('app.businessmanager.business.map', {
             url: '/map',
             views: {
                 'subinner': {
@@ -496,9 +525,8 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                     controller: 'MapBusinessCtrl'
                 }
             }
-        })
-        // UPDATE BUSINESS
-        .state('app.businessmanager.business.update', {
+        }) // MAP SPECIFIC BUSINESS
+            .state('app.businessmanager.business.update', {
                 url: '/update',
                 views: {
                     'subinner': {
@@ -507,150 +535,150 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                 }
             })
 
-    // MANAGE SUBSCRIBERS (MENU)
-    .state('app.businessmanager.business.subscribersmanager', {
-        url: '/subscribersmanager',
-        views: {
-            'subinner': {
-                templateUrl: 'templates/business/subscribers/main.html'
-            }
-        }
-    })
-        .state('app.businessmanager.business.subscribersmanager.create', {
-            url: '/create',
-            views: {
-                'subscribers-inner': {
-                    template: 'Aggiunta subscriber'
+            // MANAGE SUBSCRIBERS (MENU)
+            .state('app.businessmanager.business.subscribersmanager', {
+                url: '/subscribersmanager',
+                views: {
+                    'subinner': {
+                        templateUrl: 'templates/business/subscribers/main.html'
+                    }
                 }
-            }
-        })
-        .state('app.businessmanager.business.subscribersmanager.list', {
-            url: '/list',
-            views: {
-                'subscribers-inner': {
-                    template: 'Elenco subscribers'
-                }
-            }
-        })
+            })
+                .state('app.businessmanager.business.subscribersmanager.create', {
+                    url: '/create',
+                    views: {
+                        'subscribers-inner': {
+                            template: 'Aggiunta subscriber'
+                        }
+                    }
+                })
+                .state('app.businessmanager.business.subscribersmanager.list', {
+                    url: '/list',
+                    views: {
+                        'subscribers-inner': {
+                            template: 'Elenco subscribers'
+                        }
+                    }
+                })
 
-    // MANAGE PRODUCTS (MENU)
-    .state('app.businessmanager.business.productsmanager', {
-        url: '/productsmanager',
-        views: {
-            'subinner': {
-                templateUrl: 'templates/business/products/main.html',
-                controller: 'ProductsMainCtrl'
-            }
-        }
-    })
-        .state('app.businessmanager.business.productsmanager.create', {
-            url: '/productcreate',
-            views: {
-                'products-inner': {
-                    template: '<app-product-form></app-product-form>'
+            // MANAGE PRODUCTS (MENU)
+            .state('app.businessmanager.business.productsmanager', {
+                url: '/productsmanager',
+                views: {
+                    'subinner': {
+                        templateUrl: 'templates/business/products/main.html',
+                        controller: 'ProductsMainCtrl'
+                    }
                 }
-            }
-        })
-        .state('app.businessmanager.business.productsmanager.list', {
-            url: '/productlist',
-            views: {
-                'products-inner': {
-                    template: '<app-product-list></app-product-list>'
-                }
-            }
-        })
-        .state('app.businessmanager.business.servicesmanager', {
-            url: '/servicesmanager',
-            views: {
-                'subinner': {
-                    templateUrl: 'templates/business/services/main.html',
-                    controller: 'ServicesMainCtrl'
-                }
-            }
-        })
+            })
+                .state('app.businessmanager.business.productsmanager.create', {
+                    url: '/productcreate',
+                    views: {
+                        'products-inner': {
+                            template: '<app-product-form></app-product-form>'
+                        }
+                    }
+                })
+                .state('app.businessmanager.business.productsmanager.list', {
+                    url: '/productlist',
+                    views: {
+                        'products-inner': {
+                            template: '<app-product-list></app-product-list>'
+                        }
+                    }
+                })
+                .state('app.businessmanager.business.servicesmanager', {
+                    url: '/servicesmanager',
+                    views: {
+                        'subinner': {
+                            templateUrl: 'templates/business/services/main.html',
+                            controller: 'ServicesMainCtrl'
+                        }
+                    }
+                })
 
-    // MANAGE PROMOTIONS (MENU)
-    .state('app.businessmanager.business.servicesmanager.promotionsmanager', {
-        url: '/promotionsmanager',
-        views: {
-            'services-inner': {
-                templateUrl: 'templates/business/services/promotions/main.html'
-            }
-        }
-    })
-        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create', {
-            url: '/create',
-            views: {
-                'promotions-inner': {
-                    templateUrl: 'templates/business/services/promotions/create.html',
-                    controller: 'PromotionsCtrl'
-                }
-            }
-        })
-            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.specialoffer', {
-                url: '/specialoffer',
-                parent: 'app.businessmanager.business.servicesmanager.promotionsmanager.create',
-                views: {
-                    'promotion-edit-view': {
-                        templateUrl: 'templates/business/services/promotions/specialoffer.html',
-                        controller: 'PromotionsSpecialOfferCtrl'
+                // MANAGE PROMOTIONS (MENU)
+                .state('app.businessmanager.business.servicesmanager.promotionsmanager', {
+                    url: '/promotionsmanager',
+                    views: {
+                        'services-inner': {
+                            templateUrl: 'templates/business/services/promotions/main.html'
+                        }
                     }
-                }
-            })
-            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.discount', {
-                url: '/discount',
-                parent: 'app.businessmanager.business.servicesmanager.promotionsmanager.create',
-                views: {
-                    'promotion-edit-view': {
-                        templateUrl: 'templates/business/services/promotions/discount.html',
-                        controller: 'PromotionsDiscountCtrl'
-                    }
-                }
-            })
-            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.nxm', {
-                url: '/nxm',
-                views: {
-                    'promotion-edit-view': {
-                        templateUrl: 'templates/business/services/promotions/nxm.html',
-                        controller: 'PromotionsNxmCtrl'
-                    }
-                }
-            })
-            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.lastminute', {
-                url: '/lastminute',
-                views: {
-                    'promotion-edit-view': {
-                        templateUrl: 'templates/business/services/promotions/lastminute.html',
-                        controller: 'PromotionsLastMinuteCtrl'
-                    }
-                }
-            })
-            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.nplus', {
-                url: '/nplus',
-                views: {
-                    'promotion-edit-view': {
-                        templateUrl: 'templates/business/services/promotions/nplus.html',
-                        controller: 'PromotionsNplusCtrl'
-                    }
-                }
-            })
-            .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.coupon', {
-                url: '/coupon',
-                views: {
-                    'promotion-edit-view': {
-                        templateUrl: 'templates/business/services/promotions/coupon.html',
-                        controller: 'PromotionsCouponCtrl'
-                    }
-                }
-            })
-        .state('app.businessmanager.business.servicesmanager.promotionsmanager.list', {
-            url: '/list',
-            views: {
-                'promotions-inner': {
-                    template: 'list'
-                }
-            }
-        })
+                })
+                    .state('app.businessmanager.business.servicesmanager.promotionsmanager.create', {
+                        url: '/create',
+                        views: {
+                            'promotions-inner': {
+                                templateUrl: 'templates/business/services/promotions/create.html',
+                                controller: 'PromotionsCtrl'
+                            }
+                        }
+                    })
+                        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.specialoffer', {
+                            url: '/specialoffer',
+                            parent: 'app.businessmanager.business.servicesmanager.promotionsmanager.create',
+                            views: {
+                                'promotion-edit-view': {
+                                    templateUrl: 'templates/business/services/promotions/specialoffer.html',
+                                    controller: 'PromotionsSpecialOfferCtrl'
+                                }
+                            }
+                        })
+                        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.discount', {
+                            url: '/discount',
+                            parent: 'app.businessmanager.business.servicesmanager.promotionsmanager.create',
+                            views: {
+                                'promotion-edit-view': {
+                                    templateUrl: 'templates/business/services/promotions/discount.html',
+                                    controller: 'PromotionsDiscountCtrl'
+                                }
+                            }
+                        })
+                        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.nxm', {
+                            url: '/nxm',
+                            views: {
+                                'promotion-edit-view': {
+                                    templateUrl: 'templates/business/services/promotions/nxm.html',
+                                    controller: 'PromotionsNxmCtrl'
+                                }
+                            }
+                        })
+                        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.lastminute', {
+                            url: '/lastminute',
+                            views: {
+                                'promotion-edit-view': {
+                                    templateUrl: 'templates/business/services/promotions/lastminute.html',
+                                    controller: 'PromotionsLastMinuteCtrl'
+                                }
+                            }
+                        })
+                        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.nplus', {
+                            url: '/nplus',
+                            views: {
+                                'promotion-edit-view': {
+                                    templateUrl: 'templates/business/services/promotions/nplus.html',
+                                    controller: 'PromotionsNplusCtrl'
+                                }
+                            }
+                        })
+                        .state('app.businessmanager.business.servicesmanager.promotionsmanager.create.coupon', {
+                            url: '/coupon',
+                            views: {
+                                'promotion-edit-view': {
+                                    templateUrl: 'templates/business/services/promotions/coupon.html',
+                                    controller: 'PromotionsCouponCtrl'
+                                }
+                            }
+                        })
+                    .state('app.businessmanager.business.servicesmanager.promotionsmanager.list', {
+                        url: '/list',
+                        views: {
+                            'promotions-inner': {
+                                template: 'list'
+                            }
+                        }
+                    })
 
     ;
 

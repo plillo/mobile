@@ -287,24 +287,77 @@ body {
     height: 100px !important;
 }
 
+.ha-no-picture {
+    margin: 2px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.ha-transparent {
+    background-image: url('https://s3.eu-central-1.amazonaws.com/reporetail/ui/transparent.png');
+}
 
 
-/*
+
 .ha-input-area input[type=text] {
-    background-color: #EEEEEE;
+    background-color: rgba(0,0,0,0.1);
     padding-left: 5px;
 }
 .ha-input-area textarea {
-    background-color: #EEEEEE;
+    background-color: rgba(0,0,0,0.1);
     padding: 5px;
 }
 .ha-input-area input[type="file"] {
     width: 100%;
-    background-color: #EEEEEE;
+    background-color: rgba(0,0,0,0.1);
     margin: 6px 5px;
     padding-left: 5px;
 }
-*/
+
+
+.ha-upload-button{
+    margin: 20px auto 0;
+    text-align: center;
+    background-color: #EEEEEE;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.ha-upload-button label{
+    cursor: pointer;
+}
+*.ha-upload-list {
+    margin: 5px;
+}
+*.ha-upload-list .row {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+*.ha-upload-list .row .col {
+    border-bottom: 1px solid #EEEEEE;
+}
+*.ha-upload-list .row .col-66 {
+    border-right: 1px solid #EEEEEE;
+    font-weight: bold;
+}
+
+
+
+.ha-left {
+    float: left;
+}
+.ha-right {
+    float: right;
+}
+
+
+
+.ha-loading {
+    background-color: rgba(200, 200, 0, 0.5);
+}
+.ha-loaded {
+    background-color: rgba(0, 200, 0, 0.5);
+}
 
 
 
@@ -397,6 +450,39 @@ body {
 }
 
 
+.ha-list.ha-edit {
+}
+.ha-list.ha-edit .ha-command {
+    font-size: 30px;
+    cursor: pointer;
+}
+.ha-list .ha-small-font {
+    font-size: 10px;
+}
+
+
+.ha-list .ha-yellow {
+    background-color: #F9F9BB;
+}
+
+.ha-inline {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.ha-empty {
+    color: rgba(0,0,0,0.2);
+}
+
+.ha-popup i.icon.ha-popup-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
 
 .angular-google-map {
     height: 100%;

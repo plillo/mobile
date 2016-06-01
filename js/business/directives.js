@@ -120,6 +120,10 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 		           });
 			};
 			$scope.load();
+
+			$scope.cart = function(uuid, tostate) {
+				$state.go(tostate, {uuid:uuid});
+			};
 			
 			$scope.unfollow = function(uuid) {
 				business.unfollowBusiness(uuid).then(
@@ -417,56 +421,91 @@ angular.module('business.directives').directive('appProductForm', function() {
 		},
 		templateUrl : 'js/business/templates/product-form.html',
 		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, Upload){
+			var business = $state.params.uuid;
+			
 			// scope-properties
+			// ================
 			$scope.images = [];
 			$scope.categoriesSelected = [];
 			$scope.validData = true;
-			$scope.data = {
-				price1: 0,
-				price2: 0,
-				price3: 0
+			// default form data
+			$scope.data = {};
+			$scope.data.prices = [0,0,0];
+			$scope.loading = false;
+			$scope.allLoaded = false;
+
+			$scope.refresh = function(){
+				$scope.allLoaded = $scope.images.reduce(function(total, elem){return total&&elem.haLoaded},true);
 			};
 
 			// scope-functions
+			// ===============
+			$scope.$watch('images', function(newValue, oldValue) {
+				if(newValue.length > oldValue.length) {
+					newValue[newValue.length-1].haLoaded = false;
+					newValue[newValue.length-1].haLoadMessage = 'loading...';
+				}
+			});
+
 			$scope.create = function () {
 				$scope.formUpload = true;
 				$scope.upload()
 			};
 
+			$scope.launchRequest = function(i, puuid) {
+				Upload.upload({
+					url: $rootScope.urlBackend+'/businesses/1.0/product/'+puuid+'/picture/',
+					method: 'PUT',
+					data: {
+						picture: $scope.images[i]
+					}
+				}).then(
+					// Image loaded
+					function (response) {
+						$scope.images[i].haLoaded = 'true';
+						$scope.images[i].haLoadMessage = 'loaded';
+						$scope.refresh();
+					},
+					// Error loading image
+					function (response) {
+						if (response.status > 0){
+							$scope.errorMsg = response.status + ': ' + response.data;
+						}
+					},
+					// Progress
+					function (evt) {
+						$scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+					}
+				);
+			};
+
 			$scope.upload = function() {
+				// Set categories
+				if($scope.categoriesSelected.length>0) {
+					$scope.data.categories = [];
+					for (var i = 0; i < $scope.categoriesSelected.length; i++) {
+						$scope.data.categories.push($scope.categoriesSelected[i].uuid);
+					}
+				}
+
 				// Set form data without files
 				var data = (JSON.parse(JSON.stringify($scope.data)));
 
-				$http.put($rootScope.urlBackend+'/businesses/1.0/product/', data).then(
+				// Set loading flag
+				$scope.loading = true;
+
+				$http.put($rootScope.urlBackend+'/businesses/1.0/business/'+business+'/product', data).then(
 					// Form data uploaded: product created
 					function (response) {
+						// Get new product uuid
+						var puuid = response.data.product.uuid;
 						// Uploading images
 						if ($scope.images && $scope.images.length) {
 							for (var i = 0; i < $scope.images.length; i++) {
-								Upload.upload({
-									url: $rootScope.urlBackend+'/businesses/1.0/product/image/',
-									method: 'PUT',
-									data: {
-										file: $scope.images[i]
-									}
-								}).then(
-									// Image loaded
-									function (response) {
-										// TODO
-									},
-									// Error loading image
-									function (response) {
-										if (response.status > 0){
-											$scope.errorMsg = response.status + ': ' + response.data;
-										}
-									},
-									// Progress
-									function (evt) {
-										$scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-									}
-								);
+								$scope.launchRequest(i, puuid);
 							}
 						}
+						//$state.go('app.businessmanager.business.productsmanager.list');
 					},
 					// Error uploading form data
 					function (response) {
@@ -476,10 +515,80 @@ angular.module('business.directives').directive('appProductForm', function() {
 					}
 				);
 			};
+
+			$scope.go = function(state){
+				$state.go(state);
+			};
+			
+			$scope.reload = function(){
+				$window.location.reload();
+			};
+			
 		},
 		link: function(scope, element, attributes){
-			// EVENTS BINDING
-			element.find('#button-send').bind('click', scope.uploadForm);
+		}
+	};
+});
+
+//ADD 'appEditProduct' directive
+//..............................
+angular.module('business.directives').directive('appEditProduct', function() {
+	return {
+		replace: false,
+		templateUrl : 'js/business/templates/product-edit.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, Upload){
+			var business = $state.params.uuid;
+
+			// scope-properties
+			// ================
+			$scope.categoriesSelected = $scope.actualProductCategories ? $scope.actualProductCategories:[];
+			$scope.validData = true;
+
+			var item = $scope.list[$scope.actualIndex];
+
+			// default form data
+			$scope.data = {};
+			$scope.data.uuid = item.uuid;
+			$scope.data.code = item.code;
+			$scope.data.barcode = item.barcode;
+			$scope.data._locDescription = item._locDescription;
+			$scope.data._locLongDescription = item._locLongDescription;
+			$scope.data.prices = item.prices;
+
+			// scope-functions
+			// ===============
+			$scope.upload = function() {
+				// Set categories
+				if($scope.categoriesSelected.length>0) {
+					$scope.data.categories = [];
+					for (var i = 0; i < $scope.categoriesSelected.length; i++) {
+						$scope.data.categories.push($scope.categoriesSelected[i].uuid);
+					}
+				}
+
+				// Set form data without files
+				var data = (JSON.parse(JSON.stringify($scope.data)));
+
+				// Set loading flag
+				$scope.loading = true;
+
+				$http.post($rootScope.urlBackend+'/businesses/1.0/product', data).then(
+					// Form data uploaded: product updated
+					function (response) {
+						$scope.loading = false;
+						$scope.list[$scope.actualIndex] = response.data.product;
+						$scope.popupClose();
+					},
+					// Error uploading form data
+					function (response) {
+						$scope.loading = false;
+						if (response.status > 0)
+							$scope.errorMsg = response.status + ': ' + response.data;
+					}
+				);
+			};
+		},
+		link: function(scope, element, attributes){
 		}
 	};
 });
@@ -490,16 +599,183 @@ angular.module('business.directives').directive('appProductList', function() {
 	return {
 		replace: false,
 		scope: true,
-		templateUrl : 'templates/business/products/list.html',
-		controller: function($scope, $state, $rootScope, $window, $element, $timeout){
+		templateUrl : 'js/business/templates/product-list.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $ionicPopup, $timeout, product){
 			$scope.list = [];
+			var business = $state.params.uuid;
 
-			$scope.list.push({code:'2346534656235', description:'descrizione del prodotto n. 1', category:'categoria n.1'});
-			$scope.list.push({code:'8658994756866', description:'descrizione del prodotto n. 2', category:'categoria n.2'});
-			$scope.list.push({code:'7346236437562', description:'descrizione del prodotto n. 3', category:'categoria n.3'});
+			product.getBySearchKeyword('', business).then(
+				// products list received
+				function (response) {
+					$scope.list = response.data;
+				},
+				// error
+				function(response){
+					$scope.list = [];
+				}
+			);
+
+			$scope.Math = $window.Math;
+
+			$scope.getNumber = function(number) {
+				return new Array(number);
+			};
+
+			// in order to setting $scope.actualProduct from child scopes
+			$scope.setActualProduct = function(value) {
+				$scope.actualProduct = value;
+			};
+
+			$scope.edit = function(index) {
+				$scope.data = {};
+				$scope.actualIndex = index;
+				$scope.actualProductCategories = [];
+				
+				// GET categories
+				product.getCategories($scope.list[index].uuid)
+				.then(
+					function (response) {
+						$scope.actualProductCategories = response.data;
+					},
+					function (response) {
+						$scope.actualProductCategories = [];
+					}
+				)
+				.finally(  // Wait for $scope.actualProductCategories initialization
+					function(){
+						$scope.popup = $ionicPopup.show({
+							template: '<app-edit-product></app-edit-product>',
+							cssClass: 'ha-popup',
+							title: 'Modifica prodotto/servizio',
+							scope: $scope
+						});
+
+						$scope.popup.then(function(res) {
+							console.log('Tapped!', res);
+						});
+					}
+				);
+			};
+
+			$scope.editPictures = function(item) {
+				$scope.data = {};
+				$scope.actualProduct = item;
+				if(!$scope.actualProduct.pictures)
+					$scope.actualProduct.pictures = [];
+
+				// An elaborate, custom popup
+				$scope.popup = $ionicPopup.show({
+					template: '<app-product-pictures></app-product-pictures>',
+					cssClass: 'ha-popup',
+					title: 'Modifica delle immagini',
+					scope: $scope
+				});
+
+				$scope.popup.then(function(res) {
+					console.log('Tapped!', res);
+				});
+			};
+
+			$scope.popupClose = function() {
+				$scope.popup.close();
+			};
 		},
 		link: function(scope, element, attributes){
+		}
+	};
+});
 
+//ADD 'appProductPictures' directive
+//..................................
+angular.module('business.directives').directive('appProductPictures', function() {
+	return {
+		replace: false,
+		templateUrl : 'js/business/templates/product-pictures.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, product, Upload){
+
+			$scope.reset = function(){
+				$scope.images = [];
+				$scope.imageRows = [];
+				$scope.validData = true;
+				$scope.loading = false;
+				$scope.loaded = false;
+
+				for(var k=0;k<Math.ceil(($scope.actualProduct.pictures.length)/3);k++)
+					$scope.imageRows.push(k);
+			};
+
+			$scope.refresh = function(){
+				$scope.loaded = $scope.images.reduce(function(total, elem){return total&&elem.haLoaded},true);
+			};
+
+			// scope-functions
+			// ===============
+			$scope.$watch('images', function(newValue, oldValue) {
+				if(newValue.length > oldValue.length) {
+					newValue[newValue.length-1].haLoaded = false;
+					newValue[newValue.length-1].haLoadMessage = 'loading...';
+				}
+			});
+
+			$scope.$watch('loaded', function(newValue, oldValue) {
+				if(newValue) {
+					product.getPictures($scope.actualProduct.uuid).then(
+						function(response){
+							$scope.actualProduct.pictures = response.data.pictures;
+							$scope.reset();
+						},
+						function(response){
+							if (response.status > 0){
+								$scope.errorMsg = response.status + ': ' + response.data;
+							}
+						}
+					);
+				}
+			});
+
+			$scope.launchRequest = function(index) {
+				Upload.upload({
+					url: $rootScope.urlBackend+'/businesses/1.0/product/'+$scope.actualProduct.uuid+'/picture/',
+					method: 'PUT',
+					data: {
+						picture: $scope.images[index]
+					}
+				}).then(
+					// Image loaded
+					function (response) {
+						$scope.images[index].haLoaded = 'true';
+						$scope.images[index].haLoadMessage = 'loaded';
+						$scope.refresh();
+					},
+					// Error loading image
+					function (response) {
+						if (response.status > 0){
+							$scope.errorMsg = response.status + ': ' + response.data;
+						}
+					},
+					// Progress
+					function (evt) {
+						$scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+					}
+				);
+			};
+
+			$scope.upload = function() {
+				// Set loading flag
+				$scope.loading = true;
+
+				// Upload images
+				if ($scope.images && $scope.images.length) {
+					for (var i = 0; i < $scope.images.length; i++) {
+						$scope.launchRequest(i);
+					}
+				}
+			};
+
+			// INITIALIZATION/RESET
+			$scope.reset();
+		},
+		link: function(scope, element, attributes){
 		}
 	};
 });

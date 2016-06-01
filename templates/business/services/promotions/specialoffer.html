@@ -27,7 +27,12 @@
 
     <div class="row">
         <div class="col">
-            <ha-select-by-service multiple="true" selected-items="specialoffer.products" service="product"></ha-select-by-service>
+            <ha-select-by-service
+                    multiple="false"
+                    selected-items="specialoffer.products"
+                    service="product"
+                    filter="{{businessUuid}}"
+                    item-descriptor="_locDescription"></ha-select-by-service>
         </div>
     </div>
 

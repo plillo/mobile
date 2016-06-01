@@ -1,0 +1,22 @@
+<h3>Lista dei prodotti/servizi</h3>
+
+<div class="list ha-bottom-200">
+    <div class="ha-list ha-edit app-category row" ng-repeat="item in list">
+        <div class="col col-50 col-center ha-small-font">
+            <div class="ha-command ha-inline" ng-click="edit($index)"><i class="icon ion-gear-b"></i></div>
+            <div class="ha-command ha-inline" ng-class="{'ha-empty': !item.pictures}" ng-click="editPictures(item)"><i class="icon ion-image"></i></div>
+            <div class="ha-small-font ha-inline">
+                <div>
+                    <strong>UUID:</strong>{{item.uuid}}
+                </div>
+                <div>
+                   <strong>code:</strong>&nbsp;{{item.code}}
+                </div>
+                <div>
+                   <strong>barcode:</strong>&nbsp;{{item.barcode}}
+                </div>
+            </div>
+        </div>
+        <div class="col col-50 ha-yellow">{{item._locDescription}}</div>
+    </div>
+</div>

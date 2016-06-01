@@ -1,4 +1,7 @@
-<h3>Nuovo prodotto/servizio</h3>
+<i class="icon ion-close ha-popup-close" ng-click="popupClose()"></i>
+
+<h3>{{actualProduct._locDescription}}</h3>
+
 
 <div class="list ha-bottom-200">
     <div class="row">
@@ -49,38 +52,8 @@
             <input type="text" name="price3" ng-model="data.prices[2]" placeholder="Listino 3">
         </label>
     </div>
-    <div class="row ha-input-area">
-         <div class="ha-upload-button"
-             ng-model="images"
-             ngf-select
-             ngf-multiple="true"
-             ngf-keep="true"
-             ngf-validate="{size: {max:'2MB'}}">
-            <label><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Aggiungi un'immagine&hellip;</span></label>
-        </div>
-    </div>
-    <div class="ha-upload-list">
-        <div class="row" ng-repeat="image in images">
-            <div class="col col-50">{{image.name}}</div>
-            <div class="col">{{image.type+' ['+image.size+' B]'}}</div>
-            <div class="col" ng-class="{'ha-loading': !image.haLoaded, 'ha-loaded': image.haLoaded}">{{image.haLoadMessage}}</div>
-        </div>
-    </div>
 
     <div class="padding ha-center" ng-if="validData && !loading">
-        <button id="button-send" class="button button-small button-assertive ink" ng-click="create()">Aggiungi prodotto</button>
-    </div>
-    <div class="padding ha-center" ng-if="loading && !allLoaded">
-        loading...
-    </div>
-    <div ng-if="allLoaded" class="list">
-        <div class="row">
-            <div class="col">
-                <button class="button button-small button-assertive ink ha-right" ng-click="reload()">Nuovo prodotto</button>
-            </div>
-            <div class="col">
-                <button class="button button-small button-assertive ink ha-left" ng-click="go('app.businessmanager.business.productsmanager.list')">Lista prodotti</button>
-            </div>
-        </div>
+        <button class="button button-small button-assertive ink" ng-click="upload()">Aggiorna prodotto</button>
     </div>
 </div>
