@@ -89,6 +89,51 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
         controller: 'AppCtrl'
     })
 
+    .state('app.cart', {
+        url: '/cart',
+        views: {
+            'menuContent': {
+                template: 'under construction'
+            },
+            'fabContent': {
+                template: '',
+                controller: function () {
+                }
+            }
+        }
+    })
+
+    .state('app.consulting', {
+        url: '/consulting',
+        views: {
+            'menuContent': {
+                template: 'under construction'
+            },
+            'fabContent': {
+                template: '',
+                controller: function () {
+                }
+            }
+        }
+    })
+
+    .state('app.tris', {
+        url: '/tris',
+        views: {
+            'menuContent': {
+                templateUrl: 'js/games/develop/tris/templates/main.html'
+            },
+            'fabContent': {
+                template: '<button id="fab-game-tris" class="button button-fab button-fab-top-left expanded button-energized-900 flap"><i class="icon ion-xbox"></i></button>',
+                controller: function ($timeout) {
+                    $timeout(function () {
+                        document.getElementById('fab-game-tris').classList.toggle('on');
+                    }, 200);
+                }
+            }
+        }
+    })
+
     .state('app.inspect', {
         url: '/inspect',
         views: {
