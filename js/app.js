@@ -1,11 +1,11 @@
-angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'business.develop.directives', 'business.develop.controllers', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 'hashServices', 'hashDirectives', 'controllers', 'business.controllers', 'business.services', 'business.directives', 'business.develop.directives', 'business.develop.controllers', 'news.controllers', 'news.services', 'news.directives', 'ionic-material', 'ionMdInput', 'games.develop.directives'])
 
 .run(function($rootScope){
     $rootScope.dateValue = new Date();
     $rootScope.timeValue = new Date();
     $rootScope.datetimeValue = new Date();
 })
-    
+
 /* IONIC PLATFORM configuration and run */
 /* ==================================== */
 .config(function($compileProvider){
@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
     haLoggerProvider.setPath('users/1.0/');
 })
 
-    
+
 /* ROUTING configuration and run        */
 /* ==================================== */
 /* STATES */
@@ -151,7 +151,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-  
+
     .state('app.landingpage', {
         url: '/landingpage',
         views: {
@@ -161,7 +161,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-   
+
     .state('app.qrcode', {
         url: '/qrcode',
         views: {
@@ -226,7 +226,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     .state('app.friends', {
         url: '/friends',
         views: {
@@ -244,7 +244,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-      
+
     .state('app.invite', {
         url: '/invites',
         views: {
@@ -254,7 +254,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     .state('app.invite.add', {
         url: '/add-invite',
         views: {
@@ -295,7 +295,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
- 
+
     .state('app.login', {
         url: '/login',
         views: {
@@ -318,7 +318,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     .state('app.profile', {
         url: '/profile',
         views: {
@@ -331,7 +331,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     .state('app.help', {
         url: '/help',
         views: {
@@ -344,7 +344,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     .state('app.info', {
         url: '/info',
         views: {
@@ -357,7 +357,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     .state('app.lookingfor', {
         url: '/lookingfor',
         views: {
@@ -501,7 +501,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         }
     })
-    
+
     // MANAGE OWNED BUSINESSES (MENU)
     //...............................................................
     .state('app.businessmanager', {
@@ -517,7 +517,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                     $timeout(function () {
                         document.getElementById('fab-business-manager').classList.toggle('on');
                     }, 900);
-                    
+
                     $scope.click = function() {
                     	$state.go('app.business-manager.createbusiness');
                     };

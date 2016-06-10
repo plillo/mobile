@@ -1,1 +1,19 @@
-<p>jhg</p>
+
+<p ng-show="isPlayer1Playing && gameHasStarted">Player 1 is playing...</p>
+<p ng-show="!isPlayer1Playing && gameHasStarted">Player 2 is playing...</p>
+
+<div class="text-center">
+  <div ng-repeat="i in getArray(3) track by $index">
+    <button class="button large light" ng-repeat="j in getArray(3) track by $index"
+            ng-click="setPlay($parent.$index,$index)"
+            ng-src="{{getCaseImg($parent.$index,$index)}}"></button>
+
+  </div>
+</div>
+
+
+<div class="text-center" ng-show="isPlayer1Playing && gameHasStarted">Timer1: {{timer1 | number: 2}}</div><div class="text-center" ng-show="!isPlayer1Playing && gameHasStarted"> Timer2: {{timer2 | number: 2}}</div>
+<button class="button-assertive center" ng-click="Play()" ng-hide="gameHasStarted">Play</button>
+<p class="text-center" ng-show="cantPlay">You can't play that move</p>
+
+<p class="text-center" ng-show="warnGameNotStarted">You can't play yet, the game has not start!</p>
