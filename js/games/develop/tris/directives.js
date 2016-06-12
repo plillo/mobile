@@ -38,7 +38,7 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
           };
 
           $scope.getCaseImg = function (x,y) {
-            return "js/games/develop/tris/templates/img/"+$scope.matTris[x][y]+".png";
+            return "js/games/develop/tris/img/"+$scope.matTris[x][y]+".png";
           };
 
           $scope.getArray = function(length){
