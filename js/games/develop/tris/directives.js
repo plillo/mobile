@@ -12,6 +12,8 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
 
           $scope.init = function(lengthMatrix){
 
+            $scope.gameFinished = false;
+            $scope.message = "";
 
             $scope.matTris = [];
             for (var i = 0; i < lengthMatrix; i++) {
@@ -33,8 +35,15 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
 
             //TODO: make timer handle minutes
 
-            $scope.timer1 = 0.0;
-            $scope.timer2 = 0.0;
+            $scope.totalTimePlayer1 = 0.0;
+            $scope.totalTimePlayer2 = 0.0;
+
+
+            $scope.timePlayer1 = new Date();
+            $scope.timePlayer2 = new Date();
+
+            $scope.timerPlayer1 = 0.0;
+            $scope.timerPlayer2 = 0.0;
           };
 
           $scope.getCaseImg = function (x,y) {
@@ -76,15 +85,15 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
           };
 
          var timer = $interval(function() {
-           if($scope.gameHasStarted){
+           if($scope.gameHasStarted && !$scope.gameFinished){
              if($scope.player == 1){
-               $scope.timer1 += 0.1;
+               $scope.timerPlayer1 = (new Date() - $scope.timePlayer1) + $scope.totalTimePlayer1;
              }
              else{
-               $scope.timer2 += 0.1;
+               $scope.timerPlayer2 = (new Date() - $scope.timePlayer2) + $scope.totalTimePlayer2;
              }
            }
-          }, 100);
+          }, 10);
 
           $scope.startTimer = function(player){
             if(player == 1)
@@ -94,28 +103,42 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
           };
 
           $scope.Play = function(){
+            $scope.init(3);
             $scope.startTimer(1);
             $scope.gameHasStarted = true;
           };
 
           $scope.gameFinish = function(){
+            $scope.gameFinished = true;
 
+            //TODO: Send a message to the broker saying that is game is over
 
-            $scope.init(3);
           };
 
           $scope.changePlayer = function(){
             if($scope.isMatFull($scope.matTris, 3, 0)){
+
+              if($scope.totalTimePlayer1 < $scope.totalTimePlayer2)
+                $scope.message = "Player 1 wins!";
+              else
+                $scope.message = "Player 2 wins!";
+
               $scope.gameFinish();
             }
             else{
               if($scope.player == 1){
                 $scope.player = 2;
                 $scope.isPlayer1Playing = false;
+
+                $scope.totalTimePlayer1 = $scope.timerPlayer1;
+                $scope.timePlayer2 = new Date();
               }
               else{
                 $scope.player = 1;
                 $scope.isPlayer1Playing = true;
+
+                $scope.totalTimePlayer2 = $scope.timerPlayer2;
+                $scope.timePlayer1 = new Date();
               }
               $scope.sendStartTimer($scope.player);
             }
@@ -145,7 +168,7 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
           };
 
           $scope.$on('$destroy', function() {
-            $interval.cancel(timer);
+            //$interval.cancel(timer);
           });
 
           $scope.$on('cantPlay', function () {
