@@ -26,7 +26,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     };
     
     $scope.isBusinessUser = function(){
-    	return haUser.isUserInRole('business.busadmin');
+    	return haUser.isUserInRole('root') || haUser.isUserInRole('business.busadmin');
     };
     
     $scope.logout = function(){

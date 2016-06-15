@@ -121,7 +121,8 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
         url: '/tris',
         views: {
             'menuContent': {
-                templateUrl: 'js/games/develop/tris/templates/main.html'
+                //templateUrl: 'js/games/develop/tris/templates/main.html'
+                template: '###'
             },
             'fabContent': {
                 template: '<button id="fab-game-tris" class="button button-fab button-fab-top-left expanded button-energized-900 flap"><i class="icon ion-xbox"></i></button>',
