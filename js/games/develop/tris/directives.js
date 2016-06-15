@@ -33,8 +33,6 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
             //ordine di connessione?
             $scope.player = 1;
 
-            //TODO: make timer handle minutes
-
             $scope.totalTimePlayer1 = 0.0;
             $scope.totalTimePlayer2 = 0.0;
 
