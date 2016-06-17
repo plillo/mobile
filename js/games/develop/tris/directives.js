@@ -53,7 +53,7 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
           };
 
           $scope.sendStartTimer = function(player){
-
+            //TODO send a message to BE for starting timers
           };
 
           $scope.isMatEmpty = function(mat, length, emptyValue){
@@ -91,7 +91,7 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
                $scope.timerPlayer2 = (new Date() - $scope.timePlayer2) + $scope.totalTimePlayer2;
              }
            }
-          }, 10);
+          }, 1);
 
           $scope.startTimer = function(player){
             if(player == 1)
@@ -114,7 +114,11 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
           };
 
           $scope.changePlayer = function(){
-            if($scope.isMatFull($scope.matTris, 3, 0)){
+            if($scope.isWinner($scope.player, $scope.matTris, 3, 3)) {
+              $scope.message = "Player"+$scope.player+" is the winner!";
+              $scope.gameFinish();
+            }
+            else if($scope.isMatFull($scope.matTris, 3, 0)){
 
               if($scope.totalTimePlayer1 < $scope.totalTimePlayer2)
                 $scope.message = "Player 1 wins!";
@@ -155,6 +159,72 @@ angular.module('games.develop.directives').directive('gameTris', function(busine
             }
             else
               $scope.$broadcast("gameNotStarted");
+          };
+
+          //take as parameter: the player that has just played, the matrix of the board, the length of the matrix
+          $scope.isWinner = function(player, mat, length, victoryNb){
+            /*
+              first check row then columns and finally diagonals
+            */
+
+            var tickFound = 0;
+
+            //checking rows
+            for(var i = 0; i < length; i++) {
+              tickFound = 0;
+              for (var j = 0; j < length; j++) {
+                if (mat[i][j] == player) {
+                  tickFound++;
+
+                  if (tickFound == victoryNb)
+                    return true;
+                }
+
+              }
+            }
+
+
+            //checking columns
+            for(i = 0; i < length; i++) {
+              tickFound = 0;
+              for(j = 0; j < length; j++) {
+                if(mat[j][i] == player){
+                  tickFound++;
+
+                  if(tickFound == victoryNb)
+                    return true;
+                }
+
+              }
+            }
+
+            tickFound = 0;
+
+            //checking diagonals left
+            for(i = 0; i < length; i++) {
+
+              if(mat[i][i] == player){
+                tickFound++;
+              }
+            }
+
+            if(tickFound == victoryNb)
+              return true;
+
+            tickFound = 0;
+
+            //checking diagonals right
+            for(i = 0; i < length; i++) {
+
+              if(mat[i][(length - 1) - i] == player){
+                tickFound++;
+              }
+            }
+
+            if(tickFound == victoryNb)
+              return true;
+
+            return false;
           };
 
           $scope.win = function(){

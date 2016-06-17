@@ -14,10 +14,7 @@
 </div>
 
 
-<div class="text-center" ng-show="isPlayer1Playing && gameHasStarted">Timer1: {{timerPlayer1 | date: 'm:s:sss'}}</div>
-<div class="text-center" ng-show="!isPlayer1Playing && gameHasStarted"> Timer2: {{timerPlayer2 | date: 'm:s:sss'}}</div>
-
-
+<div class="text-center" ng-show="gameHasStarted">Timer1: {{timerPlayer1 | date: 'm:s:sss'}} Timer2: {{timerPlayer2 | date: 'm:s:sss'}}</div>
 
 <button class="button-assertive center button-large" ng-click="Play()" ng-hide="gameHasStarted">Play</button>
 <button class="button-assertive center button-large" ng-click="Play()" ng-hide="!gameFinished">Re Play</button>
@@ -25,5 +22,4 @@
 
 <!-- WARNING MESSAGES -->
 <p class="text-center" ng-show="cantPlay">You can't play that move</p>
-
-<p class="text-center" ng-show="warnGameNotStarted">You can't play yet, the game has not started yet!</p>
+<p class="text-center" ng-show="warnGameNotStarted">You can't play yet, the game has not started!</p>
