@@ -207,8 +207,8 @@ angular.module('business.services').factory('product', function($http, $rootScop
 
 angular.module('business.services').factory('promotion', function($http, $rootScope) {
 	return {
-		createPromotion: function(data){
-			return $http.put($rootScope.urlBackend+'/businesses/1.0/promotion/', data); // return promise
+		createPromotion: function(business_uuid, data){
+			return $http.post($rootScope.urlBackend+'/businesses/1.0/business/'+business_uuid+'/promotion', data); // return promise
 		},
 		updatePromotion: function(uuid, data){
 			return $http.post($rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid, data); // return promise

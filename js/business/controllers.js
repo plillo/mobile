@@ -287,7 +287,7 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     if(!$rootScope.promotions.specialOffer) {
         var todate = new Date();
         $rootScope.promotions.specialOffer = {
-            fromDatetimeValue : new Date(),
+            fromDatetimeValue : todate.setDate(todate.getDate() + 0),
             toDatetimeValue : todate.setDate(todate.getDate() + 1)
         };
     }
@@ -327,7 +327,6 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
     $scope.specialoffer = {
         type : 'SPO',
-        business: $state.params.uuid,
         fromDate: $scope.promotions.specialOffer.fromDatetimeValue,
         toDate: $scope.promotions.specialOffer.toDatetimeValue,
         products: [],
@@ -346,18 +345,18 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
     $scope.validateData = function(){
         $scope.validData = $scope.specialoffer.quantity>0 && $scope.specialoffer.price>0;
-    }
+    };
 
     $scope.create = function(){
-        promotion.createPromotion($scope.specialoffer).then(
+        promotion.createPromotion($state.params.uuid, $scope.specialoffer).then(
             function successCallback(response) {
-                alert('OK');
+                $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
             },
             function errorCallback(response) {
                 $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
             }
          );
-    }
+    };
 })
 
 .controller('PromotionsDiscountCtrl', function($scope, $state) {

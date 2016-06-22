@@ -1,0 +1,71 @@
+div.game-tris h3 {
+    text-align: center;
+}
+
+div.timer {
+    font-size: 35px;
+    text-align: center;
+    background-color: #FFFFFF;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}
+*.mobile div.timer {
+    font-size: 30px;
+}
+*.tiny div.timer {
+    font-size: 25px;
+}
+*.micro div.timer {
+    font-size: 15px;
+}
+
+div.winner {
+    text-align: center;
+}
+
+img.tris {
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    -moz-filter: grayscale(1);
+    -o-filter: grayscale(1);
+    -ms-filter: grayscale(1);
+}
+
+img.tris-ok {
+    filter: hue-rotate(90deg);
+    -webkit-filter: hue-rotate(90deg);
+    -moz-filter: hue-rotate(90deg);
+    -o-filter: hue-rotate(90deg);
+    -ms-filter: hue-rotate(90deg);
+}
+
+img.tris-ko {
+    filter: grayscale(0);
+    -webkit-filter: grayscale(0);
+    -moz-filter: grayscale(0);
+    -o-filter: grayscale(0);
+    -ms-filter: grayscale(0);
+}
+
+div.timer.tris-ok {
+    background-color:#00AA00;
+}
+
+div.timer.tris-ko {
+    background-color:#FF0000;
+}
+
+div.debug {
+    background-color:#DDDDDD;
+    padding: 3px;
+    margin: 1px;
+}
+div.debug>span{
+    color: #FFFFFF;
+    width: 100px;
+    display: inline-block;
+    font-size: 12px;
+    text-align: right;
+    margin-right: 5px;
+}
