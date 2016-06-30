@@ -1,0 +1,13 @@
+<ion-view class="ha-sub-view" view-title="Edit business">
+    <ion-content class="ha-content ha-sub-content">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.subscriptions.subscription.rules" class="tab-item" ng-click="item = 1" ng-class="{active:item == 1}">
+                <i class="icon ion-arrow-shrink"></i> Regole
+            </a>
+        </div>
+
+        <div ui-view name="subinner" class="h100100">
+            <app-subscription-rules uuid="{{uuid}}"></app-subscription-rules>
+        </div>
+    </ion-content>
+</ion-view>

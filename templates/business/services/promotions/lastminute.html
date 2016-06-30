@@ -1,1 +1,75 @@
-<h3>Last-minute</h3>
+<h3>Offerta last-minute</h3>
+
+<div class="list ha-bottom-200">
+    <div class="row">
+        <label class="col item item-input">
+            <span class="input-label">Dalla data/ora</span>
+        </label>
+        <label class="col item item-input">
+            <span class="input-label">Alla data/ora</span>
+        </label>
+    </div>
+
+    <div class="row">
+        <div class="col app-promotion-date" ng-class="{'ha-not-valid':!validDates}" ion-datetime-picker monday-first ng-model="promotions.specialOffer.fromDatetimeValue" style="text-align:left;">
+            <i class="icon ion-ios-calendar-outline positive"></i><span class="datetime">{{promotions.specialOffer.fromDatetimeValue | date: "dd-MM-yyyy H:mm"}}</span>
+        </div>
+        <div class="col app-promotion-date" ng-class="{'ha-not-valid':!validDates}" ion-datetime-picker monday-first ng-model="promotions.specialOffer.toDatetimeValue" style="text-align:left;">
+            <i class="icon ion-ios-calendar-outline positive"></i><span class="datetime">{{promotions.specialOffer.toDatetimeValue | date: "dd-MM-yyyy H:mm"}}</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input">
+            <span class="input-label">Selezione del prodotto/servizio</span>
+        </label>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <ha-select-by-service
+                    multiple="true"
+                    selected-items="discount.products"
+                    service="product"
+                    filter="{{businessUuid}}"
+                    item-descriptor="_locDescription">
+            </ha-select-by-service>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input">
+            <span class="input-label">Selezione del gruppo merceologico</span>
+        </label>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <ha-select-by-service
+                    multiple="true"
+                    selected-items="discount.categories"
+                    search-label="Class/family/brick:"
+                    selected-items-label="Class/family/brick selezionati"
+                    service="category"
+                    item-descriptor="name">
+            </ha-select-by-service>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input item-floating-label">
+            <span class="input-label">Sconto percentuale</span>
+            <input type="text" name="quantity" ng-model="discount.discount" placeholder="Inserire sconto percentuale">
+        </label>
+    </div>
+    <div class="row ha-input-area">
+        <label class="col item item-input item-floating-label">
+            <span class="input-label">Descrizione dell'offerta last-minute</span>
+            <textarea type="text" name="longdesc" ng-model="discount.description" placeholder="Descrizione dell'offerta" class="ha-medium-height"></textarea>
+        </label>
+    </div>
+
+    <div class="padding ha-center" ng-if="validDates && validData">
+        <button id="button-send" class="button button-small button-assertive ink" ng-click="create()">Avvia promozione</button>
+    </div>
+</div>

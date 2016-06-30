@@ -44,14 +44,13 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
 /* ==================================== */
 /* BACKEND configuration and run*/
 .config(function(haBackendProvider){
-    haBackendProvider.setBackend('http://52.28.84.18:8181');
+    haBackendProvider.setBackend('http://92.222.79.219:8181');
 })
 .run(function(haBackend){})
 
 /* BROKER configuration */
 .config(function(haBrokerProvider){
-    haBrokerProvider.initBroker('52.28.84.18', 61614);
-    //haBrokerProvider.initBroker('localhost', 61614);
+    haBrokerProvider.initBroker('92.222.79.219', 61614);
 })
 
 /* APPLICATION configuration and run*/
@@ -413,6 +412,17 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
             }
         })
 
+
+        .state('app.subscriptions.configurebusiness', {
+            url: '/subscriptions/configurebusiness/:uuid',
+            views: {
+                'inner': {
+                    templateUrl: 'templates/business/subscriptions/configurebusiness.html',
+                    controller: 'SubscriptionsConfigureBusinessCtrl'
+                }
+            }
+        })
+            
         // CART
         .state('app.subscriptions.cart', {
                 url: '/cart/:uuid',
@@ -720,7 +730,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                         url: '/list',
                         views: {
                             'promotions-inner': {
-                                template: 'list'
+                                template: '<app-promotion-list></app-promotion-list>',
                             }
                         }
                     })

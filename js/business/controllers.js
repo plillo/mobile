@@ -320,10 +320,9 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 .controller('PromotionsSpecialOfferCtrl', function($scope, $state, promotion) {
     $scope.businessUuid = $state.params.uuid;
-    
     $scope.validData = false;
 
-    $scope.selectedItems = [];
+    //$scope.selectedItems = [];
 
     $scope.specialoffer = {
         type : 'SPO',
@@ -359,7 +358,9 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     };
 })
 
-.controller('PromotionsDiscountCtrl', function($scope, $state) {
+.controller('PromotionsDiscountCtrl', function($scope, $state, promotion) {
+    $scope.businessUuid = $state.params.uuid;
+
     $scope.discount = {
         discount: 10
     };
@@ -367,6 +368,60 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     $scope.send = function(){
         $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
     }
+})
+
+.controller('PromotionsLastMinuteCtrl', function($scope, $state, promotion) {
+    $scope.businessUuid = $state.params.uuid;
+    $scope.validData = false;
+
+    $scope.discount = {
+        type : 'LMT',
+        fromDate: $scope.promotions.specialOffer.fromDatetimeValue,
+        toDate: $scope.promotions.specialOffer.toDatetimeValue,
+        products: [],
+        categories: [],
+        discount: 10,
+        description: ''
+    };
+
+    $scope.$watchCollection('discount.products',function(newValue, oldValue){
+        $scope.validateData();
+    });
+    $scope.$watchCollection('discount.categories',function(newValue, oldValue){
+        $scope.validateData();
+    });
+    $scope.$watch('discount.discount',function(newValue, oldValue){
+        $scope.validateData();
+    });
+
+    $scope.validateData = function(){
+        $scope.validData = $scope.discount.discount>0 && ($scope.discount.products.length>0 ||$scope.discount.categories.length>0);
+    };
+
+    $scope.create = function(){
+        var productsUuids = [];
+        for(var k=0;k<$scope.discount.products.length;k++){
+            productsUuids.push($scope.discount.products[k].uuid);
+        }
+        var categoriesUuids = [];
+        for(var k=0;k<$scope.discount.categories.length;k++){
+            categoriesUuids.push($scope.discount.categories[k].uuid);
+        }
+
+        // Data copy and arrays adjustment
+        var discountCopy = angular.copy($scope.discount);
+        discountCopy.products = productsUuids;
+        discountCopy.categories = categoriesUuids;
+
+        promotion.createPromotion($state.params.uuid, discountCopy).then(
+            function successCallback(response) {
+                $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+            },
+            function errorCallback(response) {
+                $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+            }
+        );
+    };
 })
 
 .controller('SubscriptionsCtrl', function($scope, $stateParams, $ionicSideMenuDelegate, $timeout, ionicMaterialMotion, ionicMaterialInk) {
@@ -469,6 +524,13 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
     $scope.uuid = $stateParams.uuid;
 })
+
+.controller('SubscriptionsSubscriptionMainCtrl', function($scope, $stateParams, $timeout, $ionicSideMenuDelegate, ionicMaterialInk) {
+    $ionicSideMenuDelegate.canDragContent(true);
+
+    $scope.uuid = $stateParams.uuid;
+})
+
 ;
 
 

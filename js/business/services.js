@@ -105,6 +105,13 @@ angular.module('business.services').factory('business', function($http, $rootSco
 			      url: $rootScope.urlBackend+'/businesses/1.0/businesses/by_selfFollowed/positions'
 			};
 			return $http(pars); // return promise
+		},
+		getBusinessSubscriptionRules: function(uuid){
+			var pars = {
+				method:'GET',
+				url: $rootScope.urlBackend+'/businesses/1.0/businesses/'+uuid+'/rules'
+			};
+			return $http(pars); // return promise
 		}
 	}
 });
@@ -208,17 +215,34 @@ angular.module('business.services').factory('product', function($http, $rootScop
 angular.module('business.services').factory('promotion', function($http, $rootScope) {
 	return {
 		createPromotion: function(business_uuid, data){
-			return $http.post($rootScope.urlBackend+'/businesses/1.0/business/'+business_uuid+'/promotion', data); // return promise
+			return $http.put($rootScope.urlBackend+'/businesses/1.0/business/'+business_uuid+'/promotion', data); // return promise
 		},
 		updatePromotion: function(uuid, data){
+			// businesses/1.0/promotion/{uuid}/setActivate
 			return $http.post($rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid, data); // return promise
 		},
-		deletePromotion: function(uuid){
+		activatePromotion: function(uuid){
+			// businesses/1.0/promotion/{uuid}/setActive
+			return $http.post($rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid+'/setActive', {}); // return promise
+		},
+		deactivatePromotion: function(uuid){
+			// businesses/1.0/promotion/{uuid}/unsetActive
+			return $http.post($rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid+'/unsetActive', {}); // return promise
+		},
+		getBySearchKeyword: function(keyword, businessUuid){
+			if(!keyword || keyword=='')
+				keyword = '%20'; // space url code
 			var pars = {
-				method:'DELETE',
-				url:$rootScope.urlBackend+'/businesses/1.0/promotion/'+uuid
+				method:'GET',
+				url: $rootScope.urlBackend+'/businesses/1.0/business/'+businessUuid+'/promotion/by_searchKeyword/'+keyword
 			};
 			return $http(pars); // return promise
+		},
+		deletePromotion: function(uuid){
+			return $http.delete($rootScope.urlBackend+'/businesses/1.0/promotions/'+uuid); // return promise
+		},
+		deletePromotionsList: function(uuids){
+			return $http.delete($rootScope.urlBackend+'/businesses/1.0/promotions',{params:{listUuid:uuids}}); // return promise
 		},
 		getByUUID: function(uuid){
 			var pars = {

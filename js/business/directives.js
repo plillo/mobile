@@ -373,7 +373,7 @@ angular.module('business.directives').directive('appOwnedBusinessForm', function
 	};
 });
 
-//ADD 'haBusinessForm' directive
+//ADD 'appConfigureBusinessForm' directive
 //..............................
 angular.module('business.directives').directive('appConfigureBusinessForm', function() {
 	return {
@@ -407,6 +407,36 @@ angular.module('business.directives').directive('appConfigureBusinessForm', func
 		link: function(scope, element, attributes){
 			// EVENTS BINDING
 			element.find('#send').bind('click', scope.send);
+		}
+	};
+});
+
+//TODO
+//ADD 'appSubscriptionRules' directive
+//..............................
+angular.module('business.directives').directive('appSubscriptionRules', function() {
+	return {
+		replace: false,
+		scope: {
+			uuid: '@uuid'
+		},
+		templateUrl : 'templates/business/subscriptions/subscription-rules.html',
+		controller: function($scope, $rootScope, $http, $window, $element, business){
+			$scope.subscriptionRules = {};
+
+			$scope.load = function() {
+				business.getBusinessSubscriptionRules($scope.uuid).then(
+					function successCallback(response) {
+						$scope.subscriptionRules = response.data.rules;
+					},
+					function errorCallback(response) {
+						alert('KO');
+					});
+			};
+			$scope.load();
+		},
+		link: function(scope, element, attributes){
+
 		}
 	};
 });
@@ -780,3 +810,84 @@ angular.module('business.directives').directive('appProductPictures', function()
 	};
 });
 
+//ADD 'appPromotionList' directive
+//..............................
+angular.module('business.directives').directive('appPromotionList', function() {
+	return {
+		replace: false,
+		scope: true,
+		templateUrl : 'js/business/templates/promotion-list.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $ionicPopup, $timeout, promotion){
+			$scope.list = [];
+			var business = $state.params.uuid;
+
+			promotion.getBySearchKeyword('', business).then(
+				// products list received
+				function (response) {
+					$scope.list = response.data;
+				},
+				// error
+				function(response){
+					$scope.list = [];
+				}
+			);
+
+			$scope.Math = $window.Math;
+
+			$scope.getNumber = function(number) {
+				return new Array(number);
+			};
+
+			// in order to setting $scope.actualProduct from child scopes
+			$scope.setActualPromotion = function(value) {
+				$scope.actualPromotion= value;
+			};
+
+			$scope.actived = function(index) {
+				var row = $scope.list[index];
+				row.active = !row.active;
+
+				var setUnset = row.active?promotion.activatePromotion:promotion.deactivatePromotion;
+				setUnset(row.uuid).then(
+					// success
+					function (response) {
+					},
+					// error
+					function(response){
+						var data = response.data;
+						alert(data.status+':'+data.message);
+					}
+				);
+
+			};
+
+			$scope.delete = function(index) {
+				// promotion.deletePromotion($scope.list[index].uuid).then(
+				promotion.deletePromotionsList([$scope.list[index].uuid]).then(
+					// success
+					function (response) {
+						$scope.list.splice(index,1);
+					},
+					// error
+					function(response){
+
+					}
+				);
+
+			};
+
+			$scope.edit = function(index) {
+				$scope.data = {};
+				$scope.actualIndex = index;
+
+				//TODO
+			};
+
+			$scope.popupClose = function() {
+				$scope.popup.close();
+			};
+		},
+		link: function(scope, element, attributes){
+		}
+	};
+});

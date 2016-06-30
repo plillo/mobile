@@ -411,7 +411,25 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                     }
                 }
             })
-
+            .state('app.subscriptions.subscription', {
+                url: '/subscriptions/subscription/:uuid',
+                views: {
+                    'inner': {
+                        templateUrl: 'templates/business/subscriptions/subscription-main.html',
+                        controller: 'SubscriptionsSubscriptionMainCtrl'
+                    }
+                }
+            })
+            .state('app.subscriptions.subscription.rules', {
+                url: '/subscriptions/subscription/:uuid/rules',
+                views: {
+                    'subinner': {
+                        template: '<app-subscription-rules uuid="{{uuid}}"></app-subscription-rules>'
+                    }
+                }
+            })
+        
+                
             // CART
             .state('app.subscriptions.cart', {
                 url: '/cart/:uuid',
@@ -719,7 +737,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                 url: '/list',
                 views: {
                     'promotions-inner': {
-                        template: 'list'
+                        template: '<app-promotion-list></app-promotion-list>',
                     }
                 }
             })

@@ -719,7 +719,7 @@ angular.module('starter', ['ionic', 'ion-datetime-picker', 'uiGmapgoogle-maps', 
                 url: '/list',
                 views: {
                     'promotions-inner': {
-                        template: 'list'
+                        template: '<app-promotion-list></app-promotion-list>',
                     }
                 }
             })
