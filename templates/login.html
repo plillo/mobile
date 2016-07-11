@@ -11,18 +11,18 @@
 		    <form name="loginForm" id="login-form" novalidate>
 		        <div class="list" style="margin:0 16px;">
 		            <div class="ha-item">
-			            <input type="text" name="loginIdentificator" ng-model="identificator" ng-model-options="{debounce:500}" class="ha-input form-control" placeholder="Username/EMail/Mobile" required ha-identificator>
+			            <input type="text" name="loginIdentificator" ng-model="identificator" ng-model-options="{debounce:500}" class="ha-input form-control" value=" " placeholder="Username/EMail/Mobile" required ha-identificator>
 			            <!-- span ng-show="loginForm.loginIdentificator.$error.required">The value is required!</span -->
 		            </div>
 	
 		            <!--<ion-md-input ng-model="password" placeholder="Password" highlight-color="energized" type="password"></ion-md-input>-->
 		           	<div class="ha-item">
-			            <input type="text" name="password" ng-model="password" ng-model-options="{debounce:500}" class="ha-input form-control" placeholder="Password" required>
+			            <input type="password" name="password" ng-model="password" ng-model-options="{debounce:500}" class="ha-input form-control" autocomplete="new-password" placeholder="Password" required>
 			            <!-- span ng-show="loginForm.password.$error.required">The value is required!</span -->
 					</div>	
 	
 		           	<div class="ha-item">
-			            <input type="text" name="retype-password" ng-model="retypePassword" class="ha-input form-control" placeholder="Retype Password">
+			            <input type="password" name="retype-password" ng-model="retypePassword" class="ha-input form-control" placeholder="Retype Password">
 			            <span ng-show="loginForm.retypePassword.$error.required">The value is required!</span>
 					</div>
 		        </div>

@@ -1,0 +1,20 @@
+<div class="bs-followed-business-results">
+
+    <div ng-repeat="result in results" class="bs-followed-business-result" href="#" data-uuid="{{result.uuid}}">
+        <img class="bs-logo" ng-src="{{urlBackend}}/businesses/1.0/businesses/{{result.uuid}}/logo#{{rand}}">
+        <div class="bs-description">
+            <h2>{{result.name}}</h2>
+            <div>{{result.city}}</div>
+            <div>{{result.address}}</div>
+        </div>
+        <div class="bs-buttons">
+            <button class="button button-fab expanded button-energized-900" ng-click="go('{{result.uuid}}', 'app.subscriptions.subscription')"><i class="icon ion-arrow-shrink"></i></button>
+            <button class="button button-fab expanded button-energized-900" ng-click="go('{{result.uuid}}','app.subscriptions.cart')"><i class="icon ion-ios-cart"></i></button>
+            <button class="button button-fab expanded button-energized-900" ng-click="go('{{result.uuid}}','app.subscriptions.invite')"><i class="icon ion-android-people"></i></button>
+            <button class="button button-fab expanded button-energized-900" ng-click="unfollow('{{result.uuid}}')"><i class="icon ion-minus"></i></button>
+        </div>
+    </div>
+
+</div>
+
+

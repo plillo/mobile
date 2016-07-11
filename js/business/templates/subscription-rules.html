@@ -1,0 +1,92 @@
+<div class="list ha-list ha-bottom-200 ha-padding-20">
+    <h4>Regole di ricezione</h4>
+    <h2>{{businessName}}</h2>
+
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('active')">
+            <div class="ha-command ha-inline"><span>Abilitazione generale</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.active, 'ion-toggle':!subscriptionRules.active}"></i></div>
+        </label>
+    </div>
+
+    <!-- INPUT CHANNELS -->
+
+    <div class="row">
+        <h3>Canali abilitati</h3>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('mailChannel')">
+            <div class="ha-command ha-inline"><span>E-mail</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.mailChannel, 'ion-toggle':!subscriptionRules.mailChannel}"></i></div>
+        </label>
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('smsChannel')">
+            <div class="ha-command ha-inline"><span>SMS</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.smsChannel, 'ion-toggle':!subscriptionRules.smsChannel}"></i></div>
+        </label>
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('pushChannel')">
+            <div class="ha-command ha-inline"><span>Push</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.pushChannel, 'ion-toggle':!subscriptionRules.pushChannel}"></i></div>
+        </label>
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('volantinoChannel')">
+            <div class="ha-command ha-inline"><span>Volantino</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.volantinoChannel, 'ion-toggle':!subscriptionRules.volantinoChannel}"></i></div>
+        </label>
+    </div>
+
+    <!-- PROMOTIONS -->
+
+    <div class="row">
+        <h3>Monitoraggio promozioni</h3>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('SPOPromo')">
+            <div class="ha-command ha-inline"><span>Offerta speciale</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.SPOPromo, 'ion-toggle':!subscriptionRules.SPOpromo}"></i></div>
+        </label>
+    </div>
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('DSCPromo')">
+            <div class="ha-command ha-inline"><span>Sconto</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.DSCPromo, 'ion-toggle':!subscriptionRules.DSCpromo}"></i></div>
+        </label>
+    </div>
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('NXMPromo')">
+            <div class="ha-command ha-inline"><span>Prendi N paghi M</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.NXMPromo, 'ion-toggle':!subscriptionRules.NXMpromo}"></i></div>
+        </label>
+    </div>
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('LMTPromo')">
+            <div class="ha-command ha-inline"><span>Last-minute</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.LMTPromo, 'ion-toggle':!subscriptionRules.LMTpromo}"></i></div>
+        </label>
+    </div>
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('GRAPromo')">
+            <div class="ha-command ha-inline"><span>Grandi affari</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.GRAPromo, 'ion-toggle':!subscriptionRules.GRApromo}"></i></div>
+        </label>
+    </div>
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('CPNPromo')">
+            <div class="ha-command ha-inline"><span>Coupon</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.CPNPromo, 'ion-toggle':!subscriptionRules.CPNpromo}"></i></div>
+        </label>
+    </div>
+
+    <!-- NEWS -->
+
+    <div class="row">
+        <h3>News</h3>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('news')">
+            <div class="ha-command ha-inline"><span>News esercente</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.news, 'ion-toggle':!subscriptionRules.news}"></i></div>
+        </label>
+    </div>
+
+    <!-- CHAT -->
+
+    <div class="row">
+        <h3>Chat</h3>
+    </div>
+
+    <div class="row">
+        <label class="col item item-input item-floating-label" ng-click="toggleRule('chat')">
+            <div class="ha-command ha-inline"><span>Chat esercente</span><i class="icon ha-item-toggle" ng-class="{'ion-toggle-filled':subscriptionRules.chat, 'ion-toggle':!subscriptionRules.chat}"></i></div>
+        </label>
+    </div>
+</div>

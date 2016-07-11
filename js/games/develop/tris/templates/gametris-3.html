@@ -1,0 +1,39 @@
+<div class="game-tris">
+<p ng-show="isPlayer1Playing && gameHasStarted && !gameFinished">Player 1 is playing...</p>
+<p ng-show="!isPlayer1Playing && gameHasStarted && !gameFinished">Player 2 is playing...</p>
+<p style="color: red">{{message}}</p>
+
+<h3>{{playerId}}</h3>
+
+<div class="list">
+  <div class="row" ng-repeat="i in getArray(3) track by $index">
+    <div class="col" ng-repeat="j in getArray(3) track by $index">
+      <img
+          id="{{($parent.$index+1)+''+($index+1)}}"
+          ng-click="setPosition($parent.$index,$index)"
+          ng-src="{{getCaseImg($parent.$index,$index)}}"
+          width="100%"
+          class="tris"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="list">
+  <div class="row">
+    <div class="col timer me">{{playerTime[me] | date: 'm:s:sss'}}</div>
+    <div class="col timer notme">{{playerTime[notme] | date: 'm:s:sss'}}</div>
+  </div>
+</div>
+
+<div class="winner" ng-if="winnerStatus"><h3>HAI VINTO!</h3></div>
+<div class="winner" ng-if="loserStatus"><h3>HAI PERSO!</h3></div>
+
+<div class="debug"><span>session-channel:</span>{{sessionCommand}}</div>
+<div class="debug"><span>client-channel:</span>{{clientCommand}}</div>
+
+<!-- WARNING MESSAGES -->
+<p class="text-center" ng-show="cantPlay">You can't play this move</p>
+<p class="text-center" ng-show="warnGameNotStarted">You can't play yet, the game has not started yet!</p>
+<p class="text-center" ng-show="warnGameFinished">You can't play, game finished!</p>
+</div>

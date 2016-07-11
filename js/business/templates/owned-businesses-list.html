@@ -1,0 +1,14 @@
+<div class="bs-owned-business-results">
+    <div ng-repeat="result in results" class="bs-owned-business-result" href="#" data-uuid="{{result.uuid}}">
+        <img class="bs-logo" ng-src="{{urlBackend}}/businesses/1.0/businesses/{{result.uuid}}/logo#{{rand}}">
+        <div class="bs-description">
+            <h2>{{result.name}}</h2>
+            <div>{{result.city}}</div>
+            <div>{{result.address}}</div>
+        </div>
+        <div class="bs-buttons">
+            <button class="button button-fab expanded button-energized-900" ng-click="edit('{{result.uuid}}', 'app.businessmanager.business')"><i class="icon ion-gear-b"></i></button>
+            <button class="button button-fab expanded button-energized-900" ng-click="remove('{{result.uuid}}', $event)"><i class="icon ion-minus"></i></button>
+        </div>
+    </div>
+</div>

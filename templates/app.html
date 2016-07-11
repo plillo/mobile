@@ -6,15 +6,21 @@
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
             <ion-list class="app-menu-list">
-                <!-- Servizi user -->
+                <!-- Sistema -->
                 <ion-item nav-clear menu-close class="app-menu-item-separator">
-                    <h1>Servizi utente</h1>
+                    <h1>Sistema e sviluppo</h1>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.social">
-                    <i class="icon ion-chatboxes"></i><label>&#181;Social</label>
+                <ion-item nav-clear menu-close ui-sref="app.inspect">
+                    <i class="icon ion-bug"></i><label>Inspect</label>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.domotics">
-                    <i class="icon ion-radio-waves"></i><label>Domotica</label>
+                <ion-item nav-clear menu-close ui-sref="app.service">
+                    <i class="icon ion-settings"></i><label>System settings</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.userattributes">
+                    <i class="icon ion-gear-a"></i><label>Attributi utente</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.todo">
+                    <i class="icon ion-settings"></i><label>TODO list</label>
                 </ion-item>
 
                 <!-- Games user -->
@@ -25,15 +31,20 @@
                     <i class="icon ion-xbox"></i><label>Tris</label>
                 </ion-item>
 
+                <!-- Servizi user -->
+                <ion-item nav-clear menu-close class="app-menu-item-separator">
+                    <h1>Servizi utente</h1>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.microsocial">
+                    <i class="icon ion-chatboxes"></i><label>&#181;Social</label>
+                </ion-item>
+
                 <!-- Servizi business -->
                 <ion-item nav-clear menu-close class="app-menu-item-separator">
                     <h1>Servizi business</h1>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.consulting">
                     <i class="icon ion-university"></i><label>&#181;Consulting</label>
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.news">
-                    <i class="icon ion-social-rss"></i><label>News</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.cart">
                     <i class="icon ion-social-rss"></i><label>Carrello</label>
@@ -62,18 +73,12 @@
                     <i class="icon ion-bag"></i><label>Codice QR</label>
                 </ion-item>
 
-                <!-- Sistema -->
+                <!-- Estensioni -->
                 <ion-item nav-clear menu-close class="app-menu-item-separator">
-                    <h1>Sistema</h1>
+                    <h1>Estensioni</h1>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.inspect">
-                    <i class="icon ion-bug"></i><label>Inspect</label>
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.service">
-                    <i class="icon ion-settings"></i><label>Service Setting</label>
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.userattributes">
-                    <i class="icon ion-gear-a"></i><label>Attributi utente</label>
+                <ion-item nav-clear menu-close ui-sref="app.domotics">
+                    <i class="icon ion-radio-waves"></i><label>Domotica</label>
                 </ion-item>
             </ion-list>
         </ion-content>
@@ -114,6 +119,9 @@
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.gallery" ng-if="isUserLogged()">
                     <i class="icon ion-android-map"></i><label>Volantino</label>
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.news">
+                    <i class="icon ion-social-rss"></i><label>News</label>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.invite" ng-if="isUserLogged()">
                     <i class="icon ion-android-people"></i><label>Invita i tuoi amici</label>

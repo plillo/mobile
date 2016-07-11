@@ -5,9 +5,24 @@ ion-view.pane {
 
 
 /* #HASH styles*/
+
+.ha-command {
+
+}
+.ha-command>span {
+    display: inline-block;
+    vertical-align: top;
+    margin: 15px 5px;
+}
+.ha-command>i.ha-item-toggle {
+    font-size: 35px;
+    float: left;
+}
+
 .ha-item {
 	margin: 5px 0;
 }
+
 .ha-input {
 	background-color: rgba(0, 0, 0, 0.5);
     bottom: 0;
@@ -26,12 +41,22 @@ ion-view.pane {
     height: 120px;
     padding-top: 10px !important;
 }
+
+.ha-border-bottom {
+    border-bottom: 1px solid #ccc !important;
+}
+/*
 *.ha-list {
     background: rgba(0, 0, 0, 0) linear-gradient(to top, #DDEEEE, transparent, transparent, transparent) repeat scroll 0 0;
     margin-bottom: 5px;
     position: relative;
 }
+*/
 
+ul.ha-bullet {
+    list-style-type: disc;
+    margin-left: 30px;
+}
 
 .ha-sub-view {
 	top: 49px;
@@ -54,4 +79,17 @@ ion-view.pane {
 .ha-sub-sub-sub-content .tabs-dark {
     background-color: #777;
     border-color: #666;
+}
+
+.ha-padding-20 {
+    padding: 20px;
+}
+.ha-display-none {
+    display: none;
+}
+
+.ha-list h3 {
+    color: #88bfbf;
+    margin-top: 10px;
+    margin-bottom: 0;
 }

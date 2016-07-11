@@ -293,9 +293,13 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     }
 
     $scope.$watch('promotions.specialOffer.fromDatetimeValue',function(newValue, oldValue){
+        if(Object.prototype.toString.call(newValue) === '[object Date]')
+            $rootScope.promotions.specialOffer.fromDatetimeValue = newValue.getTime();
         $scope.validateDates();
     });
     $scope.$watch('promotions.specialOffer.toDatetimeValue',function(newValue, oldValue){
+        if(Object.prototype.toString.call(newValue) === '[object Date]')
+            $rootScope.promotions.specialOffer.toDatetimeValue = newValue.getTime();
         $scope.validateDates();
     });
     
@@ -518,18 +522,6 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
                 });
         });
     })
-
-.controller('SubscriptionsCartCtrl', function($scope, $stateParams, $timeout, $ionicSideMenuDelegate, ionicMaterialInk) {
-    $ionicSideMenuDelegate.canDragContent(true);
-
-    $scope.uuid = $stateParams.uuid;
-})
-
-.controller('SubscriptionsSubscriptionMainCtrl', function($scope, $stateParams, $timeout, $ionicSideMenuDelegate, ionicMaterialInk) {
-    $ionicSideMenuDelegate.canDragContent(true);
-
-    $scope.uuid = $stateParams.uuid;
-})
 
 ;
 

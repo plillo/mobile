@@ -359,6 +359,127 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     ionicMaterialInk.displayEffect();
 })
 
+.controller('MapProfileCtrl', function($scope, $timeout, haUser, $ionicSideMenuDelegate, uiGmapIsReady) {
+    $ionicSideMenuDelegate.canDragContent(false);
+
+    $scope.map = {
+        center: { latitude: 0, longitude: 0 },
+        zoom: 10,
+        control : {}
+    };
+
+    $scope.position = {};
+
+    $scope.drawMap = function(){
+        // Set map center
+        $scope.map.center = { latitude: $scope.position.lat, longitude: $scope.position.lng };
+
+        // Get Map
+        var map = $scope.map.control.getGMap();
+        $scope.map.control.refresh();
+
+        // Create marker and set on map
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng($scope.position.lat, $scope.position.lng),
+            title: "Business position",
+            draggable: false
+        });
+        marker.setMap(map);
+
+        var circleOptions = {
+            center: {lat:$scope.position.lat, lng:$scope.position.lng},
+            radius: $scope.position.radius,
+            clickable: false,
+            strokeColor: '#AA0000',
+            strokeWeight: 1,
+            strokeOpacity: 0.3,
+            fillColor: '#AA0000',
+            fillOpacity: 0.1,
+            map: map,
+            editable: true
+        };
+        var circle = new google.maps.Circle(circleOptions);
+        google.maps.event.addListener(circle, 'radius_changed', function(){
+            $scope.position.radius = circle.getRadius();
+
+            // save back-end position/radius
+            haUser.setUserArea($scope.position);
+        });
+        google.maps.event.addListener(circle, 'center_changed', function(){
+            marker.setPosition(circle.getCenter());
+            $scope.position.lat = circle.getCenter().lat();
+            $scope.position.lng = circle.getCenter().lng();
+
+            // save back-end position/radius
+            haUser.setUserArea($scope.position);
+        });
+    }
+
+    haUser.getUserArea().then(
+        function successCallback(response) {
+            if(response.data.setted){
+                // Set position
+                $scope.position = response.data.area;
+
+                // Draw
+                uiGmapIsReady.promise().then(function (maps) {
+                    $scope.drawMap();
+                });
+
+                return;
+            }
+            else {
+                // Set defaults by IP localization
+                // TODO: provvisorio: implementare e usare un'API da back-end
+                $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+                    $scope.position.lat = data.lat;
+                    $scope.position.lng = data.lon;
+                    $scope.position.radius = 5000;
+
+                    // Draw
+                    uiGmapIsReady.promise().then(function (maps) {
+                        $scope.drawMap();
+                    });
+
+                    return;
+                });
+            }
+        }
+    );
+
+    /*
+    uiGmapIsReady.promise().then(function (maps) {
+        haUser.getUserArea().then(
+            function successCallback(response) {
+                if(response.data.setted){
+                    // Set position
+                    $scope.position = response.data.area;
+                    // Draw
+                    $scope.drawMap();
+
+                    return;
+                }
+                else {
+                    // Set defaults by IP localization
+                    // TODO: provvisorio: implementare e usare un'API da back-end
+                    $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+                        $scope.position.lat = data.lat;
+                        $scope.position.lng = data.lon;
+                        $scope.position.radius = 5000;
+                        // Draw
+                        $scope.drawMap();
+
+                        return;
+                    });
+                }
+            },
+            function errorCallback(response) {
+                alert('Error loading map');
+            });
+    });
+    */
+})
+
 .controller('QRCodeCtrl', function($scope, $stateParams, $ionicSideMenuDelegate, $timeout, ionicMaterialMotion, ionicMaterialInk) {
 	$ionicSideMenuDelegate.canDragContent(true);
 	
@@ -517,7 +638,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 .controller('EditAttributeCtrl', function($scope, $stateParams, $timeout, $ionicSideMenuDelegate, ionicMaterialInk) {
 	$ionicSideMenuDelegate.canDragContent(true);
-	
+
 	$scope.uuid = $stateParams.uuid;
 	
 	// Set Header

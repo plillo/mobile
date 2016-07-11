@@ -111,7 +111,10 @@ angular.module('business.services').factory('business', function($http, $rootSco
 				method:'GET',
 				url: $rootScope.urlBackend+'/businesses/1.0/businesses/'+uuid+'/rules'
 			};
-			return $http(pars); // return promise
+			return $http(pars); // return promise'+uuid+'/rules
+		},
+		setBusinessSubscriptionRule: function(uuid, rule, value) {
+			return $http.put($rootScope.urlBackend+'/businesses/1.0/businesses/'+uuid+'/rules/'+rule,{action:value?'set':'unset'}); // return promise
 		}
 	}
 });

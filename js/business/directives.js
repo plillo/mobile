@@ -52,11 +52,12 @@ angular.module('business.directives').directive('appSearchBusiness', function(bu
 	return {
 		replace: false,
 		scope: {},
-		templateUrl : 'templates/business/business/search-business.html',
+		templateUrl : 'js/business/templates/search-business.html',
 		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
         	$scope.urlBackend = haBackend.getBackend();
+			$scope.rand = ''+ Math.random();
 			
 	       	// insert here scope-functions
 			// ...
@@ -94,11 +95,11 @@ angular.module('business.directives').directive('appSearchBusiness', function(bu
 
 //ADD 'appFollowedBusiness' directive
 //...................................
-angular.module('business.directives').directive('appFollowedBusiness', function(business) {
+angular.module('business.directives').directive('appSubscriptionsList', function(business) {
 	return {
 		replace: false,
 		scope: {},
-		templateUrl : 'templates/business/business/followed-business.html',
+		templateUrl : 'js/business/templates/subscriptions-list.html',
 		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
@@ -121,10 +122,6 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 			};
 			$scope.load();
 
-			$scope.cart = function(uuid, tostate) {
-				$state.go(tostate, {uuid:uuid});
-			};
-			
 			$scope.unfollow = function(uuid) {
 				business.unfollowBusiness(uuid).then(
 				    function successCallback(response) {
@@ -135,7 +132,7 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 		            });
 			};
 			
-			$scope.configure = function(uuid, tostate) {
+			$scope.go = function(uuid, tostate) {
 				$state.go(tostate, {uuid:uuid});
 			};
 
@@ -149,11 +146,11 @@ angular.module('business.directives').directive('appFollowedBusiness', function(
 
 //ADD 'appOwnedBusiness' directive
 //................................
-angular.module('business.directives').directive('appOwnedBusiness', function(business) {
+angular.module('business.directives').directive('appOwnedBusinessesList', function(business) {
 	return {
 		replace: false,
 		scope: {},
-		templateUrl : 'templates/business/business/owned-business.html',
+		templateUrl : 'js/business/templates/owned-businesses-list.html',
 		controller: function($scope, $state, $window, $element, haBackend){
 	       	// scope-properties
 			$scope.results = [];
@@ -216,7 +213,8 @@ angular.module('business.directives').directive('appBusinessForm', function(busi
 				for(var i = 0; i < $scope.categoriesSelected.length; i++){
 					selected.push($scope.categoriesSelected[i].uuid);
 				}
-				data.categories = selected;
+				//data.categories = selected;
+				data.categories = selected.join(",");
 				
 				// Set file
 				if(file!=null)
@@ -420,13 +418,38 @@ angular.module('business.directives').directive('appSubscriptionRules', function
 		scope: {
 			uuid: '@uuid'
 		},
-		templateUrl : 'templates/business/subscriptions/subscription-rules.html',
+		templateUrl : 'js/business/templates/subscription-rules.html',
 		controller: function($scope, $rootScope, $http, $window, $element, business){
 			$scope.subscriptionRules = {};
 
 			$scope.load = function() {
 				business.getBusinessSubscriptionRules($scope.uuid).then(
 					function successCallback(response) {
+						if(!response.data.matched)
+							return;
+
+						// Set business name
+						$scope.businessName = response.data.name;
+
+						var setter = function(rule){
+							if(response.data.rules[rule]==undefined)
+								response.data.rules[rule] = true;
+						};
+						setter('active');
+						setter('mailChannel');
+						setter('smsChannel');
+						setter('pushChannel');
+						setter('volantinoChannel');
+						setter('SPOPromo');
+						setter('DSCPromo');
+						setter('NXMPromo');
+						setter('LMTPromo');
+						setter('GRAPromo');
+						setter('CPNPromo');
+						setter('news');
+						setter('chat');
+
+						// Set rules
 						$scope.subscriptionRules = response.data.rules;
 					},
 					function errorCallback(response) {
@@ -434,6 +457,43 @@ angular.module('business.directives').directive('appSubscriptionRules', function
 					});
 			};
 			$scope.load();
+
+			$scope.toggleRule = function(rule) {
+				// Rule validation
+				switch(rule){
+					// general activation
+					case 'active':
+					// channels
+					case 'mailChannel':
+					case 'smsChannel':
+					case 'pushChannel':
+					case 'volantinoChannel':
+					// promotions
+					case 'SPOPromo':
+					case 'DSCPromo':
+					case 'NXMPromo':
+					case 'LMTPromo':
+					case 'GRAPromo':
+					case 'CPNPromo':
+					// retailer services
+					case 'news':
+					case 'chat':break;
+					default: return; // not a valid rule
+				}
+
+				// toggle value
+				var set = !$scope.subscriptionRules[rule];
+
+				// Backend command
+				business.setBusinessSubscriptionRule($scope.uuid, rule, set).then(
+					function successCallback(response) {
+						$scope.subscriptionRules[rule] = response.data.status;
+					},
+					function errorCallback(response) {
+						response.data.message;
+					}
+				);
+			};
 		},
 		link: function(scope, element, attributes){
 
