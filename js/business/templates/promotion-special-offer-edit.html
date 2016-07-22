@@ -1,6 +1,9 @@
-<h3>Offerta speciale su singolo prodotto</h3>
+<i class="icon ion-close ha-popup-close" ng-click="popupClose()"></i>
+
+<h3>Promozione</h3>
 
 <div class="list ha-bottom-200">
+
     <div class="row">
         <label class="col item item-input">
             <span class="input-label">Dalla data/ora</span>
@@ -51,7 +54,38 @@
         </label>
     </div>
 
-    <div class="padding ha-center" ng-if="validDates && validData">
-        <button id="button-send" class="button button-small button-assertive ink" ng-click="create()">Avvia promozione</button>
+    <div class="row" style="height:30px;"></div>
+
+    <div class="row ha-input-area" id="loadImage" >
+        <div class="ha-upload-button"
+             ng-model="images"
+             ngf-select
+             ngf-max-files="2"
+             ngf-keep="true"
+             ngf-validate="{size: {max:'2MB'}}">
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Immagine promozione</span></label>
+        </div>
     </div>
+
+    <div class="row" ng-if="images.length>0">
+        <label class="col item item-input">
+            <span class="input-label">Immagine promozione</span>
+        </label>
+    </div>
+
+    <div class="ha-upload-list">
+        <div class="row" ng-repeat="image in images">
+            <div class="col col-center col-33 ha-align-left">{{image.name}}</div>
+            <div class="col col-center">{{image.type+' ['+image.size+' B]'}}</div>
+            <div class="col col-center" ng-class="{'ha-loading': !image.haLoaded, 'ha-loaded': image.haLoaded}">{{image.haLoadMessage}}</div>
+            <div class="col col-center" ng-click="deleteImage($index)"><i class="icon ion-minus-circled ha-font-size-25"></i></div>
+        </div>
+    </div>
+
+    <div class="row" style="height:10px;"></div>
+
+    <div class="padding ha-center" ng-if="validDates && validData">
+        <button id="button-send" class="button button-small button-assertive ink" ng-click="upload($event)">Aggiorna promozione</button>
+    </div>
+
 </div>

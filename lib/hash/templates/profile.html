@@ -1,0 +1,80 @@
+<form name="profileForm" id="profile-form" novalidate style="margin-bottom:50px;">
+
+    <div class="list profile">
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Username</span>
+            <input type="text" name="username" ng-model="updatingUser.username" placeholder="Username">
+        </label>
+        <label class="item item-input item-floating-label">
+            <span class="input-label">First Name</span>
+            <input type="text" name="firstName" ng-model="updatingUser.firstName" placeholder="First name">
+        </label>
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Last Name</span>
+            <input type="text" name="lastName" ng-model="updatingUser.lastName" placeholder="Last name">
+        </label>
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Email</span>
+            <input type="text" name="email" ng-model="updatingUser.email" placeholder="EMail">
+        </label>
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Mobile</span>
+            <input type="text" name="mobile" ng-model="updatingUser.mobile" placeholder="Mobile">
+        </label>
+
+        <!-- - LOOP EXTRA ATTRIBUTES -->
+        <!-- ======================= -->
+        <div ng-repeat-start="attribute in attributeTypes" class="ha-display-none"></div>
+        <!-- TEXT -->
+        <label ng-if="attribute.type=='text'" class="item item-input item-floating-label">
+            <span class="input-label">{{attribute.label}}</span>
+            <input type="text" ng-model="extra[attribute.name].value" placeholder="{{attribute.label}}" app-attr-uuid="{{attribute.uuid}}" class="extra">
+        </label>
+
+        <!-- TEXTAREA -->
+        <label ng-if="attribute.type=='textarea'" class="item item-input item-floating-label">
+            <span class="input-label">{{attribute.label}}</span>
+            <textarea type="textarea" ng-model="extra[attribute.name].value" placeholder="{{attribute.label}}" app-attr-uuid="{{attribute.uuid}}" class="extra"></textarea>
+        </label>
+
+        <!-- RADIO BUTTONS -->
+        <div ng-if="attribute.type=='radio'" class="item item-input">
+            <span class="input-label has-input">{{attribute.label}}</span>
+        </div>
+        <div ng-if="attribute.type=='radio'" class="item item-input ha-border-bottom">
+            <ion-radio ng-repeat="item in extra[attribute.name].items"
+                       ng-value="item.value"
+                       ng-checked="item.checked"
+                       ng-model="extra[attribute.name].value">
+                {{ item.text }}
+            </ion-radio>
+        </div>
+
+        <!-- CHECK-BOXES -->
+        <div ng-if="attribute.type=='checkbox'" class="item item-input">
+            <span class="input-label has-input">{{attribute.label}}</span>
+        </div>
+        <div ng-if="attribute.type=='checkbox'" class="item item-input ha-border-bottom">
+            <ion-checkbox ng-repeat="item in extra[attribute.name].items"
+                          ng-model="item.checked"
+                          ng-checked="item.checked">
+                {{ item.text }}
+            </ion-checkbox>
+        </div>
+
+        <!-- SELECT -->
+        <label ng-if="attribute.type=='select'" class="item item-input item-select ha-border-bottom">
+            <span class="input-label">{{attribute.label}}</span>
+            <select type="select" ng-model="extra[attribute.name].value" app-attr-multivalued="{{attribute.multivalued?'true':'false'}}" app-attr-uuid="{{attribute.uuid}}" class="extra">
+                <option class="label" value="">Selezionare</option>
+                <option ng-repeat="value in attribute.values" ng-selected="extra[attribute.name].value==value.value">{{value.label}}</option>
+            </select>
+        </label>
+        <div ng-repeat-end="" class="ha-display-none"></div>
+    </div>
+
+    <div class="padding" style="text-align: center">
+        <button id="button-update" class="button button-small button-assertive ink">Update</button>
+    </div>
+
+</form>

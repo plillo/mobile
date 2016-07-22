@@ -84,6 +84,35 @@ ul.ha-bullet {
 .ha-padding-20 {
     padding: 20px;
 }
+
+.ha-margin-top-10 {
+    margine-top: 10px;
+}
+.ha-margin-top-20 {
+    margine-top: 20px;
+}
+.ha-margin-top-30 {
+    margine-top: 30px;
+}
+
+.ha-align-left {
+    text-align: left;
+}
+.ha-align-center {
+    text-align: center;
+}
+.ha-align-right {
+    text-align: right;
+}
+
+.ha-width-20 {
+    width: 20px;
+}
+
+.ha-font-size-25 {
+    font-size: 25px;
+}
+
 .ha-display-none {
     display: none;
 }
@@ -92,4 +121,8 @@ ul.ha-bullet {
     color: #88bfbf;
     margin-top: 10px;
     margin-bottom: 0;
+}
+
+.ha-upload-list>.row:last-child>div {
+    border-bottom: none;
 }

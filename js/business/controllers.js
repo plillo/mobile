@@ -322,46 +322,6 @@ angular.module('business.controllers', ['ionic', 'uiGmapgoogle-maps'])
     $scope.validateDates();
 })
 
-.controller('PromotionsSpecialOfferCtrl', function($scope, $state, promotion) {
-    $scope.businessUuid = $state.params.uuid;
-    $scope.validData = false;
-
-    //$scope.selectedItems = [];
-
-    $scope.specialoffer = {
-        type : 'SPO',
-        fromDate: $scope.promotions.specialOffer.fromDatetimeValue,
-        toDate: $scope.promotions.specialOffer.toDatetimeValue,
-        products: [],
-        availability: '*',
-        quantity: 1,
-        price: 0
-    };
-
-    $scope.$watch('specialoffer.quantity',function(newValue, oldValue){
-        $scope.validateData();
-    });
-
-    $scope.$watch('specialoffer.price',function(newValue, oldValue){
-        $scope.validateData();
-    });
-
-    $scope.validateData = function(){
-        $scope.validData = $scope.specialoffer.quantity>0 && $scope.specialoffer.price>0;
-    };
-
-    $scope.create = function(){
-        promotion.createPromotion($state.params.uuid, $scope.specialoffer).then(
-            function successCallback(response) {
-                $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
-            },
-            function errorCallback(response) {
-                $state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
-            }
-         );
-    };
-})
-
 .controller('PromotionsDiscountCtrl', function($scope, $state, promotion) {
     $scope.businessUuid = $state.params.uuid;
 

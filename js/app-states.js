@@ -674,8 +674,7 @@ angular.module('starter')
                             parent: 'app.businessmanager.business.servicesmanager.promotionsmanager.create',
                             views: {
                                 'promotion-edit-view': {
-                                    templateUrl: 'templates/business/services/promotions/specialoffer.html',
-                                    controller: 'PromotionsSpecialOfferCtrl'
+                                    template: '<app-promotion-special-offer-form></app-promotion-special-offer-form>'
                                 }
                             }
                         })
@@ -702,8 +701,7 @@ angular.module('starter')
                             url: '/lastminute',
                             views: {
                                 'promotion-edit-view': {
-                                    templateUrl: 'templates/business/services/promotions/lastminute.html',
-                                    controller: 'PromotionsLastMinuteCtrl'
+                                    template: '<app-promotion-last-minute-form></app-promotion-last-minute-form>'
                                 }
                             }
                         })

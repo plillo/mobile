@@ -871,7 +871,7 @@ angular.module('business.directives').directive('appProductPictures', function()
 });
 
 //ADD 'appPromotionList' directive
-//..............................
+//................................
 angular.module('business.directives').directive('appPromotionList', function() {
 	return {
 		replace: false,
@@ -933,19 +933,424 @@ angular.module('business.directives').directive('appPromotionList', function() {
 
 					}
 				);
-
 			};
 
+			// EDIT item select from list (clicking on button)
 			$scope.edit = function(index) {
 				$scope.data = {};
 				$scope.actualIndex = index;
 
-				//TODO
+				// SET template
+				var template = '';
+				switch($scope.list[index].type) {
+					case 'SPO':
+						template = '<app-promotion-special-offer-edit></app-promotion-special-offer-edit>';
+						break;
+					case 'LMT':
+						template = '<app-promotion-last-minute-edit></app-promotion-last-minute-edit>';
+						break;
+					// ...
+				}
+
+				$scope.popup = $ionicPopup.show({
+					template: template,
+					cssClass: 'ha-popup',
+					title: 'Modifica promozione',
+					scope: $scope // inject actual scope into popup
+				});
+
+				$scope.popup.then(function(res) {
+					console.log('Tapped!', res);
+				});
+			};
+
+			$scope.editPictures = function(item) {
+				$scope.data = {};
+				$scope.actualPromotion = item;
+				if(!$scope.actualPromotion.pictures)
+					$scope.actualPromotion.pictures = [];
+
+				// An elaborate, custom popup
+				$scope.popup = $ionicPopup.show({
+					template: '<app-promotion-pictures></app-promotion-pictures>',
+					cssClass: 'ha-popup',
+					title: 'Modifica delle immagini',
+					scope: $scope
+				});
+
+				$scope.popup.then(function(res) {
+					console.log('Tapped!', res);
+				});
 			};
 
 			$scope.popupClose = function() {
 				$scope.popup.close();
 			};
+		},
+		link: function(scope, element, attributes){
+		}
+	};
+});
+
+//ADD 'appPromotionSpecialOfferForm' directive
+//............................................
+angular.module('business.directives').directive('appPromotionSpecialOfferForm', function() {
+	return {
+		replace: false,
+		scope: false,
+		templateUrl : 'js/business/templates/promotion-special-offer-form.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, $ionicLoading, promotion, Upload){
+			$scope.businessUuid = $state.params.uuid;
+			$scope.validData = false;
+
+			$scope.specialoffer = {
+				type : 'SPO',
+				fromDate: $scope.promotions.specialOffer.fromDatetimeValue,
+				toDate: $scope.promotions.specialOffer.toDatetimeValue,
+				products: [],
+				availability: '*',
+				quantity: 1,
+				price: 0
+			};
+			$scope.images = [];
+			$scope.loading = false;
+			$scope.allLoaded = false;
+
+			$scope.refresh = function(){
+				$scope.allLoaded = $scope.images.reduce(function(total, elem){return total&&elem.haLoaded},true);
+			};
+
+			// WATCHS
+			$scope.$watch('allLoaded',function(newValue, oldValue){
+				if(newValue)
+					$ionicLoading.hide();
+			});
+
+			$scope.$watch('specialoffer.quantity',function(newValue, oldValue){
+				$scope.validateData();
+			});
+
+			$scope.$watch('specialoffer.price',function(newValue, oldValue){
+				$scope.validateData();
+			});
+
+			$scope.$watch('images', function(newValue, oldValue) {
+				if(newValue.length > oldValue.length) {
+					newValue[newValue.length-1].haLoaded = false;
+					newValue[newValue.length-1].haLoadMessage = 'ready';
+				}
+
+				if(newValue.length==1) {
+					$scope.$loadImage.hide();
+				}
+				else
+					$scope.$loadImage.show();
+			});
+
+			// VALIDATION
+			$scope.validateData = function(){
+				$scope.validData = $scope.specialoffer.quantity>0 && $scope.specialoffer.price>0;
+			};
+
+			// CREATE
+			$scope.createPromotion = function (event) {
+				// Hide button
+				$(event.target).hide();
+
+				// Init and go
+				$scope.formUpload = true;
+				$scope.upload()
+			};
+
+			$scope.launchRequest = function(i, puuid) {
+				Upload.upload({
+					url: $rootScope.urlBackend+'/businesses/1.0/promotion/'+puuid+'/picture/',
+					method: 'PUT',
+					data: {
+						picture: $scope.images[i]
+					}
+				}).then(
+					// Image loaded
+					function (response) {
+						$scope.images[i].haLoaded = 'true';
+						$scope.images[i].haLoadMessage = 'loaded';
+						$scope.refresh();
+					},
+					// Error loading image
+					function (response) {
+						if (response.status > 0){
+							$scope.errorMsg = response.status + ': ' + response.data;
+						}
+					},
+					// Progress
+					function (evt) {
+						$scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+					}
+				);
+			};
+
+			$scope.upload = function() {
+				// Set loading flag
+				$scope.loading = true;
+
+				$ionicLoading.show();
+				promotion.createPromotion($state.params.uuid, $scope.specialoffer).then(
+					function successCallback(response) {
+						// Get new product uuid
+						var puuid = response.data.promotion.uuid;
+						// Uploading images
+						if ($scope.images && $scope.images.length) {
+							for (var i = 0; i < $scope.images.length; i++) {
+								$scope.launchRequest(i, puuid);
+							}
+						}
+
+						//$state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+					},
+					function errorCallback(response) {
+						$ionicLoading.hide();
+
+						alert('Error uploading form data');
+						if (response.status > 0)
+							$scope.errorMsg = response.status + ': ' + response.data;
+
+						//$state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+					}
+				);
+			};
+
+			// DELETE IMAGE FROM LIST
+			$scope.deleteImage = function(index){
+				$scope.images.splice(index, 1);
+				$scope.$loadImage.show();
+			};
+		},
+		link: function(scope, element, attributes){
+			scope.$loadImage = element.find('#loadImage');
+		}
+	};
+});
+
+//ADD 'appPromotionSpecialOfferEdit' directive
+//............................................
+angular.module('business.directives').directive('appPromotionSpecialOfferEdit', function() {
+	return {
+		replace: false,
+		templateUrl : 'js/business/templates/promotion-special-offer-edit.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, Upload){
+			var business = $state.params.uuid;
+
+			// scope-properties
+			// ================
+			$scope.validData = true;
+
+			// set form data by selected item
+			$scope.specialoffer = $scope.list[$scope.actualIndex];
+
+			if($scope.specialoffer.availability==undefined)
+				$scope.specialoffer.availability = '*';
+			if($scope.specialoffer.quantity==undefined || $scope.specialoffer.quantity==0)
+				$scope.specialoffer.quantity = 1;
+
+			// scope-functions
+			// ===============
+			$scope.upload = function() {
+				// Set form data without files
+				var data = (JSON.parse(JSON.stringify($scope.specialoffer)));
+
+				// Set loading flag
+				$scope.loading = true;
+
+				$http.post($rootScope.urlBackend+'/businesses/1.0/promotion', data).then(
+					// Form data uploaded: product updated
+					function (response) {
+						$scope.loading = false;
+						$scope.list[$scope.actualIndex] = response.data.promotion;
+						$scope.popupClose();
+					},
+					// Error uploading form data
+					function (response) {
+						$scope.loading = false;
+						if (response.status > 0)
+							$scope.errorMsg = response.status + ': ' + response.data;
+					}
+				);
+			};
+		},
+		link: function(scope, element, attributes){
+		}
+	};
+});
+
+//ADD 'appPromotionLastMinuteForm' directive
+//..........................................
+angular.module('business.directives').directive('appPromotionLastMinuteForm', function() {
+	return {
+		replace: false,
+		scope: false,
+		templateUrl : 'js/business/templates/promotion-last-minute-form.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, $ionicLoading, promotion, Upload){
+			$scope.businessUuid = $state.params.uuid;
+			$scope.validData = false;
+
+			$scope.discount = {
+				type : 'LMT',
+				fromDate: $scope.promotions.specialOffer.fromDatetimeValue,
+				toDate: $scope.promotions.specialOffer.toDatetimeValue,
+				products: [],
+				categories: [],
+				discount: 10,
+				description: ''
+			};
+
+			$scope.images = [];
+			$scope.loading = false;
+			$scope.allLoaded = false;
+
+			// WATCHS
+			$scope.$watch('allLoaded',function(newValue, oldValue){
+				if(newValue)
+					$ionicLoading.hide();
+			});
+			
+			$scope.$watchCollection('discount.products',function(newValue, oldValue){
+				$scope.validateData();
+			});
+			
+			$scope.$watchCollection('discount.categories',function(newValue, oldValue){
+				$scope.validateData();
+			});
+			
+			$scope.$watch('discount.discount',function(newValue, oldValue){
+				$scope.validateData();
+			});
+
+			$scope.refresh = function(){
+				$scope.allLoaded = $scope.images.reduce(function(total, elem){return total&&elem.haLoaded},true);
+			};
+
+			$scope.$watch('images', function(newValue, oldValue) {
+				if(newValue.length > oldValue.length) {
+					newValue[newValue.length-1].haLoaded = false;
+					newValue[newValue.length-1].haLoadMessage = 'ready';
+				}
+
+				if(newValue.length==1) {
+					$scope.$loadImage.hide();
+				}
+				else
+					$scope.$loadImage.show();
+			});
+
+			// VALIDATION
+			$scope.validateData = function(){
+				$scope.validData = $scope.discount.discount>0 && ($scope.discount.products.length>0 ||$scope.discount.categories.length>0);
+			};
+
+			// CREATE
+			$scope.createPromotion = function (event) {
+				// Hide button
+				$(event.target).hide();
+
+				// Init and go
+				$scope.formUpload = true;
+				$scope.upload()
+			};
+
+			$scope.launchRequest = function(i, puuid) {
+				Upload.upload({
+					url: $rootScope.urlBackend+'/businesses/1.0/promotion/'+puuid+'/picture/',
+					method: 'PUT',
+					data: {
+						picture: $scope.images[i]
+					}
+				}).then(
+					// Image loaded
+					function (response) {
+						$scope.images[i].haLoaded = 'true';
+						$scope.images[i].haLoadMessage = 'loaded';
+						$scope.refresh();
+					},
+					// Error loading image
+					function (response) {
+						if (response.status > 0){
+							$scope.errorMsg = response.status + ': ' + response.data;
+						}
+					},
+					// Progress
+					function (evt) {
+						$scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+					}
+				);
+			};
+
+			$scope.upload = function() {
+				var productsUuids = [];
+				for(var k=0;k<$scope.discount.products.length;k++){
+					productsUuids.push($scope.discount.products[k].uuid);
+				}
+				var categoriesUuids = [];
+				for(var k=0;k<$scope.discount.categories.length;k++){
+					categoriesUuids.push($scope.discount.categories[k].uuid);
+				}
+
+				// Data copy and arrays adjustment
+				var discountCopy = angular.copy($scope.discount);
+				discountCopy.products = productsUuids;
+				discountCopy.categories = categoriesUuids;
+
+				// Set loading flag
+				$scope.loading = true;
+				
+				$ionicLoading.show();
+				promotion.createPromotion($state.params.uuid, discountCopy).then(
+					function successCallback(response) {
+						// Get new product uuid
+						var puuid = response.data.promotion.uuid;
+						// Uploading images
+						if ($scope.images && $scope.images.length) {
+							for (var i = 0; i < $scope.images.length; i++) {
+								$scope.launchRequest(i, puuid);
+							}
+						}
+
+						//$state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+					},
+					function errorCallback(response) {
+						$ionicLoading.hide();
+
+						alert('Error uploading form data');
+						if (response.status > 0)
+							$scope.errorMsg = response.status + ': ' + response.data;
+
+						//$state.go('app.businessmanager.business.servicesmanager.promotionsmanager.create');
+					}
+				);
+			};
+
+			// DELETE IMAGE FROM LIST
+			$scope.deleteImage = function(index){
+				$scope.images.splice(index, 1);
+				$scope.$loadImage.show();
+			};
+		},
+		link: function(scope, element, attributes){
+			scope.$loadImage = element.find('#loadImage');
+		}
+	};
+});
+
+//ADD 'appPromotionSpecialOfferEdit' directive
+//............................................
+angular.module('business.directives').directive('appPromotionLastMinuteEdit', function() {
+	return {
+		replace: false,
+		templateUrl : 'js/business/templates/promotion-last-minute-edit.html',
+		controller: function($scope, $state, $rootScope, $window, $element, $timeout, $http, Upload){
+			var business = $state.params.uuid;
+			
+			// ...
+			
 		},
 		link: function(scope, element, attributes){
 		}

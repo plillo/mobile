@@ -122,22 +122,22 @@ angular.module('business.services').factory('business', function($http, $rootSco
 angular.module('business.services').factory('category', function($http, $rootScope, $q, $timeout) {
 	return {
 		createCategory: function(data){
-			return $http.put($rootScope.urlBackend+'/businesses/1.0/category/', data); // return promise
+			return $http.put($rootScope.urlBackend+'/businesses/1.0/categories/', data); // return promise
 		},
 		updateCategory: function(uuid, data){
-			return $http.post($rootScope.urlBackend+'/businesses/1.0/category/'+uuid, data); // return promise
+			return $http.post($rootScope.urlBackend+'/businesses/1.0/categories/'+uuid, data); // return promise
 		},
 		deleteCategory: function(uuid){
 			var pars = {
 				method:'DELETE',
-				url:$rootScope.urlBackend+'/businesses/1.0/category/'+uuid
+				url:$rootScope.urlBackend+'/businesses/1.0/categories/'+uuid
 			};
 			return $http(pars); // return promise
 		},
 		getByUUID: function(uuid){
 			var pars = {
 				method:'GET',
-				url:$rootScope.urlBackend+'/businesses/1.0/category/'+uuid
+				url:$rootScope.urlBackend+'/businesses/1.0/categories/'+uuid
 			};
 			return $http(pars); // return promise
 		},
@@ -146,7 +146,7 @@ angular.module('business.services').factory('category', function($http, $rootSco
 				keyword = '%20'; // space url code
 			var pars = {
 				method:'GET',
-				url: $rootScope.urlBackend+'/businesses/1.0/category/by_searchKeyword/'+keyword
+				url: $rootScope.urlBackend+'/businesses/1.0/categories/by_searchKeyword/'+keyword
 			};
 			return $http(pars); // return promise
 

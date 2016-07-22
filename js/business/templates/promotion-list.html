@@ -2,19 +2,21 @@
 
 <div class="list ha-bottom-200">
     <div class="ha-list ha-edit row" ng-repeat="item in list">
-        <div class="col col-50 col-center ha-small-font">
-            <div class="ha-command ha-inline" ng-click="delete($index)"><i class="icon ion-minus-circled"></i></div>
+        <div class="col col-40 col-center ha-small-font">
             <div class="ha-command ha-inline" ng-click="actived($index)"><i class="icon" ng-class="{'ion-toggle-filled':item.active, 'ion-toggle':!item.active}"></i></div>
             <div class="ha-command ha-inline" ng-click="edit($index)"><i class="icon ion-gear-b"></i></div>
+            <div class="ha-command ha-inline" ng-class="{'ha-empty': !item.pictures}" ng-click="editPictures(item)"><i class="icon ion-image"></i></div>
             <div class="ha-small-font ha-inline">
-                <div>
-                    <strong>UUID:</strong>{{item.uuid}}
-                </div>
                 <div>
                     <strong>type:</strong>&nbsp;{{item.type}}
                 </div>
             </div>
         </div>
-        <div class="col col-50 ha-yellow">{{item.code}}</div>
+        <div class="col col-50">
+            <div class="ha-inline" style="margin-top:5px;">{{item.uuid}}</div>
+        </div>
+        <div class="col col-10">
+            <div class="ha-command ha-inline" ng-click="delete($index)"><i class="icon ion-minus-circled"></i></div>
+        </div>
     </div>
 </div>
