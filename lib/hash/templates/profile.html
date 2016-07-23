@@ -42,7 +42,8 @@
             <span class="input-label has-input">{{attribute.label}}</span>
         </div>
         <div ng-if="attribute.type=='radio'" class="item item-input ha-border-bottom">
-            <ion-radio ng-repeat="item in extra[attribute.name].items"
+            <ion-radio name="{{attribute.uuid}}"
+                       ng-repeat="item in extra[attribute.name].items"
                        ng-value="item.value"
                        ng-checked="item.checked"
                        ng-model="extra[attribute.name].value">

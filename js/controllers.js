@@ -42,7 +42,7 @@ angular.module('controllers', ['ionic', 'uiGmapgoogle-maps'])
     // Event's handlers Methods
     ////////////////////////////////////////
     
-	$scope.$on('authorized', function(event, args) {
+	$scope.$on('user-logged', function(event, args) {
 		$state.go('app.profile');
 	});
 
