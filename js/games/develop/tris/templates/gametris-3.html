@@ -1,4 +1,25 @@
-<div class="game-tris">
+
+<!-- PLAY BUTTON -->
+<div ng-if="trisState == 0">
+  <button class="button button-assertive center" ng-click="playButton()">Play</button>
+</div>
+
+<!-- PLAYERS LIST -->
+<div ng-if="trisState == 1">
+  <h3>Lista Giocatori</h3>
+  <div class="list">
+    <div ng-repeat="player in playersList track by $index"><!-- class="item item-avatar-->
+      <button ng-click="sendGameRequestTo($index)">
+        <img ng-src="js/games/develop/tris/img/0.png">
+        <h2>{{player.name}}</h2>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- GAME -->
+<div class="game-tris" ng-if="trisState == 2">
 <p ng-show="isPlayer1Playing && gameHasStarted && !gameFinished">Player 1 is playing...</p>
 <p ng-show="!isPlayer1Playing && gameHasStarted && !gameFinished">Player 2 is playing...</p>
 <p style="color: red">{{message}}</p>

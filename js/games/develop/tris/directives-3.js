@@ -3,12 +3,24 @@ angular.module('games.develop.directives', ['ngFileUpload']);
 
 //ADD 'gameTris' directive
 //........................
-angular.module('games.develop.directives').directive('gameTris', function(haApplication, haBroker, haBackend, $http, $interval, $timeout) {
+angular.module('games.develop.directives').directive('gameTris', function(haApplication, haBroker, haBackend, $http, $interval, $timeout, $ionicLoading) {
     return {
         replace: false,
         scope: {},
         templateUrl : 'js/games/develop/tris/templates/gametris-3.html',
         controller: function($scope, $window, $element){
+
+            $scope.trisState = 0;
+
+            //add the clientID?
+            $scope.playersList = [{
+              'name' : 'test'
+            }, {
+              'name' : 'test1'
+            }];
+
+            $scope.isSearchingAPlayer = false;
+
             // ================================================================================
             $scope.startable = false;
             $scope.clientTopic = 'games/tris/'+haBroker.clientID;
@@ -198,11 +210,31 @@ angular.module('games.develop.directives').directive('gameTris', function(haAppl
                             // TODO logic
                             // visualizza pulsanti per ACCEPT/REJECT della proposta di gioco
                             // accettazione/rifiuto vengono inoltrati al server via 'sendAction'
+
+                          $ionicLoading.show({
+                            template: '<h3>Request received</h3>' +
+                            '<button ng-click="requestIWantToPlayResponse(true)">Yes</button>' +
+                            '<button ng-click="requestIWantToPlayResponse(false)">No</button>',
+
+                            scope: $scope
+                          });
+
+
                             break;
-                        case 'rejectedrequest':
+                      case 'rejectedrequest':
                             // TODO logic
                             // il giocatore invitato HA RIFIUTATO L'INVITO
                             // segnalare il rifiuto
+
+                            //TODO chiamare un overlay tipo: tizio ha rifiutato il tuo invito, ok trovare qualcun'altro
+
+                            $ionicLoading.show({
+                              template: '<h3>Request declined</h3>' +
+                              '<button ng-click="hideOverlay()">ok</button>',
+
+                              scope: $scope
+                            });
+
                             break;
                         case 'ready':
                             // Il backend segnala l'AVVIO DI UNA SESSIONE DI GIOCO
@@ -302,6 +334,46 @@ angular.module('games.develop.directives').directive('gameTris', function(haAppl
                 );
             };
             // ================================================================================
+
+
+
+
+
+            // ================================================================================
+
+          //send request to the player: index
+            $scope.sendGameRequestTo = function(index){
+              console.log($scope.playersList[index].name);
+
+              $scope.sendAction({
+                clientID: $scope.playersList[index].clientID
+              })
+
+            };
+
+            // ================================================================================
+
+
+
+            $scope.playButton = function(){
+              $scope.trisState = 1;
+            };
+
+          $scope.requestIWantToPlayResponse = function(response){
+            $scope.hideOverlay();
+
+            //TODO gestire la risposta
+            if(response == true){
+              //il giocatore ha accettato
+            } else {
+
+            }
+          };
+
+          $scope.hideOverlay = function(){
+            $ionicLoading.hide();
+          };
+
 
             $scope.win = function(){
 
